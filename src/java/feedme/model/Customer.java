@@ -20,9 +20,9 @@ public class Customer extends User{
     private String apartNum;
     private String city;
     
-    public Customer(String firstName, String lastName, String userName, String pw, String phone, String email, int role, int dbId
+    public Customer(String firstName, String lastName, String userName, String pw, String phone, String email, int role
     ,Date bDay , String street , String houseNum, String apartNum ,String city) {
-        super(firstName, lastName, userName, pw, phone, email, role, dbId);
+        super(firstName, lastName, userName, pw, phone, email, role);
         this.bDay = bDay;
         this.street = street;
         this.houseNum = houseNum;
