@@ -20,7 +20,7 @@ public class User {
     private int role;
     private int dbId;
     
-    public User(String firstName, String lastName, String userName, String pw, String phone, String email, int role, int dbId) {
+    public User(String firstName, String lastName, String userName, String pw, String phone, String email, int role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -28,7 +28,7 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.role = role;
-        this.dbId = dbId;
+       
     }
 
     public String getFirstName() {
