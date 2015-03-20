@@ -5,6 +5,8 @@
  */
 package feedme.controller;
 
+import feedme.model.DbUsersManagement;
+import feedme.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author User
+ * @author David Lazarev
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/Login"})
 public class LoginServlet extends HttpServlet {
@@ -29,14 +31,12 @@ public class LoginServlet extends HttpServlet {
         String username= request.getParameter("Username"); 
         String Password= request.getParameter("UserPass"); 
         
-        /**
-         * /nadav and idan fonction for login
-         * 
-         */
-        DbUserRegisteration dbUr = new DbUserRegisteration();
-        User user =  dbUr.checkLogin(username,Password);
+        
+        DbUsersManagement DB =  new DbUsersManagement();
         RequestDispatcher dispatcher = request.getRequestDispatcher("userprofile.jsp");
-        if(user!= NULL){ // if user exists in database
+        User user= DB.getUserByUserName(username); // return the user if he exists
+        
+        if(user!= null && Password.equals(user.getPw()) ){ // if user exists in database && the password is correct
             switch(user.getRole()){
                 case 0 ://user page
                         request.setAttribute("user", user);
