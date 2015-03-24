@@ -9,7 +9,9 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,6 +68,48 @@ public class DbHPOnLoad {
     }
             
     
-    
+    public List<Restaurant> getRecentRestaurants(int numberOfRest)
+    {
+        List<Restaurant> restaurants = new ArrayList<>();
+        String spuName = "{CALL feedmedb.Spu_GetRecentRestaurant(?)}";
+        ResultSet rs  = null;
+        
+        try {
+            cstmt.clearParameters();
+            cstmt =con.prepareCall(spuName);
+            cstmt.setInt(1, numberOfRest);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                Restaurant res  = new Restaurant(rs.getString("name") , rs.getString("phone") , rs.getString("logo") ,
+                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
+                res.setDbid(rs.getInt("pkid"));
+                restaurants.add(res);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+              try {
+            if(cstmt != null)
+            {
+              
+                    cstmt.close();
+                } 
+            if(con != null)
+            {
+                con.close();
+            }
+              }
+            catch (SQLException ex) {
+                    Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
+        
+        return restaurants;
+        
+    }
     
 }

@@ -34,6 +34,7 @@ public class Restaurant {
         this.deliveryPrice = deliveryPrice;
         this.minOrder = minOrder;
         this.estimatedTimeDel = estimatedTimeDel;
+        
     }
     
     

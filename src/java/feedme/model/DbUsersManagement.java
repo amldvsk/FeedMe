@@ -159,7 +159,12 @@ public class DbUsersManagement {
         finally
         {
             try {
-                cstmt.close();
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
