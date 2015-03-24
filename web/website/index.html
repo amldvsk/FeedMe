@@ -82,7 +82,7 @@ function geolocate() {
     </head>
     <body onload="initialize()">
         <div>
-            <form action="action">
+            <form action='<%=request.getContextPath()%>/CustomerRegistrationServlet' method="post">
                 <b>First Name</b> <input type="text" name="firstName"/><br/>
                 <b>Last Name </b> <input type="text" name="lastName"/><br/>
                 <b>user Name </b> <input type="text" name="usertName"/><br/>                

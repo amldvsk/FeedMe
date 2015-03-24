@@ -31,13 +31,13 @@ public class DbUsersManagement {
     
     /***
      * add new user to the deta base using store procedure
-     * @param newUser User object the new user we want to add 
+     * @param all user details 
      * @return int 0 - username is already in use , 1 - email is already in use , 2 - user add successfully 
      */
     public int AddNewUser(String firstName, String lastName, String userName, String pw, String phone, String email, int role
     ,Date bDay , String street , String houseNum, String apartNum ,String city)
     {
-        String spuName = "{call call feedmedb.Spu_UserRegistration(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        String spuName = "{call feedmedb.Spu_UserRegistration(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
         int result = -1;
        
         try {
@@ -64,7 +64,12 @@ public class DbUsersManagement {
         finally
         {
             try {
-                con.close();
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -90,6 +95,18 @@ public class DbUsersManagement {
             
         } catch (SQLException ex) {
             Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return result;
@@ -138,6 +155,14 @@ public class DbUsersManagement {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                cstmt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return user;
     }
