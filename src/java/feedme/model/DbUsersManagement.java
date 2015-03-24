@@ -41,7 +41,7 @@ public class DbUsersManagement {
         int result = -1;
        
         try {
-                cstmt =con.prepareCall(spuName);
+                cstmt = con.prepareCall(spuName);
                 cstmt.setString(1, firstName);
                 cstmt.setString(2, lastName);
                 cstmt.setString(3, userName);
@@ -120,7 +120,7 @@ public class DbUsersManagement {
      */
     public User getUserByUserName(String userName)
     {
-        String spuName = "{ Spu_GetUsersByUserName( ? )}";
+        String spuName = "{ call feedmedb.Spu_GetUsersByUserName( ? )}";
         User user = null;
         ResultSet rs ;
         try {

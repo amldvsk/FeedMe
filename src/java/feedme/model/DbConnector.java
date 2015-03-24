@@ -55,7 +55,17 @@ public class DbConnector {
         return conn;
     }
     
- 
+    public void closeCon()
+    {
+        if(conn != null)
+        {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DbConnector.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     
     
 }
