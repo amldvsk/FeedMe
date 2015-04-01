@@ -5,9 +5,13 @@
  */
 package feedme.controller;
 
+import feedme.model.DbHPOnLoad;
+import feedme.model.Restaurant;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nirk
  */
-public class NewServlet extends HttpServlet {
+public class WelcomePageServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,6 +62,23 @@ public class NewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         HashMap<String,Integer> category;
+         List<Restaurant> restaurants;
+         
+         DbHPOnLoad dbPageOnLoad = new DbHPOnLoad();
+         
+         category = dbPageOnLoad.getCategories();
+         restaurants = dbPageOnLoad.getRecentRestaurants(6);
+          
+          
+         request.setAttribute("category", category);
+         request.setAttribute("restaurants", restaurants);
+
+         
+         RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
+         dispatcher.forward(request, response);
+
+       
     }
 
   

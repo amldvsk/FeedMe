@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>NewServlet</servlet-name>
-        <servlet-class>feedme.controller.NewServlet</servlet-class>
+        <servlet-class>feedme.controller.WelcomePageServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CustomerRegistrationServlet</servlet-name>
