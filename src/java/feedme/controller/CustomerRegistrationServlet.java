@@ -51,19 +51,20 @@ public class CustomerRegistrationServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        
          User user = null;              
          Date date =  null;
          String street = null;
          String houseNum = null;
          String apartmentNum = null;
          String city = null;
-         String firstName = "eli";//request.getParameter("firstName");
-         String lastName = "biton";//request.getParameter("lastName");
-         String userName = "tamirkr";request.getParameter("userName");
+         String firstName = "dfdfddf";//request.getParameter("firstName");
+         String lastName = "bidfgfdgton";//request.getParameter("lastName");
+         String userName = "fd11221h";//request.getParameter("userName");
          String pw = "123";//request.getParameter("pw");
          String phone = "1111";//request.getParameter("phone");
-         String email = "tamir@gmail.com";//request.getParameter("email");
+         String email = "df13dגd3fd1123g@gmail.com";//request.getParameter("email");
          int role = 0;//Integer.parseInt(request.getParameter("role"));
          
          if(role == 0)
@@ -83,7 +84,7 @@ public class CustomerRegistrationServlet extends HttpServlet {
 
          
          DbUsersManagement dbUserManagment = new DbUsersManagement();
-         int result = dbUserManagment.AddNewUser(firstName,lastName,userName,pw,phone,email,role,date,street,houseNum,apartmentNum,city);
+         int result = dbUserManagment.addNewUser(firstName,lastName,userName,pw,phone,email,role,date,street,houseNum,apartmentNum,city);
          if(result == 2)
          {
             
@@ -91,7 +92,7 @@ public class CustomerRegistrationServlet extends HttpServlet {
              {
                  case 0:
                       user  = (Customer)dbUserManagment.getUserByUserName(userName);
-                     
+                     break;
                  case 1:
                       user  = (Manager)dbUserManagment.getUserByUserName(userName);
                      break;
@@ -101,14 +102,14 @@ public class CustomerRegistrationServlet extends HttpServlet {
              }
              request.setAttribute("user", user);
         
-             response.sendRedirect("index.html");
-             RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
+             //response.sendRedirect("website/success.jsp");
+             RequestDispatcher dispatcher = request.getRequestDispatcher("website/success.jsp");
             dispatcher.forward(request, response);
             
          }
          else
          {
-             response.sendRedirect("index.html");
+             response.sendRedirect("website/indקרx.html");
          }
         
 

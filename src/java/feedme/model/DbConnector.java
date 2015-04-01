@@ -22,13 +22,15 @@ public class DbConnector {
     private Connection conn = null;
     private static final String driverName = "com.mysql.jdbc.Driver"; 
     private static final String url = "jdbc:mysql://localhost/feedmedb";
+    private final static String password = "123456789";
+    private final static String userName = "root";
     
     private DbConnector()
     {
         try {
              Class.forName(driverName);
-             String  userName = "root";
-             String password = "123456789";
+  
+             
              conn = DriverManager.getConnection(url, userName, password);
         
         } catch (ClassNotFoundException | SQLException ex) {
@@ -52,7 +54,12 @@ public class DbConnector {
     
     public Connection getConn()
     {
-        return conn;
+        try {
+            return DriverManager.getConnection(url, userName, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(DbConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public void closeCon()

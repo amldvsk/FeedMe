@@ -113,7 +113,7 @@ public class UsersRegistrationServlet extends HttpServlet {
 
          
          DbUsersManagement dbUserManagment = new DbUsersManagement();
-         int result = dbUserManagment.AddNewUser(firstName,lastName,userName,pw,phone,email,role,date,street,houseNum,apartmentNum,city);
+         int result = dbUserManagment.addNewUser(firstName,lastName,userName,pw,phone,email,role,date,street,houseNum,apartmentNum,city);
          if(result == 2)
          {
             

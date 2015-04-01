@@ -34,7 +34,7 @@ public class DbUsersManagement {
      * @param all user details 
      * @return int 0 - username is already in use , 1 - email is already in use , 2 - user add successfully 
      */
-    public int AddNewUser(String firstName, String lastName, String userName, String pw, String phone, String email, int role
+    public int addNewUser(String firstName, String lastName, String userName, String pw, String phone, String email, int role
     ,Date bDay , String street , String houseNum, String apartNum ,String city)
     {
         String spuName = "{call feedmedb.Spu_UserRegistration(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
@@ -86,10 +86,12 @@ public class DbUsersManagement {
     public int deleteUser(int dbid )
     {
         int result =-1;
+        Connection c = DbConnector.getInstance().getConn();
         String spuName = "{ call feedmedb.Spu_DeleteUser( ? )}";
         try {
+            
+            cstmt =c.prepareCall(spuName);
             cstmt.clearParameters();
-            cstmt =con.prepareCall(spuName);
             cstmt.setInt(1, dbid);
             result = cstmt.executeUpdate();
             
@@ -123,9 +125,11 @@ public class DbUsersManagement {
         String spuName = "{ call feedmedb.Spu_GetUsersByUserName( ? )}";
         User user = null;
         ResultSet rs ;
+        Connection c = DbConnector.getInstance().getConn();
         try {
+            
+            cstmt = c.prepareCall(spuName);
             cstmt.clearParameters();
-            cstmt =con.prepareCall(spuName);
             cstmt.setString(1,userName);
             rs = cstmt.executeQuery();
             if(rs.next() != false){
@@ -155,6 +159,7 @@ public class DbUsersManagement {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         finally
         {
