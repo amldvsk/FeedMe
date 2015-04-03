@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nirk
  */
-public class WelcomePageServlet extends HttpServlet {
+public class PageOnLoadServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

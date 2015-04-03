@@ -5,11 +5,15 @@
  */
 package feedme.model;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.CallableStatement;;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,28 +41,35 @@ public class DbUsersManagement {
     public int addNewUser(String firstName, String lastName, String userName, String pw, String phone, String email, int role
     ,Date bDay , String street , String houseNum, String apartNum ,String city)
     {
-        String spuName = "{call feedmedb.Spu_UserRegistration(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        String spuName = "{call feedmedb.Spu_UserRegistration(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
         int result = -1;
-       
+      
         try {
+                byte[] salt = PasswordEncryptionService.generateSalt();
+                 byte[] userPw = PasswordEncryptionService.getEncryptedPassword(pw, salt);
                 cstmt = con.prepareCall(spuName);
                 cstmt.setString(1, firstName);
                 cstmt.setString(2, lastName);
                 cstmt.setString(3, userName);
-                cstmt.setString(4, pw);
-                cstmt.setString(5, phone);
-                cstmt.setString(6, email);
-                cstmt.setInt(7, role);
-                cstmt.setDate(8,bDay);
-                cstmt.setString(9, street);
-                cstmt.setString(10, houseNum);
-                cstmt.setString(11,apartNum);
-                cstmt.setString(12, city);
-                cstmt.registerOutParameter(13, java.sql.Types.INTEGER);
+                cstmt.setBytes(4, userPw);
+                cstmt.setBytes(5, salt);
+                cstmt.setString(6, phone);
+                cstmt.setString(7, email);
+                cstmt.setInt(8, role);
+                cstmt.setDate(9,bDay);
+                cstmt.setString(10, street);
+                cstmt.setString(11, houseNum);
+                cstmt.setString(12,apartNum);
+                cstmt.setString(13, city);
+                cstmt.registerOutParameter(14, java.sql.Types.INTEGER);
                 cstmt.executeUpdate();
-                result = cstmt.getInt(13);
+                result = cstmt.getInt(14);
                 
         } catch (SQLException ex) {
+            Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
             Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
@@ -137,21 +148,21 @@ public class DbUsersManagement {
             switch(role)
             {
                 case 0 :
-                    user = new Customer(rs.getString("username"),rs.getString("lastname"), rs.getString("username") , rs.getString("pw") ,  rs.getString("phone") ,  rs.getString("email") ,
+                    user = new Customer(rs.getString("username"),rs.getString("lastname"), rs.getString("username") ,   rs.getString("phone") ,  rs.getString("email") ,
                             rs.getInt("role" ) , rs.getDate("bday") ,rs.getString("street")  ,rs.getString("house_num") , rs.getString("apartment_num") , rs.getString("city") );
                             user.setDbId(rs.getInt("pkid"));
                        
                             
                     break;
                 case 1:
-                    user = new Manager(rs.getString("username"),rs.getString("lastname"), rs.getString("username") , rs.getString("pw") ,  rs.getString("phone") ,  rs.getString("email") ,
+                    user = new Manager(rs.getString("username"),rs.getString("lastname"), rs.getString("username") ,   rs.getString("phone") ,  rs.getString("email") ,
                             rs.getInt("role" ));
                     user.setDbId(rs.getInt("pkid"));
                     
                     break;
                 case 2:
                     
-                     user = new Admin(rs.getString("username"),rs.getString("lastname"), rs.getString("username") , rs.getString("pw") ,  rs.getString("phone") ,  rs.getString("email") ,
+                     user = new Admin(rs.getString("username"),rs.getString("lastname"), rs.getString("username") ,  rs.getString("phone") ,  rs.getString("email") ,
                             rs.getInt("role" ));
                     user.setDbId(rs.getInt("pkid"));
                     break;
@@ -177,6 +188,73 @@ public class DbUsersManagement {
         return user;
     }
     
+    public int checkIfUserExists(String userName)
+    {
+        int result =0;
+        Connection c = DbConnector.getInstance().getConn();
+        String spuName = "{CALL feedmedb.Spu_CheckIfExists(?, ?)}";
+        
+        try {
+                cstmt = c.prepareCall(spuName);
+                cstmt.clearParameters();
+                cstmt.setString(1,userName);
+                cstmt.executeUpdate();
+                result = cstmt.getInt(2);
+                cstmt.registerOutParameter(2, java.sql.Types.INTEGER);
+        } catch (SQLException ex) {
+            Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+         return result;
+    }
     
+     public  List<byte[]> getUserEncryptedPassword(String userName)
+    {
+        List<byte[]> paSalt = new ArrayList<>();
+        Connection c = DbConnector.getInstance().getConn();
+        ResultSet rs = null;
+        String spuName = "{ CALL feedmedb.Spu_UserAuthentication(?)}";
+        try {
+                cstmt = c.prepareCall(spuName);
+                cstmt.clearParameters();
+                cstmt.setString(1,userName);
+                rs = cstmt.executeQuery();
+                while(rs.next())
+                {
+                    paSalt.add(rs.getBytes("pw"));
+                    paSalt.add(rs.getBytes("salt"));
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+               try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+       
+        
+        return paSalt;
+    }
     
 }

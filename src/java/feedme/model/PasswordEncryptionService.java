@@ -5,12 +5,16 @@
  */
 package feedme.model;
 
+import com.mysql.jdbc.Connection;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.ArrayList;
 import java.util.Arrays;
+
+import java.util.List;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -28,7 +32,7 @@ public class PasswordEncryptionService {
         
     }
 
-    
+   
     
     public static byte[] getEncryptedPassword(String password, byte[] salt)
     throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -56,7 +60,7 @@ public class PasswordEncryptionService {
      * @param   hex         the hex string
      * @return              the hex string decoded into a byte array
      */
-    private static byte[] fromHex(String hex)
+    public static byte[] fromHex(String hex)
     {
         byte[] binary = new byte[hex.length() / 2];
         for(int i = 0; i < binary.length; i++)
@@ -72,7 +76,7 @@ public class PasswordEncryptionService {
      * @param   array       the byte array to convert
      * @return              a length*2 character string encoding the byte array
      */
-    private static String toHex(byte[] array)
+    public static String toHex(byte[] array)
     {
         BigInteger bi = new BigInteger(1, array);
         String hex = bi.toString(16);

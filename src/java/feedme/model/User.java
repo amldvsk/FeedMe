@@ -14,17 +14,15 @@ public class User {
     private String firstName;
     private String lastName;
     private String userName;
-    private String pw;
     private String phone;
     private String email;
     private int role;
     private int dbId;
     
-    public User(String firstName, String lastName, String userName, String pw, String phone, String email, int role) {
+    public User(String firstName, String lastName, String userName, String phone, String email, int role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
-        this.pw = pw;
         this.phone = phone;
         this.email = email;
         this.role = role;
@@ -55,13 +53,7 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPw() {
-        return pw;
-    }
 
-    public void setPw(String pw) {
-        this.pw = pw;
-    }
 
     public String getPhone() {
         return phone;

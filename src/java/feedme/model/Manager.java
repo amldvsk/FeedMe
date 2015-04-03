@@ -11,8 +11,8 @@ package feedme.model;
  */
 public class Manager extends User {
 
-    public Manager(String firstName, String lastName, String userName, String pw, String phone, String email, int role) {
-        super(firstName, lastName, userName, pw, phone, email, role);
+    public Manager(String firstName, String lastName, String userName, String phone, String email, int role) {
+        super(firstName, lastName, userName,  phone, email, role);
     }
     
 }
