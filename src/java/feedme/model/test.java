@@ -74,12 +74,12 @@ public class test {
     
     public static void insertRestaurantTest()
     {
-        String name ="easldsi";
-        String phone = "0548555258";
+        String name ="davidsan";
+        String phone = "0548235258";
         String logo = "jdsejds.jpg";
         String street = "rehavat";
         String streetNum = "13";
-        int catid = 2;
+        int catid = 1;
         String city = "Beer-Sheva";
         int deliveryPrice = 15;
         int minOrder =50;

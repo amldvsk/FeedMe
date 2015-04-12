@@ -80,9 +80,7 @@ public class LoginServlet extends HttpServlet {
                 else{
                     //wrong password do what ever you want dick head
                 }
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidKeySpecException ex) {
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
                 Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
