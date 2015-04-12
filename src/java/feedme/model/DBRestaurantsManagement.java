@@ -25,28 +25,29 @@ public class DBRestaurantsManagement {
         con = DbConnector.getInstance().getConn();
     }
     
-    public int addNewRestaurant(String name, String phone, String logo, String street, String streetNum, String city, int deliveryPrice, int minOrder, String estimatedTimeDel)
+    public int addNewRestaurant(String name,int catId, String phone, String logo, String street, String streetNum, String city, int deliveryPrice, int minOrder, String estimatedTimeDel)
     {
         int result = 0;
         Connection c = DbConnector.getInstance().getConn();
-        String spuName = "{CALL `feedmedb`.`Spu_RestarantsRegistration`(?,?, ?, ?, ?, ?, ?,?, ?, ?)}";
+        String spuName = "{CALL `feedmedb`.`Spu_RestaurantsRegistration`(?,?,?, ?, ?, ?, ?, ?,?, ?, ?)}";
         
         try {
            
             cstmt =c.prepareCall(spuName);
             cstmt.clearParameters();
             cstmt.setString(1, name);
-            cstmt.setString(2, phone);
-            cstmt.setString(3, logo);
-            cstmt.setString(4, street);
-            cstmt.setString(5, streetNum);
-            cstmt.setString(6, city);
-            cstmt.setInt(7, deliveryPrice);
-            cstmt.setInt(8, minOrder);
-            cstmt.setString(9, estimatedTimeDel);
-            cstmt.registerOutParameter(10, java.sql.Types.INTEGER);
+            cstmt.setInt(2, catId);
+            cstmt.setString(3, phone);
+            cstmt.setString(4, logo);
+            cstmt.setString(5, street);
+            cstmt.setString(6, streetNum);
+            cstmt.setString(7, city);
+            cstmt.setInt(8, deliveryPrice);
+            cstmt.setInt(9, minOrder);
+            cstmt.setString(10, estimatedTimeDel);
+            cstmt.registerOutParameter(11, java.sql.Types.INTEGER);
             cstmt.executeUpdate();
-            result = cstmt.getInt(10);
+            result = cstmt.getInt(11);
             
             
             

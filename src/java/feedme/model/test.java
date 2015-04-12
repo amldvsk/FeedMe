@@ -29,7 +29,9 @@ public class test {
     public static void main(String [ ] args)
     {
         
-        encryptTest();
+        //encryptTest();
+        //insertUserTest();
+        insertRestaurantTest();
      
     
     }
@@ -77,13 +79,14 @@ public class test {
         String logo = "jdsejds.jpg";
         String street = "rehavat";
         String streetNum = "13";
+        int catid = 2;
         String city = "Beer-Sheva";
         int deliveryPrice = 15;
         int minOrder =50;
         String estimatedTimeDel = "שעתיים";
     
         DBRestaurantsManagement rm = new DBRestaurantsManagement();
-        int res =  rm.addNewRestaurant(name, phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel);
+        int res =  rm.addNewRestaurant(name,catid, phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel);
         System.out.println(res);
     }
 
