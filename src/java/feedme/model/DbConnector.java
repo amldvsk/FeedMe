@@ -38,6 +38,7 @@ public class DbConnector {
             Logger.getLogger(DbConnector.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Db Connection Constructor exception  Mother Fucker");
             
+            
         }
         
     }
