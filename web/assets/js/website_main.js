@@ -42,6 +42,7 @@ jQuery(document).ready(function($){
   $('.feed-user-modal').on('click', function(event){
     if( $(event.target).is($form_modal) || $(event.target).is('.feed-close-form') ) {
       $form_modal.removeClass('is-visible');
+      $('body').removeClass('removeScroll');
     } 
   });
   //close modal when clicking the esc keyboard button
@@ -86,6 +87,7 @@ jQuery(document).ready(function($){
     $form_forgot_password.removeClass('is-selected');
     $tab_login.addClass('selected');
     $tab_signup.removeClass('selected');
+    $('body').addClass('removeScroll');
   }
 
   function signup_selected(){
@@ -94,6 +96,7 @@ jQuery(document).ready(function($){
     $form_forgot_password.removeClass('is-selected');
     $tab_login.removeClass('selected');
     $tab_signup.addClass('selected');
+    $('body').addClass('removeScroll');
   }
 
   function forgot_password_selected(){
