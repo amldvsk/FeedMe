@@ -75,7 +75,7 @@ public class PageOnLoadServlet extends HttpServlet {
          request.setAttribute("restaurants", restaurants);
 
          
-         RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
+         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
          dispatcher.forward(request, response);
 
        

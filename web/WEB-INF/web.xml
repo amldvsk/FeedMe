@@ -30,6 +30,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>website/index.html</welcome-file>
+        <welcome-file>website/index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
