@@ -323,7 +323,7 @@
       </ul>
 
       <div id="feed-login"> <!-- log in form -->
-        <form class="feed-form">
+        <form class="feed-form" method="POST" action="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/Login">
           <p class="fieldset">
             <label class="image-replace feed-email" for="signin-email">E-mail</label>
             <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="כתובת דוא״ל">
@@ -352,7 +352,7 @@
       </div> <!-- feed-login -->
 
       <div id="feed-signup"> <!-- sign up form -->
-        <form class="feed-form">
+        <form class="feed-form" method="POST" action="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/CustomerRegistrationServlet">
           <div class="clearfix">
             <p class="fieldset pull-right" style="margin: 0; width: calc(100% / 2 - 5px)">
               <label class="image-replace feed-username" for="signup-firstname">שם פרטי</label>
