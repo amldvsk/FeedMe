@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,15 +35,18 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-           <li><a href="../navbar/">Default</a></li>
-            <li class=""><a href="./">Static top <span class="sr-only">(current)</span></a></li>
-            <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+           <!--<li><a href="../navbar/">Default</a></li>-->
+            <!--<li class=""><a href="./">Static top <span class="sr-only">(current)</span></a></li>-->
+            <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
             <li><a class="feed-signin" href="#0">התחבר</a></li>
             <li><a class="feed-signup" href="#0">הירשם</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+<c:forEach var="i" begin="1" end="5">
+   <!--Item <c:out value="${i}"/><p>-->
+</c:forEach>
 
     <header>
 
@@ -326,18 +330,21 @@
         <form class="feed-form" method="POST" action="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/Login">
           <p class="fieldset">
             <label class="image-replace feed-email" for="signin-email">E-mail</label>
-            <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="כתובת דוא״ל">
+            <input class="full-width has-padding has-border" id="signin-email" type="text" name="Username" placeholder="שם משתמש">
             <span class="feed-error-message">Error message here!</span>
           </p>
 
           <p class="fieldset">
             <label class="image-replace feed-password" for="signin-password">Password</label>
-            <input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="סיסמה">
+            <input class="full-width has-padding has-border" id="signin-password" name="UserPass" type="text"  placeholder="סיסמה">
             <a href="#0" class="hide-password">Hide</a>
+            
             <span class="feed-error-message">Error message here!</span>
           </p>
 
           <p class="fieldset">
+              
+            <p class="text-danger">${loginError}</p>
             <input type="checkbox" id="remember-me" checked>
             <label for="remember-me">זכור אותי</label>
           </p>
@@ -453,6 +460,16 @@
     <script src="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/assets/js/jquery.geocomplete.min.js"></script>
     <script src="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/assets/js/modernizr.js"></script>
     <script src="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/assets/js/website_main.js"></script>
-
+    
+    <c:if  test="${loginError != null }" >
+        <script>
+            
+            $(document).ready(function() {
+                confirm("${loginError}");
+            });
+            
+        </script>
+    </c:if>
+    
   </body>
 </html>

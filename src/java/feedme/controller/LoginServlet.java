@@ -22,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -87,6 +88,10 @@ public class LoginServlet extends HttpServlet {
         else
         {
             //if there is no such user name you little dirty russian
+            HttpSession sess = request.getSession(true);
+            request.setAttribute("loginError", "אין משתמש כזה");
+            dispatcher = request.getRequestDispatcher("website/index.jsp");
+            dispatcher.forward(request, response);
         }
         
              
