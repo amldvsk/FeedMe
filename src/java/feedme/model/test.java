@@ -31,7 +31,8 @@ public class test {
         
         //encryptTest();
         //insertUserTest();
-        insertRestaurantTest();
+        //insertRestaurantTest();
+       addNewCatTest();
      
     
     }
@@ -179,6 +180,12 @@ public class test {
     }
     
     
-      
+    public static  void addNewCatTest()
+    {
+        String cat = "ביצים";
+        DBRestaurantsManagement rm = new DBRestaurantsManagement();
+        int result = rm.addNewCategory(cat);
+        System.out.println(result);
+    }
 
 }

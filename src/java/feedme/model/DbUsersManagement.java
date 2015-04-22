@@ -188,6 +188,12 @@ public class DbUsersManagement {
         return user;
     }
     
+    
+    /**
+     *when the user try to login  checks if the user name exists
+     * @param userName - wanted user name
+     * @return 1 if user name exists , - 1 if not
+     */
     public int checkIfUserExists(String userName)
     {
         int result =0;
@@ -220,6 +226,12 @@ public class DbUsersManagement {
          return result;
     }
     
+    
+    /**
+     * part of the user login service  , get the user encrypted password and salt 
+     * @param userName - the wanted username
+     * @return  list of byte , list[0] - is the user encrypted password , list[1] - user salt 
+     */
      public  List<byte[]> getUserEncryptedPassword(String userName)
     {
         List<byte[]> paSalt = new ArrayList<>();
