@@ -62,7 +62,8 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
          RequestDispatcher dispatcher = request.getRequestDispatcher("newjsp.jsp");
          
         //==========### Get parameters from JSP page ##===========
-        String name= request.getParameter("name"); 
+        String newName= request.getParameter("newName"); 
+        String correntName= request.getParameter("correntName"); 
         String phone= request.getParameter("phone"); 
         String category= request.getParameter("category"); 
         String logo= request.getParameter("logo"); 
@@ -116,10 +117,13 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         DBRestaurantsManagement ob= new DBRestaurantsManagement();
         int result=0;
         if(Integer.parseInt(action)== 1){// 1=add , 2= edit
-            result = ob.addNewRestaurant(name,Integer.parseInt(category),phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
+            result = ob.addNewRestaurant(newName,Integer.parseInt(category),phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
         }else if(Integer.parseInt(action)== 2){
-            Restaurant res =  new Restaurant(name,phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
-            //result = ob.EditRestaurant(res);          
+            Restaurant res =  new Restaurant(correntName,phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
+            //if(correntName.equals(newName)==true) 
+                //result = ob.EditRestaurant(res,0);  
+            //else
+               // result = ob.EditRestaurant(res,1);
          }
         
         //==========### Send successful or failing session message  ##===========
@@ -130,7 +134,10 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         }
         else if(result == 1){ // new restaurant added successfully || restaurant successfully changed
 
-        }                      
+        }  
+        else{//2
+            //This name is already exists in the database
+        }
     }
    
     @Override

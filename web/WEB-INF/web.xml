@@ -20,6 +20,10 @@
         <servlet-name>EditRestaurantServlet</servlet-name>
         <servlet-class>feedme.controller.EditRestaurantServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditUsersServlet</servlet-name>
+        <servlet-class>feedme.controller.EditUsersServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CustomerRegistrationServlet</servlet-name>
         <url-pattern>/CustomerRegistrationServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>EditRestaurantServlet</servlet-name>
         <url-pattern>/EditRestaurantServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUsersServlet</servlet-name>
+        <url-pattern>/EditUsersServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
