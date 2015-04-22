@@ -5,6 +5,8 @@
  */
 package feedme.model;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -72,5 +74,38 @@ public class DBRestaurantsManagement {
         return result;
     }
     
-    
+    public int addNewCategory(String catName)
+    {
+        int result = -1;
+        String spuName = "{CALL feedmedb.Spu_AddNewCategory(?)}";
+  
+      
+        try {
+               
+                cstmt = con.prepareCall(spuName);
+                cstmt.setString(1, catName);
+                result = cstmt.executeUpdate();
+               
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+       Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+     return result;
+    }
+
 }
