@@ -77,7 +77,7 @@
           </p>
           
           <div class="clearfix">
-            <p class="fieldset pull-right" style="width: calc(55% - 5px)">
+            <p class="fieldset pull-right" style="  margin: 0; width: calc(55% - 5px)">
               <label class="image-replace feed-phone" for="signup-phone">מספר טלפון</label>
               <input class="full-width has-padding has-border" name="phone" id="signup-phone" type="text"  placeholder="מספר טלפון">
               <span class="feed-error-message">Error message here!</span>
@@ -97,30 +97,28 @@
             <span class="feed-error-message">Error message here!</span>
           </p>-->
 
-        <div class="clearfix">
-            <p class="fieldset pull-right" style="width: calc(65% - 5px)">
-              <label class="image-replace feed-phone" for="signup-phone">כתובת מגורים</label>
-              <input class="full-width has-padding has-border" name="address" id="signup-phone" type="text"  placeholder="כתובת מגורים">
-              <span class="feed-error-message">Error message here!</span>
-            </p>
-
-             <p class="fieldset pull-left" style="margin: 0; width: calc(35% - 5px)">
-                <label class="image-replace feed-birth" for="signup-birth">מספר דירה/ /בית</label>
-                <input class="full-width has-padding has-border" name="address_num" id="signup-birth" type="text"  placeholder="מספר בית / דירה">
-                <span class="feed-error-message">Error message here!</span>
-              </p>
-          </div>
+        <p class="fieldset">
+            <label class="image-replace feed-phone" for="signup-phone">כתובת מגורים</label>
+            <input class="full-width has-padding has-border" name="address" id="signup-phone" type="text"  placeholder="כתובת מגורים">
+            <span class="feed-error-message">Error message here!</span>
+        </p>
 
           <div class="clearfix">
-            <p class="fieldset pull-right" style="margin: 0; width: calc(50% - 5px)">
+            <p class="fieldset pull-right" style="margin: 0; width: calc(60% - 5px)">
               <label class="image-replace feed-phone" for="signup-phone">עיר</label>
               <input class="full-width has-padding has-border" name="city" id="signup-phone" type="text"  placeholder="עיר">
               <span class="feed-error-message">Error message here!</span>
             </p>
 
-             <p class="fieldset pull-left" style="margin: 0; width: calc(50% - 5px)">
-                <label class="image-replace feed-birth" for="signup-birth">מדינה</label>
-                <input class="full-width has-padding has-border" name="country" id="signup-birth" type="text"  placeholder="מדינה">
+             <p class="fieldset pull-right" style="margin: 0px 5px; width: calc(20% - 5px)">
+                <label class="image-replace feed-birth" for="signup-birth">מספר בית</label>
+                <input class="full-width has-padding has-border" name="street_num" id="signup-birth" type="text"  placeholder="בית">
+                <span class="feed-error-message">Error message here!</span>
+              </p>
+              
+              <p class="fieldset pull-right" style="margin: 0; width: calc(20% - 5px)">
+                <label class="image-replace feed-birth" for="signup-birth">מספר דירה</label>
+                <input class="full-width has-padding has-border" name="home_num" id="signup-birth" type="text"  placeholder="דירה">
                 <span class="feed-error-message">Error message here!</span>
               </p>
           </div>
