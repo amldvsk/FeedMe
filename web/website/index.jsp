@@ -1,7 +1,7 @@
 
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-     <%@include file='../templates/head.jsp'%>
-    <%@include file='../templates/navigation.jsp'%>
+     <%@include file='../website_templates/head.jsp'%>
+    <%@include file='../website_templates/navigation.jsp'%>
 <c:forEach var="i" begin="1" end="5">
    <!--Item <c:out value="${i}"/><p>-->
 </c:forEach>
@@ -275,6 +275,6 @@
      </div>
 
       
-   <%@include file='../templates/login_register.jsp'%>
-<%@include file='../templates/footer.jsp'%>
+   <%@include file='../website_templates/login_register.jsp'%>
+<%@include file='../website_templates/footer.jsp'%>
    
