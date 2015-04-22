@@ -43,11 +43,12 @@ public class DbUsersManagement {
     {
         String spuName = "{call feedmedb.Spu_UserRegistration(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
         int result = -1;
-      
+        con = DbConnector.getInstance().getConn();
         try {
                 byte[] salt = PasswordEncryptionService.generateSalt();
                  byte[] userPw = PasswordEncryptionService.getEncryptedPassword(pw, salt);
                 cstmt = con.prepareCall(spuName);
+                cstmt.clearParameters();
                 cstmt.setString(1, firstName);
                 cstmt.setString(2, lastName);
                 cstmt.setString(3, userName);
@@ -89,6 +90,66 @@ public class DbUsersManagement {
         return result;
     }
     
+    /**
+     * update user details (Manager , Customer , Admin)
+     * @param cUser - the specific user we want to update
+     * @return int 1 if update complete
+     */
+    public int updateUser(User cUser)
+    {
+        String spuName = "{CALL feedmedb.Spu_UpdateUser(?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}";
+        int result = -1;
+        Customer c; 
+                con = DbConnector.getInstance().getConn();
+        try {
+            cstmt = con.prepareCall(spuName);
+       
+                cstmt.clearParameters();
+                cstmt.setInt(1, cUser.getDbId());
+                cstmt.setString(2, cUser.getFirstName());
+                cstmt.setString(3, cUser.getLastName());
+                cstmt.setString(4, cUser.getUserName());
+                cstmt.setString(5, cUser.getPhone());
+                cstmt.setString(6, cUser.getEmail());
+                cstmt.setInt(7, cUser.getRole());
+                if(cUser.getRole() == 0)
+                {
+                    c = (Customer)cUser;
+                    cstmt.setDate(8,c.getbDay());
+                    cstmt.setString(9, c.getStreet());
+                    cstmt.setString(10, c.getHouseNum());
+                    cstmt.setString(11,c.getApartNum());
+                    cstmt.setString(12,c.getCity());
+                }
+                else
+                {
+                    cstmt.setDate(8,null);
+                    cstmt.setString(9, null);
+                    cstmt.setString(10, null);
+                    cstmt.setString(11,null);
+                    cstmt.setString(12,null);
+                }
+                cstmt.registerOutParameter(13, java.sql.Types.INTEGER);
+                cstmt.executeUpdate();
+                result = cstmt.getInt(13);
+                 } catch (SQLException ex) {
+            Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }finally
+        {
+             try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    
     /***
      * delete user from the data base by dbid using store procedure 
      * @param dbid the dbid of the user we want to delete
@@ -101,7 +162,7 @@ public class DbUsersManagement {
         String spuName = "{ call feedmedb.Spu_DeleteUser( ? )}";
         try {
             
-            cstmt =c.prepareCall(spuName);
+            cstmt = c.prepareCall(spuName);
             cstmt.clearParameters();
             cstmt.setInt(1, dbid);
             result = cstmt.executeUpdate();

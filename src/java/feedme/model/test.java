@@ -32,7 +32,9 @@ public class test {
         //encryptTest();
         //insertUserTest();
         //insertRestaurantTest();
-       addNewCatTest();
+       //addNewCatTest();
+        //deleteUser();
+       // updateUser();
      
     
     }
@@ -40,17 +42,17 @@ public class test {
     {
           User user = null;              
          Date date =  null;
-         String street = null;
-         String houseNum = null;
+         String street = "alya";
+         String houseNum = "38";
          String apartmentNum = null;
          String city = null;
          String firstName = "sdd3dמ3יר";//request.getParameter("firstName");
          String lastName = "bidf3gfdgton";//request.getParameter("lastName");
-         String userName = "e3331sd23rweכגfh";//request.getParameter("userName");
+         String userName = "nadav";//request.getParameter("userName");
          String pw = "123";//request.getParameter("pw");
          String phone = "1111";//request.getParameter("phone");
-         String email = "df1312wg345@gf45gmail.com";//request.getParameter("email");
-         int role = 2;//Integer.parseInt(request.getParameter("role"));
+         String email = "df13fg345@gf45gmail.com";//request.getParameter("email");
+         int role = 0;//Integer.parseInt(request.getParameter("role"));
          
          
          DbUsersManagement dbUserManagment = new DbUsersManagement();
@@ -62,7 +64,7 @@ public class test {
              {
                  case 0:
                       user  = (Customer)dbUserManagment.getUserByUserName(userName);
-                     
+                        break;
                  case 1:
                       user  = (Manager)dbUserManagment.getUserByUserName(userName);
                      break;
@@ -73,6 +75,17 @@ public class test {
          }
     }
     
+    public static void updateUser()
+    {
+        //checks update user with customer
+        Customer user ;
+        DbUsersManagement dbUserManagment = new DbUsersManagement();
+        user  =  (Customer)dbUserManagment.getUserByUserName("nadav");
+        user.setFirstName("Nadavi");
+        user.setHouseNum("41");
+        int result = dbUserManagment.updateUser(user);
+        System.out.println(result);
+    }
     public static void insertRestaurantTest()
     {
         String name ="davidsan";
@@ -185,6 +198,13 @@ public class test {
         String cat = "ביצים";
         DBRestaurantsManagement rm = new DBRestaurantsManagement();
         int result = rm.addNewCategory(cat);
+        System.out.println(result);
+    }
+    
+    public static void deleteUser()
+    {
+        DbUsersManagement dbUserManagment = new DbUsersManagement();
+        int result = dbUserManagment.deleteUser(2);
         System.out.println(result);
     }
 

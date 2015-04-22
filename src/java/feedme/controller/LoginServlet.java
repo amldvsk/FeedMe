@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
                 authent = PasswordEncryptionService.authenticate(Password, psal.get(0), psal.get(1));
                 if(authent)
                 {
-                    User user= DB.getUserByUserName(username); // return the user if he exists
+                    User user = DB.getUserByUserName(username); // return the user if he exists
                     
                     if(user!= null  ){ // if user exists in database && the password is correct
                         switch(user.getRole()){

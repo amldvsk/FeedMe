@@ -84,6 +84,7 @@ public class DBRestaurantsManagement {
         try {
                
                 cstmt = con.prepareCall(spuName);
+                cstmt.clearParameters();
                 cstmt.setString(1, catName);
                 result = cstmt.executeUpdate();
                
