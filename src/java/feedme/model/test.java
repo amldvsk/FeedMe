@@ -35,6 +35,7 @@ public class test {
        //addNewCatTest();
         //deleteUser();
        // updateUser();
+        updateRest();
      
     
     }
@@ -104,6 +105,26 @@ public class test {
         System.out.println(res);
     }
 
+    
+    public static void  updateRest()
+    {
+         String name ="davidsan";
+        String phone = "0548235258";
+        String logo = "jdsejds.jpg";
+        String street = "rehavat";
+        String streetNum = "13";
+        int catid = 1;
+        String city = "Beer-Sheva";
+        int deliveryPrice = 15;
+        int minOrder =50;
+        String estimatedTimeDel = "שעתיים";
+        Restaurant rest = new Restaurant("Kampai", phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel);
+        rest.setDbid(8);
+        DBRestaurantsManagement rm = new DBRestaurantsManagement();
+        int result = rm.updateRestaurant(rest, 1);
+        System.out.println(result);
+        
+    }
     public static void  encryptTest()
     {
         
