@@ -65,11 +65,11 @@ public class EditUsersServlet extends HttpServlet {
         String userName= request.getParameter("userName");  
         String phone= request.getParameter("phone");  
         String email= request.getParameter("email");  
-        String usroleerid= request.getParameter("usroleerid");  
+        String dbId= request.getParameter("dbId");  
         String role= request.getParameter("role");  
         User user = new User(firstName, lastName,  userName, phone, email, Integer.parseInt(role));
         DBRestaurantsManagement ob= new DBRestaurantsManagement();
-        
+        user.setDbId(Integer.parseInt(dbId));
        // int result=updateUser(user);
        // if(result == 1){ 
            //OK

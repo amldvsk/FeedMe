@@ -121,9 +121,9 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         }else if(Integer.parseInt(action)== 2){
             Restaurant res =  new Restaurant(correntName,phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
             //if(correntName.equals(newName)==true) 
-                //result = ob.EditRestaurant(res,0);  
+                //result = ob.updateRestaurant(res,0);  
             //else
-               // result = ob.EditRestaurant(res,1);
+               // result = ob.updateRestaurant(res,1);
          }
         
         //==========### Send successful or failing session message  ##===========
