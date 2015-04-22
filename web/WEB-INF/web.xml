@@ -10,7 +10,15 @@
     </servlet>
     <servlet>
         <servlet-name>AddRestaurant</servlet-name>
-        <servlet-class>feedme.controller.AddRestaurantServlet</servlet-class>
+        <servlet-class>feedme.controller.AddOrEditRestaurantServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveRestaurantServlet</servlet-name>
+        <servlet-class>feedme.controller.RemoveRestaurantServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditRestaurantServlet</servlet-name>
+        <servlet-class>feedme.controller.EditRestaurantServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CustomerRegistrationServlet</servlet-name>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>AddRestaurant</servlet-name>
         <url-pattern>/AddRestaurant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveRestaurantServlet</servlet-name>
+        <url-pattern>/RemoveRestaurantServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditRestaurantServlet</servlet-name>
+        <url-pattern>/EditRestaurantServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
