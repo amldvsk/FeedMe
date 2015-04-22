@@ -59,13 +59,13 @@ public class CustomerRegistrationServlet extends HttpServlet {
          String houseNum = null;
          String apartmentNum = null;
          String city = null;
-         String firstName = "dfdfddf";//request.getParameter("firstName");
-         String lastName = "bidfgfdgton";//request.getParameter("lastName");
-         String userName = "fd11221h";//request.getParameter("userName");
-         String pw = "123";//request.getParameter("pw");
-         String phone = "1111";//request.getParameter("phone");
-         String email = "df13dגd3fd1123g@gmail.com";//request.getParameter("email");
-         int role = 0;//Integer.parseInt(request.getParameter("role"));
+         String firstName = request.getParameter("firstName");
+         String lastName = request.getParameter("lastName");
+         String userName = request.getParameter("userName");
+         String pw = request.getParameter("pw");
+         String phone = request.getParameter("phone");
+         String email = request.getParameter("email");
+         int role = Integer.parseInt(request.getParameter("role"));
          
          if(role == 0)
          {
@@ -103,13 +103,13 @@ public class CustomerRegistrationServlet extends HttpServlet {
              request.setAttribute("user", user);
         
              //response.sendRedirect("website/success.jsp");
-             RequestDispatcher dispatcher = request.getRequestDispatcher("website/success.jsp");
+             RequestDispatcher dispatcher = request.getRequestDispatcher("website/profile.jsp");
             dispatcher.forward(request, response);
             
          }
          else
          {
-             response.sendRedirect("website/indקרx.html");
+             response.sendRedirect("website/index.jsp");
          }
         
 
