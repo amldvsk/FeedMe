@@ -73,6 +73,7 @@ public class DBRestaurantsManagement {
          
         return result;
     }
+
     
     public int addNewCategory(String catName)
     {
@@ -107,5 +108,6 @@ public class DBRestaurantsManagement {
         
      return result;
     }
+
 
 }

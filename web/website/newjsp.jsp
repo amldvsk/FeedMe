@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <form method="post" action="AddRestaurantServlet"
+        <form method="post" action="http://localhost:8025/FeedMe/AddRestaurantServlet"
               enctype="multipart/form-data" >
         
             select image : <input type="file" name="file"/>
