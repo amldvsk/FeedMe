@@ -3,11 +3,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/assets/js/bootstrap.min.js"></script>
-    <script src="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/assets/js/bootstrap-select.min.js"></script>
-    <script src="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/assets/js/jquery.geocomplete.min.js"></script>
-    <script src="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/assets/js/modernizr.js"></script>
-    <script src="<%=request.getScheme().toString() %>://<%=request.getServerName().toString() %>:<%=request.getServerPort() %><%=request.getContextPath() %>/assets/js/website_main.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/bootstrap-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/jquery.geocomplete.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/modernizr.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/website_main.js"></script>
     
     <c:if  test="${loginError != null }" >
         <script>
