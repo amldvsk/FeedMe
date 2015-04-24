@@ -5,7 +5,7 @@
 <c:forEach var="i" begin="1" end="5">
    <!--Item <c:out value="${i}"/><p>-->
 </c:forEach>
-
+    ${category}
     <header>
 
       <div class="header-wrapper">

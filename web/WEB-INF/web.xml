@@ -24,6 +24,10 @@
         <servlet-name>EditUsersServlet</servlet-name>
         <servlet-class>feedme.controller.EditUsersServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomePageServlet</servlet-name>
+        <servlet-class>feedme.controller.HomePageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CustomerRegistrationServlet</servlet-name>
         <url-pattern>/CustomerRegistrationServlet</url-pattern>
@@ -48,12 +52,17 @@
         <servlet-name>EditUsersServlet</servlet-name>
         <url-pattern>/EditUsersServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomePageServlet</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
+        <welcome-file>index</welcome-file>
         <welcome-file>website/index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
