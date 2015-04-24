@@ -1,31 +1,37 @@
 package feedme.controller;
 
 import feedme.model.DBRestaurantsManagement;
-import feedme.model.FileUpload;
 import feedme.model.Restaurant;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+//import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.fileupload.FileItemIterator;
-import org.apache.tomcat.util.http.fileupload.FileItemStream;
-import org.apache.tomcat.util.http.fileupload.FileUploadBase;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import javax.servlet.http.Part;
+//import org.apache.tomcat.util.http.fileupload.FileItemIterator;
+//import org.apache.tomcat.util.http.fileupload.FileItemStream;
+//import org.apache.tomcat.util.http.fileupload.FileUploadBase;
+//import org.apache.tomcat.util.http.fileupload.FileUploadException;
+//import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 /**
  *
  * @author David Lazarev
  */
 @WebServlet(name = "AddRestaurantServlet", urlPatterns = {"/AddRestaurantServlet"})
+@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
+                 maxFileSize=1024*1024*10,      // 10MB
+                 maxRequestSize=1024*1024*50)   // 50MB
 public class AddOrEditRestaurantServlet extends HttpServlet {
 
- 
+    private static final String SAVE_DIR = "Uploads";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -74,35 +80,25 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         String minOrder= request.getParameter("minOrder");                      
          
         //==========### File(logo) uploading to server ##===========
-        boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
-         if(isMultiPart){
-           ServletFileUpload upload = new ServletFileUpload();
-            try{
-                FileItemIterator itr = upload.getItemIterator(request);
-                while(itr.hasNext()){
-                    FileItemStream item=itr.next();
-                    if(item.isFormField()){
-                        String fieldName =item.getFieldName();
-                        InputStream is = item.openStream();
-                        byte[] b = new byte[is.available()];
-                        is.read(b);
-                        String value = new String(b);
-                        response.getWriter().println(fieldName+":"+value+"<br/>");
-
-
-                    } else {
-                        String path= getServletContext().getRealPath("/");
-                        if(FileUpload.processFile(path, item))
-                            response.getWriter().println("file uploaded seccsesfuly");
-                        else response.getWriter().println("file uploading failed");
-
-                    }
-                }
-
-            }catch(FileUploadException fue){
-                fue.printStackTrace();
-            }
+        // gets absolute path of the web application
+        String appPath = "C:\\Users\\User\\Documents\\NetBeansProjects\\FeedMe\\web\\assets";//request.getServletContext().getRealPath("");
+        // constructs path of the directory to save uploaded file
+        String savePath = appPath + File.separator + SAVE_DIR;
+         
+        // creates the save directory if it does not exists
+        File fileSaveDir = new File(savePath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdir();
         }
+         
+        for (Part part : request.getParts()) {
+            String fileName = extractFileName(part);
+            part.write(savePath + File.separator + fileName);
+        }
+ 
+        request.setAttribute("message", "Upload has been done successfully!");
+        getServletContext().getRequestDispatcher("/message.jsp").forward(
+                request, response);
 
         try{
            Integer.parseInt(minOrder);
@@ -140,6 +136,19 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         }
     }
    
+    /**
+     * Extracts file name from HTTP header content-disposition
+     */
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
+    }
     @Override
     public String getServletInfo() {
         return "Short description";
