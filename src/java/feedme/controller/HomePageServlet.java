@@ -55,12 +55,12 @@ public class HomePageServlet extends HttpServlet {
          
          DbHPOnLoad dbPageOnLoad = new DbHPOnLoad();
          
-         //category = dbPageOnLoad.getCategories();
-         //restaurants = dbPageOnLoad.getRecentRestaurants(6);
+         category = dbPageOnLoad.getCategories();
+         restaurants = dbPageOnLoad.getRecentRestaurants(6);
           
           
-         //request.setAttribute("category", category);
-         //request.setAttribute("restaurants", restaurants);
+         request.setAttribute("category", category);
+         request.setAttribute("restaurants", restaurants);
          
         RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");
         dispatcher.forward(request, response);

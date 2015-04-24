@@ -5,7 +5,6 @@
 <c:forEach var="i" begin="1" end="5">
    <!--Item <c:out value="${i}"/><p>-->
 </c:forEach>
-    ${category}
     <header>
 
       <div class="header-wrapper">
@@ -34,8 +33,9 @@
                 <div class="form-group">
                   <select class="selectpicker" data-width="100%">
                     <option>מה תרצה לאכול ?</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
+                    <c:forEach var="type" items="${category}">
+                        <option value="${type.value}">${type.key}</option>
+                     </c:forEach>
                   </select>
                 </div>
                 <div class="form-group post">
@@ -48,8 +48,6 @@
       </div>
 
     </header>
-
-
      <section class="rest-section">
       <div class="container">
         <h2>מסעדות חדשות שנוספו</h2>

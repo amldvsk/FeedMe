@@ -32,11 +32,13 @@ public class DbHPOnLoad {
     
     public HashMap<String , Integer > getCategories() 
     {
+        con = DbConnector.getInstance().getConn();
         String spuName = "{ call feedmedb.Spu_GetCategories()}";
         HashMap<String , Integer > cat = new HashMap<>();
         try {
-                cstmt.clearParameters();
+                
                 cstmt =con.prepareCall(spuName);
+                cstmt.clearParameters();
                 rs = cstmt.executeQuery();
                 while(rs.next())
                 {
@@ -70,13 +72,15 @@ public class DbHPOnLoad {
     
     public List<Restaurant> getRecentRestaurants(int numberOfRest)
     {
+        con = DbConnector.getInstance().getConn();
         List<Restaurant> restaurants = new ArrayList<>();
         String spuName = "{CALL feedmedb.Spu_GetRecentRestaurant(?,?)}";
         ResultSet rs  = null;
         
         try {
-            cstmt.clearParameters();
+            
             cstmt =con.prepareCall(spuName);
+            cstmt.clearParameters();
             cstmt.setInt(1, numberOfRest);
             cstmt.setInt(2, 0);
             rs = cstmt.executeQuery();
