@@ -33,9 +33,15 @@ public class test {
         //insertUserTest();
         //insertRestaurantTest();
        //addNewCatTest();
-        //deleteUser();
-       // updateUser();
-        updateRest();
+        //deleteUserTest();
+       // updateUserTest();
+        //updateRestTest();
+        //addNewMenuTest();
+        //addNewMenuCatTest();
+        //updateMenuCatTest();
+        //addNewItemToMenuTest();
+        updateMenuItemTest();
+        
      
     
     }
@@ -106,7 +112,7 @@ public class test {
     }
 
     
-    public static void  updateRest()
+    public static void  updateRestTest()
     {
          String name ="davidsan";
         String phone = "0548235258";
@@ -222,11 +228,69 @@ public class test {
         System.out.println(result);
     }
     
-    public static void deleteUser()
+    public static void deleteUserTest()
     {
         DbUsersManagement dbUserManagment = new DbUsersManagement();
         int result = dbUserManagment.deleteUser(2);
         System.out.println(result);
     }
 
+    
+    public static void addNewMenuTest()
+    {
+        String menuName = "zoooo dugmaaaa";
+        int restId = 5;
+        DBMenuManagment dbM = new DBMenuManagment();
+        int result = dbM.addNewMenu(menuName, restId);
+        System.out.println(result);
+    }
+    
+    public static void addNewMenuCatTest()
+    {
+        String catName = "קינוחים";
+        DBMenuManagment dbM = new DBMenuManagment();
+        int result = dbM.addNewMenuCat(catName);
+        System.out.println(result);
+    }
+    
+    
+    public static void updateMenuCatTest()
+    {
+        String newCatName = "קינוחים";
+        int catId  = 2;
+        DBMenuManagment dbM = new DBMenuManagment();
+        int result = dbM.updateMenuCat(newCatName, catId);
+        System.out.println(result);
+    }
+    
+    public static void addNewItemToMenuTest()
+    {
+        String itemName = "פפסי";
+        double itemPrice = 9.5;
+        String itemDic = "סתם שתייה מסריחה";
+        String imagePath = null;
+        int itemCatId = 3 ;
+        int itemRestId = 5;
+        int itemMenuId = 2 ;
+        
+        DBMenuManagment dbM = new DBMenuManagment();
+        int result = dbM.AddNewMenuItem(itemName, itemPrice, itemDic, imagePath,itemCatId, itemRestId, itemMenuId);
+        System.out.println(result);
+        
+        
+        
+    }
+    
+    public static void updateMenuItemTest()
+    {
+        int itemId = 2 ;
+        String itemName = "פפסי";
+        double itemPrice = 9.5;
+        String itemDic = "סתם שתייה מסריחה";
+        String imagePath = null;
+        
+        DBMenuManagment dbM = new DBMenuManagment();
+        int result = dbM.updateMenuItem(itemId, itemName, itemPrice, itemDic, imagePath);
+        System.out.println(result);
+    }
 }
