@@ -54,6 +54,7 @@ public class UserRegistrationServlet extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         
+        request.setCharacterEncoding("UTF-8");
          User user = null;
          Date d = null;
          String street = null;
