@@ -41,7 +41,7 @@
       </div> <!-- feed-login -->
 
       <div id="feed-signup"> <!-- sign up form -->
-        <form class="feed-form" method="POST" action="${pageContext.request.contextPath}/CustomerRegistrationServlet">
+        <form class="feed-form" method="POST" action="${pageContext.request.contextPath}/registration">
           <div class="clearfix">
             <p class="fieldset pull-right" style="margin: 0; width: calc(100% / 2 - 5px)">
               <label class="image-replace feed-username" for="signup-firstname">שם פרטי</label>

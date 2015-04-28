@@ -9,6 +9,7 @@ import feedme.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -21,8 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "CustomerRegistrationServlet", urlPatterns = {"/CustomerRegistrationServlet"})
-public class CustomerRegistrationServlet extends HttpServlet {
+@WebServlet(name = "UserRegistrationServlet", urlPatterns = {"/registration"})
+public class UserRegistrationServlet extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -53,8 +54,8 @@ public class CustomerRegistrationServlet extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         
-         User user = null;              
-         Date date =  null;
+         User user = null;
+         Date d = null;
          String street = null;
          String houseNum = null;
          String apartmentNum = null;
@@ -70,21 +71,28 @@ public class CustomerRegistrationServlet extends HttpServlet {
          if(role == 0)
          {
             try {
-                 date =  (Date) new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("bday"));
+
+                   
+                   String birthday = request.getParameter("bday");
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyyy");
+                    java.util.Date date = sdf1.parse(birthday);
+                    d = new Date(date.getTime()); 
+              
+            
             } catch (ParseException ex) {
-                Logger.getLogger(CustomerRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-              street = "a";//request.getParameter("st");
-              houseNum = "1";//request.getParameter("hnum");
-              apartmentNum = "12";//request.getParameter("aprtnum");
-              city = "bs";//request.getParameter("cty");
+                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+          }
+              street = request.getParameter("address");
+              houseNum = request.getParameter("street_num");
+              apartmentNum = request.getParameter("home_num");
+              city = request.getParameter("cty");
          }
 
              
 
          
          DbUsersManagement dbUserManagment = new DbUsersManagement();
-         int result = dbUserManagment.addNewUser(firstName,lastName,userName,pw,phone,email,role,date,street,houseNum,apartmentNum,city);
+         int result = dbUserManagment.addNewUser(firstName,lastName,userName,pw,phone,email,role,d,street,houseNum,apartmentNum,city);
          if(result == 2)
          {
             
