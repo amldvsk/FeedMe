@@ -17,7 +17,7 @@
               enctype="multipart/form-data" >
         
             select image : <input type="file" name="file"/>
-            <input type="submit" value="go!"/>
+            <input type="submit" value="go!" actidf=""/>
 
         </form>
     </body>

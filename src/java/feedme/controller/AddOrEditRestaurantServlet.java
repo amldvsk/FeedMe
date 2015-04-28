@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 //import org.apache.tomcat.util.http.fileupload.FileItemIterator;
 //import org.apache.tomcat.util.http.fileupload.FileItemStream;
@@ -116,23 +117,26 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
             result = ob.addNewRestaurant(newName,Integer.parseInt(category),phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
         }else if(Integer.parseInt(action)== 2){
             Restaurant res =  new Restaurant(correntName,phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
-            //if(correntName.equals(newName)==true) 
-                //result = ob.updateRestaurant(res,0);  
-            //else
-               // result = ob.updateRestaurant(res,1);
+            if(correntName.equals(newName)==true) 
+                result = ob.updateRestaurant(res,0);  
+            else
+                result = ob.updateRestaurant(res,1);
          }
         
         //==========### Send successful or failing session message  ##===========
         if(result == -1){ 
-           //request.setAttribute("user", user);
-            dispatcher = request.getRequestDispatcher("restorantpage.jsp");
-            dispatcher.forward(request, response);
+            HttpSession session = request.getSession(true);
+            session.setAttribute("Status", false);
         }
-        else if(result == 1){ // new restaurant added successfully || restaurant successfully changed
-
+        else if(result == 1){ 
+            // new restaurant added successfully || restaurant successfully changed
+            HttpSession session = request.getSession(true);
+            session.setAttribute("Status", true);
         }  
         else{//2
             //This name is already exists in the database
+            HttpSession session = request.getSession(true);
+            session.setAttribute("exists", true);
         }
     }
    

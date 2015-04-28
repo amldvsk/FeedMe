@@ -28,6 +28,18 @@
         <servlet-name>HomePageServlet</servlet-name>
         <servlet-class>feedme.controller.HomePageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCategoryServlet</servlet-name>
+        <servlet-class>feedme.controller.AddMenuCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddOrEditMenuServlet</servlet-name>
+        <servlet-class>feedme.controller.AddOrEditMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AEODMenuItemServlet</servlet-name>
+        <servlet-class>feedme.controller.AddOrEditMenuItemServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CustomerRegistrationServlet</servlet-name>
         <url-pattern>/CustomerRegistrationServlet</url-pattern>
@@ -55,6 +67,18 @@
     <servlet-mapping>
         <servlet-name>HomePageServlet</servlet-name>
         <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCategoryServlet</servlet-name>
+        <url-pattern>/AddCategoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddOrEditMenuServlet</servlet-name>
+        <url-pattern>/AddOrEditMenuServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AEODMenuItemServlet</servlet-name>
+        <url-pattern>/AEODMenuItemServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
