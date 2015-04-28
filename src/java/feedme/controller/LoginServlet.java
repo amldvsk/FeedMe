@@ -57,17 +57,17 @@ public class LoginServlet extends HttpServlet {
                         switch(user.getRole()){
                             case 0 ://user page
                                 request.setAttribute("user", user);
-                                dispatcher = request.getRequestDispatcher("userprofile.jsp");
+                                dispatcher = request.getRequestDispatcher("website/profile.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             case 1: //restorant page
                                 request.setAttribute("user", user);
-                                dispatcher = request.getRequestDispatcher("restorantpage.jsp");
+                                dispatcher = request.getRequestDispatcher("manager/index.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             case 2://admin page
                                 request.setAttribute("user", user);
-                                dispatcher = request.getRequestDispatcher("adminpage.jsp");
+                                dispatcher = request.getRequestDispatcher("admin/index.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             default:
