@@ -5,7 +5,7 @@
  */
 package feedme.model;
 
-import feedme.controller.CustomerRegistrationServlet;
+import feedme.controller.UserRegistrationServlet;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Blob;
@@ -30,7 +30,7 @@ public class test {
     {
         
         //encryptTest();
-        //insertUserTest();
+        insertUserTest();
         //insertRestaurantTest();
        //addNewCatTest();
         //deleteUserTest();
@@ -40,7 +40,7 @@ public class test {
         //addNewMenuCatTest();
         //updateMenuCatTest();
         //addNewItemToMenuTest();
-        updateMenuItemTest();
+        //updateMenuItemTest();
         
      
     
