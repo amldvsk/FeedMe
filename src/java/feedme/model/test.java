@@ -53,12 +53,12 @@ public class test {
          String houseNum = "38";
          String apartmentNum = null;
          String city = null;
-         String firstName = "sdd3dמ3יר";//request.getParameter("firstName");
+         String firstName = "אש כרוב ר";//request.getParameter("firstName");
          String lastName = "bidf3gfdgton";//request.getParameter("lastName");
-         String userName = "nadav";//request.getParameter("userName");
+         String userName = "n12345adav";//request.getParameter("userName");
          String pw = "123";//request.getParameter("pw");
          String phone = "1111";//request.getParameter("phone");
-         String email = "df13fg345@gf45gmail.com";//request.getParameter("email");
+         String email = "df13fg@gf45gmail.com";//request.getParameter("email");
          int role = 0;//Integer.parseInt(request.getParameter("role"));
          
          

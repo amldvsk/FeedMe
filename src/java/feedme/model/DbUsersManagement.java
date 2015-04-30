@@ -209,21 +209,21 @@ public class DbUsersManagement {
             switch(role)
             {
                 case 0 :
-                    user = new Customer(rs.getString("username"),rs.getString("lastname"), rs.getString("username") ,   rs.getString("phone") ,  rs.getString("email") ,
+                    user = new Customer(rs.getString("firstname"),rs.getString("lastname"), rs.getString("username") ,   rs.getString("phone") ,  rs.getString("email") ,
                             rs.getInt("role" ) , rs.getDate("bday") ,rs.getString("street")  ,rs.getString("house_num") , rs.getString("apartment_num") , rs.getString("city") );
                             user.setDbId(rs.getInt("userid"));
                        
                             
                     break;
                 case 1:
-                    user = new Manager(rs.getString("username"),rs.getString("lastname"), rs.getString("username") ,   rs.getString("phone") ,  rs.getString("email") ,
+                    user = new Manager(rs.getString("firstname"),rs.getString("lastname"), rs.getString("username") ,   rs.getString("phone") ,  rs.getString("email") ,
                             rs.getInt("role" ));
                     user.setDbId(rs.getInt("userid"));
                     
                     break;
                 case 2:
                     
-                     user = new Admin(rs.getString("username"),rs.getString("lastname"), rs.getString("username") ,  rs.getString("phone") ,  rs.getString("email") ,
+                     user = new Admin(rs.getString("firstname"),rs.getString("lastname"), rs.getString("username") ,  rs.getString("phone") ,  rs.getString("email") ,
                             rs.getInt("role" ));
                     user.setDbId(rs.getInt("userid"));
                     break;

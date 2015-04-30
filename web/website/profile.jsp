@@ -10,7 +10,7 @@
       <div class="header-wrapper">
         <div class="container">
           <div class="header-content">
-            <h1>שלום, <span>${requestScope.user.getUserName()}</span></h1>
+            <h1>שלום, <span>${requestScope.user.getFullName()}</span></h1>
           </div>
         </div>
       </div>
