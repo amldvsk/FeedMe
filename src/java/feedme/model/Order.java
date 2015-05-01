@@ -6,6 +6,7 @@
 package feedme.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Order {
     
     private int orderId;
     private int orderCustomerId;
-    private HashMap<Integer , Item > restItemsMap ;
+    private HashMap<Map<Integer , Integer> , Item > restItemsMap ;
     private String CustomerFullName;
     private String CustomerPhonenum;
     private String CustomerAdress;
@@ -48,11 +49,11 @@ public class Order {
         this.orderCustomerId = orderCustomerId;
     }
 
-    public HashMap<Integer, Item> getRestItemsMap() {
+    public HashMap<Map<Integer , Integer>, Item> getRestItemsMap() {
         return restItemsMap;
     }
 
-    public void setRestItemsMap(HashMap<Integer, Item> restItemsMap) {
+    public void setRestItemsMap(HashMap<Map<Integer , Integer>, Item> restItemsMap) {
         this.restItemsMap = restItemsMap;
     }
 
