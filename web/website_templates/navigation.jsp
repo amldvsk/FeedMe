@@ -17,6 +17,7 @@
             <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
             <li><a class="feed-signin" href="#0">התחבר</a></li>
             <li><a class="feed-signup" href="#0">הירשם</a></li>
+            <li id="cd-cart-trigger"><a class="cd-img-replace" href="#0"><i class="fa fa-shopping-cart"></i></a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

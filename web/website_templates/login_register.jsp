@@ -9,7 +9,7 @@
       </ul>
 
       <div id="feed-login"> <!-- log in form -->
-        <form class="feed-form" method="POST" action="${pageContext.request.contextPath}/Login">
+        <form class="feed-form" accept-charset="UTF-8" method="POST" action="${pageContext.request.contextPath}/Login">
           <p class="fieldset">
             <label class="image-replace feed-email" for="signin-email">E-mail</label>
             <input class="full-width has-padding has-border" id="signin-email" type="text" name="Username" placeholder="שם משתמש">
@@ -41,7 +41,7 @@
       </div> <!-- feed-login -->
 
       <div id="feed-signup"> <!-- sign up form -->
-        <form class="feed-form" method="POST" action="${pageContext.request.contextPath}/registration">
+        <form class="feed-form" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/registration">
           <div class="clearfix">
             <p class="fieldset pull-right" style="margin: 0; width: calc(100% / 2 - 5px)">
               <label class="image-replace feed-username" for="signup-firstname">שם פרטי</label>

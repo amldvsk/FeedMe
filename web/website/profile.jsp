@@ -142,5 +142,6 @@
 
       
 <%@include file='../website_templates/login_register.jsp'%>
+<%@include file='../website_templates/shopping_cart.jsp'%>
 <%@include file='../website_templates/footer.jsp'%>
    
