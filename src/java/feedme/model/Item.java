@@ -73,6 +73,22 @@ public class Item {
         this.quantity = quantity;
     }
     
+    public void increaseQunatity()
+    {
+        this.quantity++;
+    }
+    
+    public void decreaseQuantity()
+    {
+        if(this.quantity > 0)
+        {
+            this.quantity--;
+        }
+        else
+        {
+            System.out.println("Fuck Off");
+        }
+    }
     
     
 }

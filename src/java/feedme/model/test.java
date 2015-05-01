@@ -48,7 +48,8 @@ public class test {
         //updateMenuTest();
         //getResturantsCitiesTest();
         //getRecentRestaurantsByCat();
-        getNextRestaurantsByCat();
+        //getNextRestaurantsByCat();
+        getItemMenu();
      
     
     }
@@ -371,5 +372,16 @@ public class test {
         {
             System.out.println(rest.getName());
         }
+    }
+    
+    public static void getItemMenu()
+    {
+       int  itemId =2 ;
+       DBOrderManagement dbo = new DBOrderManagement();
+       Item item = dbo.getItemById(itemId);
+       if(item != null){
+       System.out.println(item.getItemName());}
+       else
+            System.err.println("Biga Bu Gu La");
     }
 }

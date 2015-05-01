@@ -138,4 +138,52 @@ public class DBOrderManagement {
         
         return orderNum;
     }
+    
+    /**
+     * get item by his id 
+     * @param itemId - int item id
+     * @return item object with 1 qunatity , if we got sql exception item will be null , don't forget to check it
+     * see example in test class
+     */
+    public Item getItemById(int itemId)
+    {
+        String spuName = "{CALL feedmedb.Spu_GetItemById(?)}";
+        con = DbConnector.getInstance().getConn();
+        Item item = null;
+        ResultSet rs = null;
+        try {
+            
+                cstmt = con.prepareCall(spuName);
+                cstmt.clearParameters();
+                cstmt.setInt(1, itemId);
+                rs = cstmt.executeQuery();
+                while(rs.next())
+                {
+                    item = new Item(rs.getString("item_name"), rs.getDouble("item_price"), rs.getString("item_description"), rs.getString("item_image"));
+                    item.setItemID(rs.getInt("itemid"));
+                    item.setQuantity(1);
+                    
+                }
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(DBOrderManagement.class.getName()).log(Level.SEVERE, null, ex);
+            item = null;
+        }
+        
+        finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return item;
+    }
 }

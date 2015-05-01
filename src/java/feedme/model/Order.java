@@ -25,6 +25,11 @@ public class Order {
         this.CustomerFullName = CustomerFullName;
         this.CustomerPhonenum = CustomerPhonenum;
     }
+    
+    public Order()
+    {
+        
+    }
 
     public int getOrderId() {
         return orderId;
