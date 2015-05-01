@@ -16,6 +16,7 @@ public class Item {
     private double itemPrice;
     private String itemDescription;
     private String itemImagePath;
+    private int quantity;
 
     public Item(String itemName, double itemPrice, String itemDescription, String itemImagePath) {
         this.itemName = itemName;
@@ -62,6 +63,14 @@ public class Item {
 
     public void setItemImagePath(String itemImagePath) {
         this.itemImagePath = itemImagePath;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
     
     

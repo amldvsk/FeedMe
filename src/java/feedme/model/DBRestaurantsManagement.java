@@ -9,7 +9,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -163,5 +166,144 @@ public class DBRestaurantsManagement {
      return result;
     }
 
+    public int deleteRestaurant(int restID)
+    {
+        int result =-1;
+        con = DbConnector.getInstance().getConn();
+        String spuName = "{CALL feedmedb.Spe_DeleteRestaurant(?)}";
+        
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, restID);
+            result  = cstmt.executeUpdate();
 
+        } catch (SQLException ex) {
+            Logger.getLogger(DBRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    
+        return result;
+    }
+    
+    
+    /**
+     * get the recent restaurants in specific category
+     * @param numRest - number of rest on page
+     * @param catId - category id
+     * @return list of resturants , or fake restaruant "BigaBuGule" with rest id 0
+     */
+    public List<Restaurant> getLatestRestaurantsByCat(int numRest , int catId)
+    {
+        con = DbConnector.getInstance().getConn();
+        List<Restaurant> restaurants = new ArrayList<>();
+        String spuName = "{CALL feedmedb.Spu_GetRecentRestaurant(?,?)}";
+        ResultSet rs  = null;
+        
+        try {
+                cstmt =con.prepareCall(spuName);
+                   cstmt.clearParameters();
+            cstmt.setInt(1, numRest);
+            cstmt.setInt(2, catId);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                Restaurant res  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
+                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
+                res.setDbid(rs.getInt("restid"));
+                restaurants.add(res);
+            }
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(DBRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
+             Restaurant res  = new Restaurant("BigaBuGule" , "0546555257" , null ,
+                "הגשר" , "12" ,"פתח תקווה" ,15, 15,"שעה" );
+                res.setDbid(0);
+                restaurants.add(res);
+        }
+        
+         finally
+        {
+              try {
+            if(cstmt != null)
+            {
+              
+                    cstmt.close();
+                } 
+            if(con != null)
+            {
+                con.close();
+            }
+              }
+            catch (SQLException ex) {
+                    Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
+        return restaurants;
+    }
+    
+    public List<Restaurant> getNextRecentRestaurantsByCat(int start , int numRests , int catId)
+    {
+        con = DbConnector.getInstance().getConn();
+        List<Restaurant> restaurants = new ArrayList<>();
+        String spuName = "{CALL feedmedb.Spu_GetNextRestaurant(?,? , ?)}";
+        ResultSet rs  = null;
+        
+        try {
+                cstmt =con.prepareCall(spuName);
+                   cstmt.clearParameters();
+            cstmt.setInt(1, start);
+            cstmt.setInt(2, numRests);
+            cstmt.setInt(3, catId);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                Restaurant res  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
+                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
+                res.setDbid(rs.getInt("restid"));
+                restaurants.add(res);
+            }
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(DBRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
+             Restaurant res  = new Restaurant("BigaBuGule" , "0546555257" , null ,
+                "הגשר" , "12" ,"פתח תקווה" ,15, 15,"שעה" );
+                res.setDbid(0);
+                restaurants.add(res);
+        }
+        
+         finally
+        {
+              try {
+            if(cstmt != null)
+            {
+              
+                    cstmt.close();
+                } 
+            if(con != null)
+            {
+                con.close();
+            }
+              }
+            catch (SQLException ex) {
+                    Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
+        return restaurants;
+    }
 }

@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class test {
     {
         
         //encryptTest();
-        insertUserTest();
+        //insertUserTest();
         //insertRestaurantTest();
        //addNewCatTest();
         //deleteUserTest();
@@ -40,8 +41,14 @@ public class test {
         //addNewMenuCatTest();
         //updateMenuCatTest();
         //addNewItemToMenuTest();
+        //deleteItemFromMenuTest();
         //updateMenuItemTest();
-        
+        //getLatestOrderNumTest();
+        //deleteRestTest();
+        //updateMenuTest();
+        //getResturantsCitiesTest();
+        //getRecentRestaurantsByCat();
+        getNextRestaurantsByCat();
      
     
     }
@@ -95,12 +102,12 @@ public class test {
     }
     public static void insertRestaurantTest()
     {
-        String name ="davidsan";
-        String phone = "0548235258";
-        String logo = "jdsejds.jpg";
-        String street = "rehavat";
-        String streetNum = "13";
-        int catid = 1;
+        String name ="הכרם";
+        String phone = "0546325288";
+        String logo = "jdse43s.jpg";
+        String street = "reht";
+        String streetNum = "1";
+        int catid = 2;
         String city = "Beer-Sheva";
         int deliveryPrice = 15;
         int minOrder =50;
@@ -245,6 +252,15 @@ public class test {
         System.out.println(result);
     }
     
+    
+    public static void updateMenuTest()
+    {
+        int menuId = 2 ;
+        String menuName = "BallsMenu";
+        DBMenuManagment DBM = new DBMenuManagment();
+        int result = DBM.updateMenuName(menuName, menuId);
+        System.out.println(result);
+    }
     public static void addNewMenuCatTest()
     {
         String catName = "קינוחים";
@@ -269,8 +285,8 @@ public class test {
         double itemPrice = 9.5;
         String itemDic = "סתם שתייה מסריחה";
         String imagePath = null;
-        int itemCatId = 3 ;
-        int itemRestId = 5;
+        int itemCatId = 2 ;
+        int itemRestId = 6;
         int itemMenuId = 2 ;
         
         DBMenuManagment dbM = new DBMenuManagment();
@@ -292,5 +308,68 @@ public class test {
         DBMenuManagment dbM = new DBMenuManagment();
         int result = dbM.updateMenuItem(itemId, itemName, itemPrice, itemDic, imagePath);
         System.out.println(result);
+    }
+    
+    
+    public static void getLatestOrderNumTest()
+    {
+         DBOrderManagement DBO = new DBOrderManagement();
+         int orderNum = DBO.setLatestOrderNum();
+         System.out.println(orderNum);
+    }
+    
+    public static void deleteRestTest()
+    {
+        int restId = 7 ;
+        DBRestaurantsManagement DBR = new DBRestaurantsManagement();
+        int result = DBR.deleteRestaurant(restId);
+        System.out.println(result);
+    }
+    
+    public static void deleteItemFromMenuTest()
+    {
+        int menuId = 2;
+        int itemId = 2;
+        DBMenuManagment dBM = new DBMenuManagment();
+        int result = dBM.deleteItemFromMenu(menuId, itemId);
+        System.err.println(result);
+    }
+    
+    public static void getResturantsCitiesTest()
+    {
+        List<String> cities ;
+        DbHPOnLoad dbph = new DbHPOnLoad();
+        cities = dbph.getCities();
+        System.out.println(cities);
+        
+    }
+    
+    public static void addNewOrderTest()
+    {
+        int restId1 ;
+    }
+    
+    public static void getRecentRestaurantsByCat()
+    {
+        int catid = 2 ;
+        DBRestaurantsManagement DBRM = new DBRestaurantsManagement();
+        
+        List<Restaurant> lRest = DBRM.getLatestRestaurantsByCat(3, catid);
+        for(Restaurant rest : lRest  )
+        {
+            System.out.println(rest.getName());
+        }
+    }
+    
+    public static void getNextRestaurantsByCat()
+    {
+         int catid = 2 ;
+        DBRestaurantsManagement DBRM = new DBRestaurantsManagement();
+        
+        List<Restaurant> lRest = DBRM.getNextRecentRestaurantsByCat(0,6, catid);
+        for(Restaurant rest : lRest  )
+        {
+            System.out.println(rest.getName());
+        }
     }
 }

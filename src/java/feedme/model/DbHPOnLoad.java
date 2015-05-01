@@ -69,7 +69,28 @@ public class DbHPOnLoad {
         
     }
             
-    
+    public List<String> getCities()
+    {
+         con = DbConnector.getInstance().getConn();
+         List<String> cities = new ArrayList<>();
+         String spuName = "{CALL feedmedb.Spu_RestaurantsCity()}";
+         ResultSet rs = null;
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            rs = cstmt.executeQuery();
+            
+            while(rs.next())
+            {
+                cities.add(rs.getString("city"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+            cities.add("Biga Bu Gu Le");
+        }
+         
+        return cities;
+    }
     public List<Restaurant> getRecentRestaurants(int numberOfRest)
     {
         con = DbConnector.getInstance().getConn();
@@ -86,7 +107,7 @@ public class DbHPOnLoad {
             rs = cstmt.executeQuery();
             while(rs.next())
             {
-                Restaurant res  = new Restaurant(rs.getString("name") , rs.getString("phone") , rs.getString("logo") ,
+                Restaurant res  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
                 rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
                 res.setDbid(rs.getInt("restid"));
                 restaurants.add(res);

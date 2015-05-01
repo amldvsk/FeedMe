@@ -15,7 +15,7 @@ public class Order {
     
     private int orderId;
     private int orderCustomerId;
-    private HashMap<Integer , Item> restItemsMap ;
+    private HashMap<Integer , Item > restItemsMap ;
     private String CustomerFullName;
     private String CustomerPhonenum;
     private String CustomerAdress;

@@ -61,6 +61,48 @@ public class DBMenuManagment {
         return result;
     }
     
+    /***
+     * 
+     * @param menuName - new menu name
+     * @param menuId - the menu id
+     * @return int , -2 if something went wrong like connection problem , 1 if the procedure was successful  
+     */
+    public int updateMenuName(String menuName , int menuId)
+    {
+        int result = -1;
+        con  = DbConnector.getInstance().getConn();
+        String spuName = "{CALL feedmedb.Spu_UpdateMenuName(?,?)}";
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setString(1, menuName);
+            cstmt.setInt(2, menuId);
+            result = cstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBMenuManagment.class.getName()).log(Level.SEVERE, null, ex);
+            result = -2;
+        }
+        finally
+        {
+             try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
+
+
+        return result;
+    }
+    
     /**
      * add new menu cat , for example Desserts ,Main dishes
      * @param catName  = cat name  , i don't check if the name is already exists , it should be already checked in the servlet or html\jsp\another fucking web page
@@ -236,4 +278,43 @@ public class DBMenuManagment {
         return result;
     }
     
+    /**
+     * delete item from menu (not from item because maybe this itemrelated to another menu)
+     * @param menuId - menuiId
+     * @param itemId - item id
+     * @return int , -2 if we got sql exception , 1 if the procedure was successful
+     */
+    public int deleteItemFromMenu( int menuId , int itemId)
+    {
+        int result = -1 ;
+        String spuName = "{CALL feedmedb.Spu_DeleteItemFromMenu(?,?)}";
+        con  = DbConnector.getInstance().getConn();
+        
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.setInt(1,itemId);
+            cstmt.setInt(2,menuId);
+            result = cstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBMenuManagment.class.getName()).log(Level.SEVERE, null, ex);
+            result = -2 ;
+        }
+         finally
+        {
+             try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+        
+        
+        return result;
+    }
 }
