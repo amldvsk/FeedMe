@@ -24,11 +24,12 @@ public class Order {
         this.orderCustomerId = orderCustomerId;
         this.CustomerFullName = CustomerFullName;
         this.CustomerPhonenum = CustomerPhonenum;
+        restItemsMap  = new  HashMap<>();
     }
     
     public Order()
     {
-        
+        restItemsMap  = new  HashMap<>();
     }
 
     public int getOrderId() {
