@@ -27,6 +27,15 @@
           "info":     false
         });
     } );
+
+    $('li.sidebar-list a').on('click', function() {
+      var parent = $('#page-wrapper');
+      if(!parent.hasClass('open')) {
+        parent.addClass('open');
+
+      }
+    });
+
   </script>
 </body>
 </html>
