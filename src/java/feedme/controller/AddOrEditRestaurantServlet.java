@@ -78,7 +78,8 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         String streetNum= request.getParameter("streetNum"); 
         String city= request.getParameter("city"); 
         String deliveryPrice= request.getParameter("deliveryPrice"); 
-        String minOrder= request.getParameter("minOrder");                      
+        String minOrder= request.getParameter("minOrder");    
+        int managerId = Integer.parseInt(request.getParameter("managerId"));
          
         //==========### File(logo) uploading to server ##===========
         // gets absolute path of the web application
@@ -114,13 +115,13 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         DBRestaurantsManagement ob= new DBRestaurantsManagement();
         int result=0;
         if(Integer.parseInt(action)== 1){// 1=add , 2= edit
-            result = ob.addNewRestaurant(newName,Integer.parseInt(category),phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
+            result = ob.addNewRestaurant(newName,Integer.parseInt(category),phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel ,managerId);
         }else if(Integer.parseInt(action)== 2){
             Restaurant res =  new Restaurant(correntName,phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
             if(correntName.equals(newName)==true) 
-                result = ob.updateRestaurant(res,0);  
+                result = ob.updateRestaurant(res,0 , managerId);  
             else
-                result = ob.updateRestaurant(res,1);
+                result = ob.updateRestaurant(res,1 , managerId);
          }
         
         //==========### Send successful or failing session message  ##===========

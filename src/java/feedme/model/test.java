@@ -49,7 +49,7 @@ public class test {
         //getResturantsCitiesTest();
         //getRecentRestaurantsByCat();
         //getNextRestaurantsByCat();
-        getItemMenu();
+        //getItemMenu();
      
     
     }
@@ -71,7 +71,7 @@ public class test {
          
          
          DbUsersManagement dbUserManagment = new DbUsersManagement();
-         int result = dbUserManagment.addNewUser(firstName,lastName,userName,pw,phone,email,role,date,street,houseNum,apartmentNum,city);
+         int result = dbUserManagment.addNewUser(firstName,lastName,userName,pw,phone,email,role,date,street,houseNum,apartmentNum,city );
          if(result == 2)
          {
             
@@ -115,7 +115,7 @@ public class test {
         String estimatedTimeDel = "שעתיים";
     
         DBRestaurantsManagement rm = new DBRestaurantsManagement();
-        int res =  rm.addNewRestaurant(name,catid, phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel);
+        int res =  rm.addNewRestaurant(name,catid, phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel ,1);
         System.out.println(res);
     }
 
@@ -132,10 +132,11 @@ public class test {
         int deliveryPrice = 15;
         int minOrder =50;
         String estimatedTimeDel = "שעתיים";
+        int managerId = 1;
         Restaurant rest = new Restaurant("Kampai", phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel);
         rest.setDbid(8);
         DBRestaurantsManagement rm = new DBRestaurantsManagement();
-        int result = rm.updateRestaurant(rest, 1);
+        int result = rm.updateRestaurant(rest, 1 , managerId);
         System.out.println(result);
         
     }

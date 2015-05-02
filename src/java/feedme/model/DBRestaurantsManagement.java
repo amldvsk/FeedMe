@@ -30,11 +30,11 @@ public class DBRestaurantsManagement {
         con = DbConnector.getInstance().getConn();
     }
     
-    public int addNewRestaurant(String name,int catId, String phone, String logo, String street, String streetNum, String city, int deliveryPrice, int minOrder, String estimatedTimeDel)
+    public int addNewRestaurant(String name,int catId, String phone, String logo, String street, String streetNum, String city, int deliveryPrice, int minOrder, String estimatedTimeDel , int manId)
     {
         int result = 0;
         Connection c = DbConnector.getInstance().getConn();
-        String spuName = "{CALL `feedmedb`.`Spu_RestaurantsRegistration`(?,?,?, ?, ?, ?, ?, ?,?, ?, ?)}";
+        String spuName = "{CALL `feedmedb`.`Spu_RestaurantsRegistration`(?,?,?, ?, ?, ?, ?, ?,?, ?,?, ?)}";
         
         try {
            
@@ -50,9 +50,10 @@ public class DBRestaurantsManagement {
             cstmt.setInt(8, deliveryPrice);
             cstmt.setInt(9, minOrder);
             cstmt.setString(10, estimatedTimeDel);
-            cstmt.registerOutParameter(11, java.sql.Types.INTEGER);
+            cstmt.setInt(11, manId);
+            cstmt.registerOutParameter(12, java.sql.Types.INTEGER);
             cstmt.executeUpdate();
-            result = cstmt.getInt(11);
+            result = cstmt.getInt(12);
             
             
             
@@ -84,9 +85,9 @@ public class DBRestaurantsManagement {
      * @param action -  0  - same restaurant name , 1 - rest name has changed
      * @return 1 - if update completed , 2 - if the new rest name already exists
      */
-    public int updateRestaurant(Restaurant rest , int action)
+    public int updateRestaurant(Restaurant rest , int action , int managerId)
     {
-        String spuName = "{CALL feedmedb.Spu_RestaurantsUpdate(?, ?, ?, ?, ?, ?, ?,?,?,?, ?,?)}";
+        String spuName = "{CALL feedmedb.Spu_RestaurantsUpdate(?, ?, ?, ?, ?, ?, ?,?,?,?,?, ?,?)}";
         int result = -1 ;
         Connection c = DbConnector.getInstance().getConn();
          try {
@@ -104,9 +105,10 @@ public class DBRestaurantsManagement {
             cstmt.setInt(9, rest.getDeliveryPrice());
             cstmt.setInt(10,rest.getMinOrder());
             cstmt.setString(11, rest.getEstimatedTimeDel());
-            cstmt.registerOutParameter(12, java.sql.Types.INTEGER);
+            cstmt.setInt(12, managerId);
+            cstmt.registerOutParameter(13, java.sql.Types.INTEGER);
             cstmt.executeUpdate();
-            result = cstmt.getInt(12);
+            result = cstmt.getInt(13);
             
             
             
