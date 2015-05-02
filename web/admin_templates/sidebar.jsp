@@ -10,7 +10,7 @@
         </li>
         <li class="sidebar-title"><span>תפריט</span></li>
         <li class="sidebar-list">
-          <a href="#">דשבורד <span class="menu-icon fa fa-tachometer"></span></a>
+          <a href="${pageContext.request.contextPath}/admin/index.jsp">דשבורד <span class="menu-icon fa fa-tachometer"></span></a>
         </li>
         <li class="sidebar-list">
           <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseTwo" class="collapsed">מסעדות <span class="menu-icon fa fa-university"></span></a>
