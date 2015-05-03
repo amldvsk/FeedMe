@@ -138,4 +138,46 @@ public class DbHPOnLoad {
         
     }
     
+    public List<RestaurantRanking> getRestRandomComments( int numOfComments)
+    {
+        List<RestaurantRanking> restRankingList = new ArrayList<>();
+        con = DbConnector.getInstance().getConn();
+        String spuName = "{CALL feedmedb.Spu_GetRandomComments(?)}";
+        ResultSet rs ;
+        
+        try {
+             cstmt = con.prepareCall(spuName);
+             cstmt.clearParameters();
+             cstmt.setInt(1, numOfComments);
+             rs = cstmt.executeQuery();
+             while(rs.next())
+             {
+                 RestaurantRanking rK = new RestaurantRanking(rs.getInt("restid") , rs.getDouble("rank") , rs.getString("rest_comment"));
+                 restRankingList.add(rK);
+             }
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(DbRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+              try {
+            if(cstmt != null)
+            {
+              
+                    cstmt.close();
+                } 
+            if(con != null)
+            {
+                con.close();
+            }
+              }
+            catch (SQLException ex) {
+                    Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
+        return restRankingList;
+    }
+    
 }
