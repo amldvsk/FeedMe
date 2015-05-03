@@ -1,16 +1,11 @@
 package feedme.controller;
 
-import feedme.model.DbAdminManagmentTools;
-import feedme.model.DbHPOnLoad;
 import feedme.model.DbRestaurantsManagement;
 import feedme.model.Restaurant;
-import feedme.model.User;
 import java.io.File;
 import java.io.IOException;
 //import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -41,25 +36,24 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AddRestaurant</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AddRestaurant at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        DbAdminManagmentTools dbAdminManage = new DbAdminManagmentTools();
-        DbHPOnLoad dbonLoad = new DbHPOnLoad();
-        List<User> managers = dbAdminManage.getAllUsersByRole(1);
-        
-        HashMap<String , Integer > cat = dbonLoad.getCategories();
-        request.setAttribute("managers", managers);
-        request.setAttribute("categories", cat);
-        
-        RequestDispatcher  dispatcher = request.getRequestDispatcher("admin/editResturent.jsp");
-        dispatcher.forward(request, response);
-        
     }   
     /**
     *
@@ -70,13 +64,9 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        request.setCharacterEncoding("UTF-8");
-        
-        
         response.setStatus(HttpServletResponse.SC_OK);
         String action= request.getParameter("action");  
-          
+         RequestDispatcher dispatcher = request.getRequestDispatcher("newjsp.jsp");
          
         //==========### Get parameters from JSP page ##===========
         String newName= request.getParameter("newName"); 
@@ -103,14 +93,14 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
             fileSaveDir.mkdir();
         }
          
-//        for (Part part : request.getParts()) {
-//            String fileName = extractFileName(part);
-//            part.write(savePath + File.separator + fileName);
-//        }
-// 
-//        request.setAttribute("message", "Upload has been done successfully!");
-//        getServletContext().getRequestDispatcher("/message.jsp").forward(
-//                request, response);
+        for (Part part : request.getParts()) {
+            String fileName = extractFileName(part);
+            part.write(savePath + File.separator + fileName);
+        }
+ 
+        request.setAttribute("message", "Upload has been done successfully!");
+        getServletContext().getRequestDispatcher("/message.jsp").forward(
+                request, response);
 
         try{
            Integer.parseInt(minOrder);
@@ -143,8 +133,6 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
             // new restaurant added successfully || restaurant successfully changed
             HttpSession session = request.getSession(true);
             session.setAttribute("Status", true);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/resturents");
-            dispatcher.forward(request, response);
         }  
         else{//2
             //This name is already exists in the database

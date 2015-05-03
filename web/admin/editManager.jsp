@@ -52,6 +52,20 @@
                                  </div>
                               
                             </div>
+                             <div class="form-group clearfix">
+                                 <div class="col-md-4">
+                                    <label for="exampleInputPassword1">כתובת</label>
+                                    <input type="text" class="form-control" name="street" id="exampleInputPassword1" placeholder="כתובת">
+                                 </div>
+                                 <div class="col-md-4">
+                                    <label for="exampleInputPassword1">מספר</label>
+                                    <input type="text" class="form-control" name="streetNum" id="exampleInputPassword1" placeholder="מספר">
+                                 </div>
+                                 <div class="col-md-4">
+                                    <label for="exampleInputPassword1">עיר</label>
+                                    <input type="text" class="form-control" name="city" id="exampleInputPassword1" placeholder="עיר">
+                                 </div>
+                            </div>
                               <input type="hidden" name="role" value="1">
                             <button type="submit" class="btn btn-success">הוסף מנהל</button>
                           </form>
