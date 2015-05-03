@@ -309,7 +309,11 @@ public class DbRestaurantsManagement {
         return restaurants;
     }
     
-    
+    /**
+     * add new ranking to specific restuarant
+     * @param restRank -   RestuarantRanking object
+     * @return 1 - succsess , -2 sql exception
+     */
     public int addRestRanking( RestaurantRanking restRank)
     {
         int result =-1 ;
@@ -348,5 +352,52 @@ public class DbRestaurantsManagement {
         }
         
         return result;
+    }
+    
+    /**
+     * return ranks for specific restuarant
+     * @param restId - restuarant id
+     * @return list of ranking
+     */
+    public List<RestaurantRanking> getRestRank(int restId)
+    {
+        List<RestaurantRanking> restRankingList = new ArrayList<>();
+        con = DbConnector.getInstance().getConn();
+        String spuName = "{CALL feedmedb.Spu_GetRestRanks(?)}";
+        ResultSet rs ;
+        
+        try {
+             cstmt = con.prepareCall(spuName);
+             cstmt.clearParameters();
+             cstmt.setInt(1, restId);
+             rs = cstmt.executeQuery();
+             while(rs.next())
+             {
+                 RestaurantRanking rK = new RestaurantRanking(rs.getInt("restid") , rs.getDouble("rank") , rs.getString("rest_comment"));
+                 restRankingList.add(rK);
+             }
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(DbRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+              try {
+            if(cstmt != null)
+            {
+              
+                    cstmt.close();
+                } 
+            if(con != null)
+            {
+                con.close();
+            }
+              }
+            catch (SQLException ex) {
+                    Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
+        return restRankingList;
     }
 }
