@@ -18,14 +18,15 @@
                     <div class="panel-body">
                       <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
                       <div class="table-responsive">
-                          <form  method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/add-resturent">
+                          <form          enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/add-resturent">
                             <div class="form-group clearfix">
                                 <div class="col-md-8">
                                     <label for="exampleInputEmail1">בעל המסעדה</label>
-                                    <select id="select_admin" class="form-control">
+                                    <select name="managerId" id="select_admin" class="form-control">
                                         <option value="-1">בחר את הבעלים של המסעדה</option>
-                                        <option value="1">משה משה</option>
-                                        <option value="1">משה משה</option>
+                                        <c:forEach var="type"  items="${managers}">
+                                          <option value="${type.getDbId()}">${type.getFullName()}</option>
+                                       </c:forEach>
                                     </select>
                                  </div>
                                 <div class="col-md-4">
@@ -33,6 +34,25 @@
                                     <a href="${pageContext.request.contextPath}/admin/editManager.jsp" class="btn btn-info form-control ">צור בעלים חדשים</a>
                                  </div>
                             </div>
+                            <hr>
+
+                            <div class="form-group clearfix">
+                                <div class="col-md-8">
+                                    <label for="exampleInputEmail1">קטגוריה</label>
+                                    <select name="category" id="select_category" class="form-control">
+                                        <option value="-1">בחר קטגוריה</option>
+                                        <c:forEach var="type"  items="${categories}">
+                                          <option value="${type.value}">${type.key}</option>
+                                       </c:forEach>
+                                    </select>
+                                 </div>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">יצירת קטגוריה</label>
+                                    <a href="${pageContext.request.contextPath}/admin/editManager.jsp" class="btn btn-warning form-control ">יצירת קטגוריה חדשה</a>
+                                 </div>
+                            </div>
+
+
                             <div class="hidden-fileds">
                                 <hr>
                                 <div class="form-group clearfix">
@@ -78,7 +98,7 @@
                                   <label for="exampleInputFile">לוגו</label>
                                   <input type="file" name="logo" id="exampleInputFile">
                                 </div>
-                            
+                                <input type="hidden" value="1" name="action">
                                 <button type="submit" class="btn btn-success">הוסף מסעדה</button>
                             </div>
                           </form>

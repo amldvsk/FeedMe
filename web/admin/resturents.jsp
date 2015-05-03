@@ -25,32 +25,16 @@
                               <th>#</th>
                               <th>שם</th>
                               <th>רחוב</th>
-                              <th>שעת הזמנה</th>
-                              <th>סטטוס</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>בשה משה</td>
-                              <td>מבצע עובדה 51</td>
-                              <td>13/03/15 10:08:00</td>
-                              <td><span class="label label-danger">סטטוס 1</span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>אשה משה</td>
-                              <td>מבצע עובדה 51</td>
-                              <td>13/03/15 10:08:00</td>
-                              <td><span class="label label-success">סטטוס 2</span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>דשה משה</td>
-                              <td>מבצע עובדה 51</td>
-                              <td>13/03/15 10:08:00</td>
-                              <td><span class="label label-info">סטטוס 3</span></td>
-                            </tr>
+                              <c:forEach var="rest"  items="${resturents}">
+                                <tr>
+                                    <th scope="row">${rest.getDbid()}</th>
+                                    <td>${rest.getName()}</td>
+                                    <td>${rest.getStreet()}</td>
+                                  </tr>
+                             </c:forEach>
                           </tbody>
                         </table>
                       </div>
