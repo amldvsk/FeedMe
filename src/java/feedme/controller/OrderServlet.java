@@ -1,8 +1,12 @@
 
 package feedme.controller;
 
+import feedme.model.DbOrderManagement;
+import feedme.model.Item;
+import feedme.model.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,20 +64,41 @@ public class OrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        String[] itemsID = request.getParameterValues("item");
-        String restID = request.getParameter("rest");
-        String street = request.getParameter("st");
-        String houseNum = request.getParameter("house");
-        String apartmentNum = request.getParameter("apartment");
-        String city = request.getParameter("cty");
-        String phone = request.getParameter("phone");
+        request.setCharacterEncoding("UTF-8");
+        int itemid = Integer.parseInt(request.getParameter("itemid"));
+        int restid = Integer.parseInt(request.getParameter("restid"));
 
+        HttpSession session = request.getSession(true);
+        Order cart =(Order)session.getAttribute("shoppingCart");
+        if (cart == null) // No cart already in session
+        {
+            cart = new Order();
+            session.setAttribute("shoppingCart", cart);
+        
+            DbOrderManagement dbOrderManagement = new DbOrderManagement();
+            Item item = dbOrderManagement.getItemById(itemid);
+            if(cart.getRestItemsMap().get(new Integer[]{restid,itemid}) == null)
+            {
+                cart.getRestItemsMap().get(new Integer[]{restid,itemid}).increaseQunatity();
+                cart.getRestItemsMap().put(new Integer[]{restid,itemid},item);
+                
+            }
+            }
+            else
+            {
+                
+                cart.getRestItemsMap().get(new Integer[]{restid,itemid}).increaseQunatity();
+                
+            }
+            
+           
+        request.setAttribute("cart", cart);
+        
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");
+        dispatcher.forward(request, response);
+        
+            
 
-        
-   
-        
-        
         
     }
 
