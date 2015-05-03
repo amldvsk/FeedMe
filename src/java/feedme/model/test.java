@@ -50,6 +50,7 @@ public class test {
         //getRecentRestaurantsByCat();
         //getNextRestaurantsByCat();
         //getItemMenu();
+        getUsersByRoleTest(0);
      
     
     }
@@ -114,7 +115,7 @@ public class test {
         int minOrder =50;
         String estimatedTimeDel = "שעתיים";
     
-        DBRestaurantsManagement rm = new DBRestaurantsManagement();
+        DbRestaurantsManagement rm = new DbRestaurantsManagement();
         int res =  rm.addNewRestaurant(name,catid, phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel ,1);
         System.out.println(res);
     }
@@ -135,7 +136,7 @@ public class test {
         int managerId = 1;
         Restaurant rest = new Restaurant("Kampai", phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel);
         rest.setDbid(8);
-        DBRestaurantsManagement rm = new DBRestaurantsManagement();
+        DbRestaurantsManagement rm = new DbRestaurantsManagement();
         int result = rm.updateRestaurant(rest, 1 , managerId);
         System.out.println(result);
         
@@ -232,7 +233,7 @@ public class test {
     public static  void addNewCatTest()
     {
         String cat = "ביצים";
-        DBRestaurantsManagement rm = new DBRestaurantsManagement();
+        DbRestaurantsManagement rm = new DbRestaurantsManagement();
         int result = rm.addNewCategory(cat);
         System.out.println(result);
     }
@@ -249,7 +250,7 @@ public class test {
     {
         String menuName = "zoooo dugmaaaa";
         int restId = 5;
-        DBMenuManagment dbM = new DBMenuManagment();
+        DbMenuManagment dbM = new DbMenuManagment();
         int result = dbM.addNewMenu(menuName, restId);
         System.out.println(result);
     }
@@ -259,14 +260,14 @@ public class test {
     {
         int menuId = 2 ;
         String menuName = "BallsMenu";
-        DBMenuManagment DBM = new DBMenuManagment();
+        DbMenuManagment DBM = new DbMenuManagment();
         int result = DBM.updateMenuName(menuName, menuId);
         System.out.println(result);
     }
     public static void addNewMenuCatTest()
     {
         String catName = "קינוחים";
-        DBMenuManagment dbM = new DBMenuManagment();
+        DbMenuManagment dbM = new DbMenuManagment();
         int result = dbM.addNewMenuCat(catName);
         System.out.println(result);
     }
@@ -276,7 +277,7 @@ public class test {
     {
         String newCatName = "קינוחים";
         int catId  = 2;
-        DBMenuManagment dbM = new DBMenuManagment();
+        DbMenuManagment dbM = new DbMenuManagment();
         int result = dbM.updateMenuCat(newCatName, catId);
         System.out.println(result);
     }
@@ -291,7 +292,7 @@ public class test {
         int itemRestId = 6;
         int itemMenuId = 2 ;
         
-        DBMenuManagment dbM = new DBMenuManagment();
+        DbMenuManagment dbM = new DbMenuManagment();
         int result = dbM.AddNewMenuItem(itemName, itemPrice, itemDic, imagePath,itemCatId, itemRestId, itemMenuId);
         System.out.println(result);
         
@@ -307,7 +308,7 @@ public class test {
         String itemDic = "סתם שתייה מסריחה";
         String imagePath = null;
         
-        DBMenuManagment dbM = new DBMenuManagment();
+        DbMenuManagment dbM = new DbMenuManagment();
         int result = dbM.updateMenuItem(itemId, itemName, itemPrice, itemDic, imagePath);
         System.out.println(result);
     }
@@ -315,7 +316,7 @@ public class test {
     
     public static void getLatestOrderNumTest()
     {
-         DBOrderManagement DBO = new DBOrderManagement();
+         DbOrderManagement DBO = new DbOrderManagement();
          int orderNum = DBO.setLatestOrderNum();
          System.out.println(orderNum);
     }
@@ -323,7 +324,7 @@ public class test {
     public static void deleteRestTest()
     {
         int restId = 7 ;
-        DBRestaurantsManagement DBR = new DBRestaurantsManagement();
+        DbRestaurantsManagement DBR = new DbRestaurantsManagement();
         int result = DBR.deleteRestaurant(restId);
         System.out.println(result);
     }
@@ -332,7 +333,7 @@ public class test {
     {
         int menuId = 2;
         int itemId = 2;
-        DBMenuManagment dBM = new DBMenuManagment();
+        DbMenuManagment dBM = new DbMenuManagment();
         int result = dBM.deleteItemFromMenu(menuId, itemId);
         System.err.println(result);
     }
@@ -354,7 +355,7 @@ public class test {
     public static void getRecentRestaurantsByCat()
     {
         int catid = 2 ;
-        DBRestaurantsManagement DBRM = new DBRestaurantsManagement();
+        DbRestaurantsManagement DBRM = new DbRestaurantsManagement();
         
         List<Restaurant> lRest = DBRM.getLatestRestaurantsByCat(3, catid);
         for(Restaurant rest : lRest  )
@@ -366,7 +367,7 @@ public class test {
     public static void getNextRestaurantsByCat()
     {
          int catid = 2 ;
-        DBRestaurantsManagement DBRM = new DBRestaurantsManagement();
+        DbRestaurantsManagement DBRM = new DbRestaurantsManagement();
         
         List<Restaurant> lRest = DBRM.getNextRecentRestaurantsByCat(0,6, catid);
         for(Restaurant rest : lRest  )
@@ -378,11 +379,46 @@ public class test {
     public static void getItemMenu()
     {
        int  itemId =2 ;
-       DBOrderManagement dbo = new DBOrderManagement();
+       DbOrderManagement dbo = new DbOrderManagement();
        Item item = dbo.getItemById(itemId);
        if(item != null){
        System.out.println(item.getItemName());}
        else
             System.err.println("Biga Bu Gu La");
+    }
+    
+    
+    public static void getUsersByRoleTest( int role)
+    {
+        
+        DbAdminManagmentTools dbam = new DbAdminManagmentTools();
+        List<User> users = dbam.getAllUsersByRole(role);
+        switch(role)
+        {
+            case 0:
+                
+                for(User user : users)
+                {
+                    Customer cust = (Customer)user;
+                    System.out.println(cust.getbDay());
+                }
+                break;
+            case 1:
+                
+                 for(User user : users)
+                {
+                    Manager mang = (Manager)user;
+                    System.out.println(mang.getFirstName());
+                }
+                break;
+            case 2:
+                 for(User user : users)
+                {
+                    Admin admin = (Admin)user;
+                    System.out.println(admin.getFirstName());
+                }
+                
+                break;
+        }
     }
 }

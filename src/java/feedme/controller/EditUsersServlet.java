@@ -5,7 +5,7 @@
  */
 package feedme.controller;
 
-import feedme.model.DBRestaurantsManagement;
+import feedme.model.DbRestaurantsManagement;
 import feedme.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -68,7 +68,7 @@ public class EditUsersServlet extends HttpServlet {
         String dbId= request.getParameter("dbId");  
         String role= request.getParameter("role");  
         User user = new User(firstName, lastName,  userName, phone, email, Integer.parseInt(role));
-        DBRestaurantsManagement ob= new DBRestaurantsManagement();
+        DbRestaurantsManagement ob= new DbRestaurantsManagement();
         user.setDbId(Integer.parseInt(dbId));
        // int result=updateUser(user);
        // if(result == 1){ 

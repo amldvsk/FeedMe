@@ -5,7 +5,7 @@
  */
 package feedme.controller;
 
-import feedme.model.DBMenuManagment;
+import feedme.model.DbMenuManagment;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -58,7 +58,7 @@ public class AddMenuCategoryServlet extends HttpServlet {
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("newjsp.jsp");
         String MenuCaregoryName= request.getParameter("MenuCaregoryName"); 
-        DBMenuManagment obj = new DBMenuManagment();
+        DbMenuManagment obj = new DbMenuManagment();
         int result =obj.addNewMenuCat(MenuCaregoryName);
         if(result != 0){
             HttpSession session = request.getSession(true);

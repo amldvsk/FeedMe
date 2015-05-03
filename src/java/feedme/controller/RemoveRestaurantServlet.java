@@ -1,6 +1,6 @@
 package feedme.controller;
 
-import feedme.model.DBRestaurantsManagement;
+import feedme.model.DbRestaurantsManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -42,7 +42,7 @@ public class RemoveRestaurantServlet extends HttpServlet {
         String RestaurantId= request.getParameter("id");  // pkid
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("newjsp.jsp");
-        DBRestaurantsManagement ob= new DBRestaurantsManagement();
+        DbRestaurantsManagement ob= new DbRestaurantsManagement();
         //@result tell us if  restaurant was deleted successfully
         /*int result = ob.removeRestaurant(RestaurantId); // remove restaurant by pkid 
         //if error ,need to send session message to adi,elseredirect 

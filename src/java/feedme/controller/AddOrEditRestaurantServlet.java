@@ -1,6 +1,6 @@
 package feedme.controller;
 
-import feedme.model.DBRestaurantsManagement;
+import feedme.model.DbRestaurantsManagement;
 import feedme.model.Restaurant;
 import java.io.File;
 import java.io.IOException;
@@ -112,7 +112,7 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         }
            
         String estimatedTimeDel= request.getParameter("estimatedTimeDel"); 
-        DBRestaurantsManagement ob= new DBRestaurantsManagement();
+        DbRestaurantsManagement ob= new DbRestaurantsManagement();
         int result=0;
         if(Integer.parseInt(action)== 1){// 1=add , 2= edit
             result = ob.addNewRestaurant(newName,Integer.parseInt(category),phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel ,managerId);

@@ -5,7 +5,7 @@
  */
 package feedme.controller;
 
-import feedme.model.DBMenuManagment;
+import feedme.model.DbMenuManagment;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -63,7 +63,7 @@ public class AddOrEditMenuServlet extends HttpServlet {
         String MenuId= request.getParameter("MenuId"); // for edit
         String action= request.getParameter("action");  
         int result=0;
-        DBMenuManagment ob = new DBMenuManagment();
+        DbMenuManagment ob = new DbMenuManagment();
         if(Integer.parseInt(action)== 1){// 1=add , 2= edit
              result = ob.addNewMenu(MenuName, Integer.parseInt(RestaurantId));
         }
