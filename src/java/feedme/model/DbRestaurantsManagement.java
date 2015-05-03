@@ -308,4 +308,45 @@ public class DbRestaurantsManagement {
         
         return restaurants;
     }
+    
+    
+    public int addRestRanking( RestaurantRanking restRank)
+    {
+        int result =-1 ;
+        con = DbConnector.getInstance().getConn();
+        String spuName = "{CALL `feedmedb`.`Spu_AddRestaurantRanking`(?, ?, ?)};";
+        
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, restRank.getRestId());
+            cstmt.setDouble(2, restRank.getRankValue());
+            cstmt.setString(3, restRank.getComment());
+            result = cstmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DbRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
+            result = -2;
+        }
+         finally
+        {
+              try {
+            if(cstmt != null)
+            {
+              
+                    cstmt.close();
+                } 
+            if(con != null)
+            {
+                con.close();
+            }
+              }
+            catch (SQLException ex) {
+                    Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
+        return result;
+    }
 }
