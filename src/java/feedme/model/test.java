@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.eclipse.jdt.internal.compiler.ast.ASTNode;
 
 /**
  *
@@ -31,7 +32,7 @@ public class test {
     {
         
         //encryptTest();
-        //insertUserTest();
+        insertUserTest();
         //insertRestaurantTest();
        //addNewCatTest();
         //deleteUserTest();
@@ -50,7 +51,7 @@ public class test {
         //getRecentRestaurantsByCat();
         //getNextRestaurantsByCat();
         //getItemMenu();
-        getUsersByRoleTest(0);
+        //getUsersByRoleTest(0);
      
     
     }
@@ -58,17 +59,17 @@ public class test {
     {
           User user = null;              
          Date date =  null;
-         String street = "alya";
-         String houseNum = "38";
+         String street = null;//"alya";
+         String houseNum = null;//"38";
          String apartmentNum = null;
          String city = null;
-         String firstName = "אש כרוב ר";//request.getParameter("firstName");
+         String firstName = "שמעון";//request.getParameter("firstName");
          String lastName = "bidf3gfdgton";//request.getParameter("lastName");
-         String userName = "n12345adav";//request.getParameter("userName");
+         String userName = "דיןצםמ";//request.getParameter("userName");
          String pw = "123";//request.getParameter("pw");
          String phone = "1111";//request.getParameter("phone");
-         String email = "df13fg@gf45gmail.com";//request.getParameter("email");
-         int role = 0;//Integer.parseInt(request.getParameter("role"));
+         String email = "d12gf45gmail.com";//request.getParameter("email");
+         int role = 1;//Integer.parseInt(request.getParameter("role"));
          
          
          DbUsersManagement dbUserManagment = new DbUsersManagement();
