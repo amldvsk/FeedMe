@@ -20,9 +20,6 @@ public class Order {
     private String CustomerFullName;
     private String CustomerPhonenum;
     private String CustomerAdress;
-    private int status;
-
-   
 
     public Order(int orderCustomerId, String CustomerFullName, String CustomerPhonenum) {
         this.orderCustomerId = orderCustomerId;
@@ -85,13 +82,7 @@ public class Order {
     }
 
    
-     public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
+    
     
     
     
