@@ -94,6 +94,7 @@ public class UserRegistrationServlet extends HttpServlet {
          
          DbUsersManagement dbUserManagment = new DbUsersManagement();
          int result = dbUserManagment.addNewUser(firstName,lastName,userName,pw,phone,email,role,d,street,houseNum,apartmentNum,city);
+         RequestDispatcher dispatcher = null;
          if(result == 2)
          {
             
@@ -101,18 +102,21 @@ public class UserRegistrationServlet extends HttpServlet {
              {
                  case 0:
                       user  = (Customer)dbUserManagment.getUserByUserName(userName);
+                      dispatcher = request.getRequestDispatcher("website/profile.jsp");
                      break;
                  case 1:
                       user  = (Manager)dbUserManagment.getUserByUserName(userName);
+                      dispatcher = request.getRequestDispatcher("manager/index.jsp");
                      break;
                  case 2:
                        user  = (Admin)dbUserManagment.getUserByUserName(userName);
+                       dispatcher = request.getRequestDispatcher("admin/index.jsp");
                         break;
              }
              request.setAttribute("user", user);
         
              //response.sendRedirect("website/success.jsp");
-             RequestDispatcher dispatcher = request.getRequestDispatcher("website/profile.jsp");
+             
             dispatcher.forward(request, response);
             
          }
