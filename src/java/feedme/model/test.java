@@ -422,4 +422,10 @@ public class test {
                 break;
         }
     }
+    
+    
+    public static void getRestRank()
+    {
+        
+    }
 }
