@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.IOException;
 //import java.io.InputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -36,11 +39,11 @@ import javax.servlet.http.Part;
                  maxRequestSize=1024*1024*50)   // 50MB
 public class AddOrEditRestaurantServlet extends HttpServlet {
 
-    private static final String SAVE_DIR = "Uploads";
+        private static final String SAVE_DIR = "/assets/Uploads";
+        private String fileName;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
     }
 
@@ -83,7 +86,7 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         String correntName= request.getParameter("correntName"); 
         String phone= request.getParameter("phone"); 
         String category= request.getParameter("category"); 
-        String logo= request.getParameter("logo"); 
+   
         String street= request.getParameter("street"); 
         String streetNum= request.getParameter("streetNum"); 
         String city= request.getParameter("city"); 
@@ -91,26 +94,49 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         String minOrder= request.getParameter("minOrder");    
         int managerId = Integer.parseInt(request.getParameter("managerId"));
          
-        //==========### File(logo) uploading to server ##===========
+       //==========### File(logo) uploading to server ##===========
+        //Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+       // String fileName = filePart.getSubmittedFileName();
+        String appPath = getServletConfig().getServletContext().getRealPath("/");
+        //System.out.println("##########"+);
+        //==================================
+        String RealPath = request.getServletContext().getRealPath("/Uploads");
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Calendar cal = Calendar.getInstance();
         // gets absolute path of the web application
-        String appPath = "C:\\Users\\User\\Documents\\NetBeansProjects\\FeedMe\\web\\assets";//request.getServletContext().getRealPath("");
+        //request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
-        String savePath = appPath + File.separator + SAVE_DIR;
+        String SaveLogoPath = appPath + File.separator + SAVE_DIR;
          
         // creates the save directory if it does not exists
-        File fileSaveDir = new File(savePath);
+        File fileSaveDir = new File(SaveLogoPath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
+        }                 
+        for (Part part : request.getParts()) {
+             fileName = extractFileName(part);
+            part.write(SaveLogoPath + File.separator + fileName);
+        }               
+        File currentImageName = new File(RealPath+fileName);
+        //check File Type
+        //String contentType = getServletContext().getMimeType(fileName);
+        
+        if(getFileExtension(currentImageName).equals("jpg")){
+            currentImageName.renameTo(new File(RealPath+dateFormat.format(cal.getTime())+".jpg"));
+        
+        }else if (getFileExtension(currentImageName).equals("png")){
+            currentImageName.renameTo(new File(RealPath+dateFormat.format(cal.getTime())+".png"));
         }
-         
-//        for (Part part : request.getParts()) {
-//            String fileName = extractFileName(part);
-//            part.write(savePath + File.separator + fileName);
-//        }
-// 
-//        request.setAttribute("message", "Upload has been done successfully!");
-//        getServletContext().getRequestDispatcher("/message.jsp").forward(
-//                request, response);
+        else{
+            request.setAttribute("message", "Error,the file type shuld by .png or .jpg only !! " );
+            getServletContext().getRequestDispatcher("/message.jsp").forward(request, response);
+            currentImageName.delete();
+
+        }
+        
+        request.setAttribute("message", "OK");
+        getServletContext().getRequestDispatcher("/message.jsp").forward(
+                request, response);    
 
         try{
            Integer.parseInt(minOrder);
@@ -125,9 +151,9 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         DbRestaurantsManagement ob= new DbRestaurantsManagement();
         int result=0;
         if(Integer.parseInt(action)== 1){// 1=add , 2= edit
-            result = ob.addNewRestaurant(newName,Integer.parseInt(category),phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel ,managerId);
+            result = ob.addNewRestaurant(newName,Integer.parseInt(category),phone,fileName,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel ,managerId);
         }else if(Integer.parseInt(action)== 2){
-            Restaurant res =  new Restaurant(correntName,phone,logo,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
+            Restaurant res =  new Restaurant(correntName,phone,fileName,street,streetNum,city,Integer.parseInt(deliveryPrice),Integer.parseInt(minOrder),estimatedTimeDel);
             if(correntName.equals(newName)==true) 
                 result = ob.updateRestaurant(res,0 , managerId);  
             else
@@ -165,6 +191,12 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
             }
         }
         return "";
+    }
+    private static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+        return fileName.substring(fileName.lastIndexOf(".")+1);
+        else return "";
     }
     @Override
     public String getServletInfo() {

@@ -89,6 +89,8 @@ public class WelcomePage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+                request.setCharacterEncoding("UTF-8");
+
         HashMap<Integer,String> cat = null;
         
 
