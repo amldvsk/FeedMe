@@ -23,6 +23,7 @@
                           <thead>
                             <tr>
                               <th>#</th>
+                              <th>לוגו</th>
                               <th>שם</th>
                               <th>רחוב</th>
                             </tr>
@@ -31,6 +32,7 @@
                               <c:forEach var="rest"  items="${resturents}">
                                 <tr>
                                     <th scope="row">${rest.getDbid()}</th>
+                                    <td><img src="${pageContext.request.contextPath}/assets/Uploads/${rest.getLogo()}" class="img-rounded" width="60" height="60"></td>
                                     <td>${rest.getName()}</td>
                                     <td>${rest.getStreet()}</td>
                                   </tr>

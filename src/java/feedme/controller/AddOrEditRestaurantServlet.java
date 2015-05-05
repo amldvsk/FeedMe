@@ -100,49 +100,31 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         String appPath = getServletConfig().getServletContext().getRealPath("/");
         //System.out.println("##########"+);
         //==================================
-        String RealPath = request.getServletContext().getRealPath("/Uploads");
+        String RealPath = request.getServletContext().getRealPath("/assets/Uploads/");
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Calendar cal = Calendar.getInstance();
         // gets absolute path of the web application
         //request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
-        String SaveLogoPath = appPath + File.separator + SAVE_DIR;
+        String SaveLogoPath = appPath + File.separator + SAVE_DIR + File.separator;
          
         // creates the save directory if it does not exists
         File fileSaveDir = new File(SaveLogoPath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
         }                 
-        for (Part part : request.getParts()) {
-             fileName = extractFileName(part);
-            part.write(SaveLogoPath + File.separator + fileName);
-        }               
-        File currentImageName = new File(RealPath+fileName);
-        //check File Type
-        //String contentType = getServletContext().getMimeType(fileName);
+        Part part = request.getPart("logo");
+        String originalFileName = extractFileName(part);
+        fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(cal.getTime())+"."+getFileExtension(originalFileName);
+        part.write(SaveLogoPath + File.separator + fileName);
         
-        if(getFileExtension(currentImageName).equals("jpg")){
-            currentImageName.renameTo(new File(RealPath+dateFormat.format(cal.getTime())+".jpg"));
-        
-        }else if (getFileExtension(currentImageName).equals("png")){
-            currentImageName.renameTo(new File(RealPath+dateFormat.format(cal.getTime())+".png"));
-        }
-        else{
-            request.setAttribute("message", "Error,the file type shuld by .png or .jpg only !! " );
-            getServletContext().getRequestDispatcher("/message.jsp").forward(request, response);
-            currentImageName.delete();
-
-        }
         
         request.setAttribute("message", "OK");
-        getServletContext().getRequestDispatcher("/message.jsp").forward(
-                request, response);    
-
+           
         try{
            Integer.parseInt(minOrder);
             Integer.parseInt(deliveryPrice);
             Integer.parseInt(category);
-
         }catch(ClassCastException e){
             e.printStackTrace();
         }
@@ -169,8 +151,7 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
             // new restaurant added successfully || restaurant successfully changed
             HttpSession session = request.getSession(true);
             session.setAttribute("Status", true);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/resturents");
-            dispatcher.forward(request, response);
+            response.sendRedirect("/resturents");
         }  
         else{//2
             //This name is already exists in the database
@@ -192,8 +173,7 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         }
         return "";
     }
-    private static String getFileExtension(File file) {
-        String fileName = file.getName();
+    private static String getFileExtension(String fileName) {        
         if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
         return fileName.substring(fileName.lastIndexOf(".")+1);
         else return "";
