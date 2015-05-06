@@ -6,7 +6,11 @@
 package feedme.model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -21,7 +25,7 @@ public class Order {
     private String CustomerPhonenum;
     private String CustomerAdress;
     private int status;
-
+    protected JSONObject orederObject;
    
 
     public Order(int orderCustomerId, String CustomerFullName, String CustomerPhonenum) {
@@ -94,5 +98,25 @@ public class Order {
     }
     
     
+    
+    public JSONObject toJson() throws JSONException {
+        
+        orederObject = new JSONObject();
+        orederObject.put("order", new JSONObject());
+        
+        JSONObject orObj = orederObject.getJSONObject("order");
+        orObj.put("orderId", getOrderId());
+        orObj.put("orderCustomerId", getOrderId());
+        orObj.put("CustomerFullName", getCustomerFullName());
+        orObj.put("CustomerPhonenum", getCustomerPhonenum());
+        orObj.put("CustomerAdress", getCustomerAdress());
+        orObj.put("status", getStatus());
+        orObj.put("restItemsMap", new JSONArray());
+        JSONArray restItemsArray = orObj.getJSONArray("restItemsMap");
+        for( Item item : getRestItemsMap().values() ) {
+            restItemsArray.put(item.toJson());
+        }
+        return orederObject;
+    }
     
 }

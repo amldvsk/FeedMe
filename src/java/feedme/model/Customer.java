@@ -21,6 +21,7 @@ public class Customer extends User{
     private String houseNum;
     private String apartNum;
     private String city;
+    protected JSONObject theUser;
     
     public Customer(String firstName, String lastName, String userName,  String phone, String email, int role
     ,Date bDay , String street , String houseNum, String apartNum ,String city) {
@@ -76,7 +77,7 @@ public class Customer extends User{
     @Override
     public JSONObject toJson() throws JSONException {
         super.toJson();
-        JSONObject theUser = jsonUser.getJSONObject("User");
+        theUser = jsonUser.getJSONObject("User");
         theUser.put("date", bDay);
         theUser.put("street", street);
         theUser.put("houseNum", street);

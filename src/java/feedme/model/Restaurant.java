@@ -5,6 +5,9 @@
  */
 package feedme.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  *
  * @author NadavBismuth
@@ -21,7 +24,7 @@ public class Restaurant {
     private int minOrder;
     private String estimatedTimeDel;
     private int dbid;
-
+    protected JSONObject resturentObject;
     
 
     public Restaurant(String name, String phone, String logo, String street, String streetNum, String city, int deliveryPrice, int minOrder, String estimatedTimeDel) {
@@ -117,6 +120,24 @@ public class Restaurant {
 
     public void setDbid(int dbid) {
         this.dbid = dbid;
+    }
+    
+    
+    private JSONObject toJson() throws JSONException {
+        resturentObject = new JSONObject();
+        resturentObject.put("resturent", new JSONObject());
+        JSONObject restOgj = resturentObject.getJSONObject("resturent");
+        restOgj.put("name", getName());
+        restOgj.put("phone", getPhone());
+        restOgj.put("logo", getLogo());
+        restOgj.put("street", getStreet());
+        restOgj.put("streetNum", getStreetNum());
+        restOgj.put("city", getCity());
+        restOgj.put("deliveryPrice", getDeliveryPrice());
+        restOgj.put("minOrder", getMinOrder());
+        restOgj.put("estimatedTimeDel", getEstimatedTimeDel());
+        restOgj.put("dbid", getDbid());
+        return resturentObject;
     }
     
 }

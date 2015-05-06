@@ -5,6 +5,9 @@
  */
 package feedme.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  *
  * @author NadavBismuth
@@ -17,6 +20,7 @@ public class Item {
     private String itemDescription;
     private String itemImagePath;
     private int quantity;
+    protected JSONObject itemObject;
 
     public Item(String itemName, double itemPrice, String itemDescription, String itemImagePath) {
         this.itemName = itemName;
@@ -88,6 +92,18 @@ public class Item {
         {
             System.out.println("Fuck Off");
         }
+    }
+    
+    public JSONObject toJson() throws JSONException {
+        itemObject = new JSONObject();
+        itemObject.put("item", new JSONObject()
+                .put("itemID", getItemID())
+                .put("itemPrice", getItemID())
+                .put("itemDescription", getItemID())
+                .put("itemImagePath", getItemID())
+                .put("quantity", getItemID())
+        );
+        return itemObject;
     }
     
     
