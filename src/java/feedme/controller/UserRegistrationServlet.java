@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONException;
 
 
 @WebServlet(name = "UserRegistrationServlet", urlPatterns = {"/registration"})
@@ -118,6 +119,14 @@ public class UserRegistrationServlet extends HttpServlet {
              //response.sendRedirect("website/success.jsp");
              
             dispatcher.forward(request, response);
+            
+//            PrintWriter out = response.getWriter();
+//            response.setContentType("application/json;charset=UTF-8");
+//            try {
+//                out.print(user.toJson());
+//            } catch (JSONException ex) {
+//                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            }
             
          }
          else
