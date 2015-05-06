@@ -56,7 +56,7 @@
           $('#select_category').empty();
           $('#select_category').append('<option value="-1">בחר קטגוריה</option>');
           $.each(msg.categories, function(id, value) {
-            $('#select_category').append('<option value="'+id.cat_id+'">'+value.cat_name+'</option>');
+            $('#select_category').append('<option value="'+value.cat_id+'">'+value.cat_name+'</option>');
           });
 
           if(msg.status == true) {
