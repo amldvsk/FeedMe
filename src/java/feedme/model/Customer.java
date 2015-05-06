@@ -7,6 +7,8 @@ package feedme.model;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -19,6 +21,7 @@ public class Customer extends User{
     private String houseNum;
     private String apartNum;
     private String city;
+    protected JSONObject theUser;
     
     public Customer(String firstName, String lastName, String userName,  String phone, String email, int role
     ,Date bDay , String street , String houseNum, String apartNum ,String city) {
@@ -71,5 +74,16 @@ public class Customer extends User{
     }
     
     
+    @Override
+    public JSONObject toJson() throws JSONException {
+        super.toJson();
+        jsonUser.put("date", bDay);
+        jsonUser.put("street", street);
+        jsonUser.put("houseNum", street);
+        jsonUser.put("apartNum", street);
+        jsonUser.put("street", street);
+        jsonUser.put("city", street);
+        return jsonUser;
+    }
     
 }

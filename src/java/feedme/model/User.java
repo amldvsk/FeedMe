@@ -5,6 +5,10 @@
  */
 package feedme.model;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  *
  * @author NadavBismuth
@@ -18,6 +22,7 @@ public class User {
     private String email;
     private int role;
     private int dbId;
+    protected JSONObject jsonUser;
     
     public User(String firstName, String lastName, String userName, String phone, String email, int role) {
         this.firstName = firstName;
@@ -94,7 +99,17 @@ public class User {
     }
     
     
-   
+   public JSONObject toJson() throws JSONException {
+       jsonUser = new JSONObject();
+       jsonUser.put("firstName", getFirstName());
+       jsonUser.put("lastName", getLastName());
+       jsonUser.put("userName", getUserName());
+       jsonUser.put("phone", getPhone());
+       jsonUser.put("email", getEmail());
+       jsonUser.put("role", getRole());
+       jsonUser.put("role", getDbId());
+       return jsonUser;
+   }
 
     
 }

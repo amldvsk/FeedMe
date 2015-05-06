@@ -5,6 +5,9 @@
  */
 package feedme.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  *
  * @author NadavBismuth
@@ -15,7 +18,7 @@ public class RestaurantRanking {
     private int restId;
     private Double rankValue ; 
     private String comment;
-
+    protected JSONObject rankObject;
     
     
     
@@ -60,6 +63,16 @@ public class RestaurantRanking {
         this.comment = comment;
     }
     
+    
+    public JSONObject toJson() throws JSONException {
+        rankObject = new JSONObject();
+
+        rankObject.put("rankId", getRankId());
+        rankObject.put("restId", getRestId());
+        rankObject.put("rankValue", getRankValue());
+        rankObject.put("comment", getComment());
+        return rankObject;
+    }
 
    
     
