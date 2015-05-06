@@ -42,7 +42,7 @@
     </servlet>
     <servlet>
         <servlet-name>AddOrDeleteCategory</servlet-name>
-        <servlet-class>feedme.controller.AddOrDeleteCategory</servlet-class>
+        <servlet-class>feedme.controller.AddOrDeleteCategoryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CustomerRegistrationServlet</servlet-name>
@@ -89,7 +89,7 @@
         <url-pattern>/resturents</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddOrDeleteCategory</servlet-name>
+        <servlet-name>AddOrDeleteCategoryServlet</servlet-name>
         <url-pattern>/add-resturent-category</url-pattern>
     </servlet-mapping>
     <session-config>

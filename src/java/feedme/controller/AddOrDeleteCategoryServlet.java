@@ -26,13 +26,13 @@ import org.json.JSONObject;
  *
  * @author david
  */
-@WebServlet(name = "AddOrDeleteCategory", urlPatterns = {"/add-resturent-category"})
-public class AddOrDeleteCategory extends HttpServlet {
+@WebServlet(name = "AddOrDeleteCategoryServlet", urlPatterns = {"/add-resturent-category"})
+public class AddOrDeleteCategoryServlet extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setCharacterEncoding("UTF-8");
     }
    
     @Override
@@ -53,14 +53,14 @@ public class AddOrDeleteCategory extends HttpServlet {
                     JSONObject catObj = new JSONObject();
                     JSONArray catArray = new JSONArray();
                     for(Entry<String , Integer> entry : cat.entrySet()) {
-                        catArray.put(new JSONObject().put(entry.getValue().toString(), entry.getKey()));
+                        catArray.put(new JSONObject().put("cat_id", entry.getValue()).put("cat_name", entry.getKey()));
                     }
                     catObj.put("categories", catArray);
-                    
-                    response.setContentType("application/json;charset=UTF-8");
-                    response.setCharacterEncoding("UTF-8");
+                    catObj.put("status", true);
+                    response.setContentType("application/json");
                     PrintWriter writer = response.getWriter();
                     writer.print(catObj);
+                    response.getWriter().flush();
                 } catch( JSONException e ) {
                     e.printStackTrace();
                 }

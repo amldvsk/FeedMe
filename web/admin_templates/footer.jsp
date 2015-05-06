@@ -43,7 +43,6 @@
       $('#addCategoryForm').on('submit', function() {
         var url = $(this).attr('action');
         var dataCat = $(this).serialize();
-        console.log(dataCat);
         var request = $.ajax({
           url: url,
           type: "POST",
@@ -53,7 +52,16 @@
 
         request.done(function(msg) {
           console.log(msg);
-          // location.reload();
+          $('#addCategoryForm')[0].reset();
+          $('#select_category').empty();
+          $('#select_category').append('<option value="-1">בחר קטגוריה</option>');
+          $.each(msg.categories, function(id, value) {
+            $('#select_category').append('<option value="'+id.cat_id+'">'+value.cat_name+'</option>');
+          });
+
+          if(msg.status == true) {
+            $('.add-category-model').modal('hide');
+          }
         });
 
         request.fail(function(jqXHR, textStatus) {
