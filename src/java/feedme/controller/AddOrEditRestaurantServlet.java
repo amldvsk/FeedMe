@@ -23,11 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-//import org.apache.tomcat.util.http.fileupload.FileItemIterator;
-//import org.apache.tomcat.util.http.fileupload.FileItemStream;
-//import org.apache.tomcat.util.http.fileupload.FileUploadBase;
-//import org.apache.tomcat.util.http.fileupload.FileUploadException;
-//import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -92,35 +87,8 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         String city= request.getParameter("city"); 
         String deliveryPrice= request.getParameter("deliveryPrice"); 
         String minOrder= request.getParameter("minOrder");    
-        int managerId = Integer.parseInt(request.getParameter("managerId"));
-         
-       //==========### File(logo) uploading to server ##===========
-        //Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-       // String fileName = filePart.getSubmittedFileName();
-        String appPath = getServletConfig().getServletContext().getRealPath("/");
-        //System.out.println("##########"+);
-        //==================================
-        String RealPath = request.getServletContext().getRealPath("/assets/Uploads/");
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        Calendar cal = Calendar.getInstance();
-        // gets absolute path of the web application
-        //request.getServletContext().getRealPath("");
-        // constructs path of the directory to save uploaded file
-        String SaveLogoPath = appPath + File.separator + SAVE_DIR + File.separator;
-         
-        // creates the save directory if it does not exists
-        File fileSaveDir = new File(SaveLogoPath);
-        if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdir();
-        }                 
-        Part part = request.getPart("logo");
-        String originalFileName = extractFileName(part);
-        fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(cal.getTime())+"."+getFileExtension(originalFileName);
-        part.write(SaveLogoPath + File.separator + fileName);
-        
-        
-        request.setAttribute("message", "OK");
-           
+        int managerId = Integer.parseInt(request.getParameter("managerId"));                      
+        uploadLogoToServer(request);//==========### File(logo) uploading to server ##===========   
         try{
            Integer.parseInt(minOrder);
             Integer.parseInt(deliveryPrice);
@@ -160,6 +128,16 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         }
     }
    
+    
+    private static String getFileExtension(String fileName) {        
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+        return fileName.substring(fileName.lastIndexOf(".")+1);
+        else return "";
+    }
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
     /**
      * Extracts file name from HTTP header content-disposition
      */
@@ -173,14 +151,20 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         }
         return "";
     }
-    private static String getFileExtension(String fileName) {        
-        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
-        return fileName.substring(fileName.lastIndexOf(".")+1);
-        else return "";
-    }
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private void uploadLogoToServer(HttpServletRequest request) throws IOException, ServletException {
+        String appPath = getServletConfig().getServletContext().getRealPath("/");
+        
+        Calendar cal = Calendar.getInstance();       
+        String SaveLogoPath = appPath + File.separator + SAVE_DIR + File.separator;         
+        // creates the save directory if it does not exists
+        File fileSaveDir = new File(SaveLogoPath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdir();
+        }                 
+        Part part = request.getPart("logo");
+        String originalFileName = extractFileName(part);
+        fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(cal.getTime())+"."+getFileExtension(originalFileName);
+        part.write(SaveLogoPath + File.separator + fileName);               
+        request.setAttribute("message", "OK");    }
 
 }

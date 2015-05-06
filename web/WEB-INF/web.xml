@@ -40,6 +40,10 @@
         <servlet-name>AEODMenuItemServlet</servlet-name>
         <servlet-class>feedme.controller.AddOrEditMenuItemServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddOrDeleteCategory</servlet-name>
+        <servlet-class>feedme.controller.AddOrDeleteCategory</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CustomerRegistrationServlet</servlet-name>
         <url-pattern>/CustomerRegistrationServlet</url-pattern>
@@ -83,6 +87,10 @@
     <servlet-mapping>
         <servlet-name>ResturentsServlet</servlet-name>
         <url-pattern>/resturents</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddOrDeleteCategory</servlet-name>
+        <url-pattern>/AddOrDeleteCategory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
