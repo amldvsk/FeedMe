@@ -125,18 +125,16 @@ public class Restaurant {
     
     private JSONObject toJson() throws JSONException {
         resturentObject = new JSONObject();
-        resturentObject.put("resturent", new JSONObject());
-        JSONObject restOgj = resturentObject.getJSONObject("resturent");
-        restOgj.put("name", getName());
-        restOgj.put("phone", getPhone());
-        restOgj.put("logo", getLogo());
-        restOgj.put("street", getStreet());
-        restOgj.put("streetNum", getStreetNum());
-        restOgj.put("city", getCity());
-        restOgj.put("deliveryPrice", getDeliveryPrice());
-        restOgj.put("minOrder", getMinOrder());
-        restOgj.put("estimatedTimeDel", getEstimatedTimeDel());
-        restOgj.put("dbid", getDbid());
+        resturentObject.put("name", getName());
+        resturentObject.put("phone", getPhone());
+        resturentObject.put("logo", getLogo());
+        resturentObject.put("street", getStreet());
+        resturentObject.put("streetNum", getStreetNum());
+        resturentObject.put("city", getCity());
+        resturentObject.put("deliveryPrice", getDeliveryPrice());
+        resturentObject.put("minOrder", getMinOrder());
+        resturentObject.put("estimatedTimeDel", getEstimatedTimeDel());
+        resturentObject.put("dbid", getDbid());
         return resturentObject;
     }
     

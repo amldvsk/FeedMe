@@ -102,17 +102,14 @@ public class Order {
     public JSONObject toJson() throws JSONException {
         
         orederObject = new JSONObject();
-        orederObject.put("order", new JSONObject());
-        
-        JSONObject orObj = orederObject.getJSONObject("order");
-        orObj.put("orderId", getOrderId());
-        orObj.put("orderCustomerId", getOrderId());
-        orObj.put("CustomerFullName", getCustomerFullName());
-        orObj.put("CustomerPhonenum", getCustomerPhonenum());
-        orObj.put("CustomerAdress", getCustomerAdress());
-        orObj.put("status", getStatus());
-        orObj.put("restItemsMap", new JSONArray());
-        JSONArray restItemsArray = orObj.getJSONArray("restItemsMap");
+        orederObject.put("orderId", getOrderId());
+        orederObject.put("orderCustomerId", getOrderId());
+        orederObject.put("CustomerFullName", getCustomerFullName());
+        orederObject.put("CustomerPhonenum", getCustomerPhonenum());
+        orederObject.put("CustomerAdress", getCustomerAdress());
+        orederObject.put("status", getStatus());
+        orederObject.put("restItemsMap", new JSONArray());
+        JSONArray restItemsArray = orederObject.getJSONArray("restItemsMap");
         for( Item item : getRestItemsMap().values() ) {
             restItemsArray.put(item.toJson());
         }

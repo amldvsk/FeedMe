@@ -96,13 +96,11 @@ public class Item {
     
     public JSONObject toJson() throws JSONException {
         itemObject = new JSONObject();
-        itemObject.put("item", new JSONObject()
-                .put("itemID", getItemID())
-                .put("itemPrice", getItemID())
-                .put("itemDescription", getItemID())
-                .put("itemImagePath", getItemID())
-                .put("quantity", getItemID())
-        );
+        itemObject.put("itemID", getItemID());
+        itemObject.put("itemPrice", getItemID());
+        itemObject.put("itemDescription", getItemID());
+        itemObject.put("itemImagePath", getItemID());
+        itemObject.put("quantity", getItemID());
         return itemObject;
     }
     

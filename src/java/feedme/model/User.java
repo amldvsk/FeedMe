@@ -101,15 +101,13 @@ public class User {
     
    public JSONObject toJson() throws JSONException {
        jsonUser = new JSONObject();
-       jsonUser.put("User", new JSONObject());
-       JSONObject theUser = jsonUser.getJSONObject("User");
-       theUser.put("firstName", getFirstName());
-       theUser.put("lastName", getLastName());
-       theUser.put("userName", getUserName());
-       theUser.put("phone", getPhone());
-       theUser.put("email", getEmail());
-       theUser.put("role", getRole());
-       theUser.put("role", getDbId());
+       jsonUser.put("firstName", getFirstName());
+       jsonUser.put("lastName", getLastName());
+       jsonUser.put("userName", getUserName());
+       jsonUser.put("phone", getPhone());
+       jsonUser.put("email", getEmail());
+       jsonUser.put("role", getRole());
+       jsonUser.put("role", getDbId());
        return jsonUser;
    }
 

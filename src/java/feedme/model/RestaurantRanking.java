@@ -66,12 +66,11 @@ public class RestaurantRanking {
     
     public JSONObject toJson() throws JSONException {
         rankObject = new JSONObject();
-        rankObject.put("rank", new JSONObject()
-                .put("rankId", getRankId())
-                .put("restId", getRestId())
-                .put("rankValue", getRankValue())
-                .put("comment", getComment())
-        );
+
+        rankObject.put("rankId", getRankId());
+        rankObject.put("restId", getRestId());
+        rankObject.put("rankValue", getRankValue());
+        rankObject.put("comment", getComment());
         return rankObject;
     }
 

@@ -77,13 +77,12 @@ public class Customer extends User{
     @Override
     public JSONObject toJson() throws JSONException {
         super.toJson();
-        theUser = jsonUser.getJSONObject("User");
-        theUser.put("date", bDay);
-        theUser.put("street", street);
-        theUser.put("houseNum", street);
-        theUser.put("apartNum", street);
-        theUser.put("street", street);
-        theUser.put("city", street);
+        jsonUser.put("date", bDay);
+        jsonUser.put("street", street);
+        jsonUser.put("houseNum", street);
+        jsonUser.put("apartNum", street);
+        jsonUser.put("street", street);
+        jsonUser.put("city", street);
         return jsonUser;
     }
     
