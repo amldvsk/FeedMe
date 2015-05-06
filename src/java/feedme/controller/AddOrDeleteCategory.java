@@ -5,36 +5,34 @@
  */
 package feedme.controller;
 
+import feedme.model.DbHPOnLoad;
 import feedme.model.DbRestaurantsManagement;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
  * @author david
  */
+@WebServlet(name = "AddOrDeleteCategory", urlPatterns = {"/add-resturent-category"})
 public class AddOrDeleteCategory extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddOrDeleteCategory</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddOrDeleteCategory at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
    
     @Override
@@ -46,19 +44,30 @@ public class AddOrDeleteCategory extends HttpServlet {
         String CategoryName= request.getParameter("categoryName");
         DbRestaurantsManagement ob= new DbRestaurantsManagement();
         int result = ob.addNewCategory(CategoryName);
-        /*if (result == 1){
+        PrintWriter out = response.getWriter();
+        if (result == 1){
             if(isAjax(request) == true){ // Stay in the same page, and sand json message
-                response.setContentType("application/json");
-               PrintWriter out = response.getWriter();
-                JSONObject jsonObj = (JSONObject) JSONValue.parse(request.getParameter("para"));
-                System.out.println(jsonObj.get("message"));
-                JSONObject obj = new JSONObject();
-                obj.put("message", "hello from server");
-                out.print(obj);
+               
+                try {
+                    HashMap<String , Integer > cat = new DbHPOnLoad().getCategories();
+                    JSONObject catObj = new JSONObject();
+                    JSONArray catArray = new JSONArray();
+                    for(Entry<String , Integer> entry : cat.entrySet()) {
+                        catArray.put(new JSONObject().put(entry.getValue().toString(), entry.getKey()));
+                    }
+                    catObj.put("categories", catArray);
+                    
+                    response.setContentType("application/json;charset=UTF-8");
+                    response.setCharacterEncoding("UTF-8");
+                    PrintWriter writer = response.getWriter();
+                    writer.print(catObj);
+                } catch( JSONException e ) {
+                    e.printStackTrace();
+                }
             }else{ // redirect to othe page
                 
             }
-        }*/
+        }
     }
   
     @Override

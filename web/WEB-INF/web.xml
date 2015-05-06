@@ -90,7 +90,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddOrDeleteCategory</servlet-name>
-        <url-pattern>/AddOrDeleteCategory</url-pattern>
+        <url-pattern>/add-resturent-category</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

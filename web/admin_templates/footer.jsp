@@ -37,5 +37,33 @@
     });
 
   </script>
+  
+  <script>
+      
+      $('#addCategoryForm').on('submit', function() {
+        var url = $(this).attr('action');
+        var dataCat = $(this).serialize();
+        console.log(dataCat);
+        var request = $.ajax({
+          url: url,
+          type: "POST",
+          contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+          data: dataCat,
+        });
+
+        request.done(function(msg) {
+          console.log(msg);
+          // location.reload();
+        });
+
+        request.fail(function(jqXHR, textStatus) {
+          console.log( "Request failed: " + textStatus );
+        });
+
+        return false;
+      });
+      
+  </script>
+  
 </body>
 </html>

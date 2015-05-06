@@ -48,7 +48,7 @@
                                  </div>
                                 <div class="col-md-4">
                                     <label for="exampleInputEmail1">יצירת קטגוריה</label>
-                                    <a href="${pageContext.request.contextPath}/admin/editManager.jsp" class="btn btn-warning form-control ">יצירת קטגוריה חדשה</a>
+                                    <a href="#" data-toggle="modal" data-target=".add-category-model" class="btn btn-warning form-control ">יצירת קטגוריה חדשה</a>
                                  </div>
                             </div>
 
@@ -114,6 +114,27 @@
          
 
         </div>
+        
+    <div class="modal fade add-category-model" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+       <div class="modal-dialog">
+         <div class="modal-content">
 
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:left" ><span aria-hidden="true">×</span></button>
+              <h4 class="modal-title" id="mySmallModalLabel">הוספת קטגוריה<a class="anchorjs-link" href="#mySmallModalLabel"><span class="anchorjs-icon"></span></a></h4>
+            </div>
+            <form class="form" action="${pageContext.request.contextPath}/add-resturent-category" method="POST" id="addCategoryForm">
+              <div class="modal-body">
+                  <div class="form-group">
+                      <input type="text" name="categoryName"  class="form-control" id="inputEmail3" placeholder="פיצה, סושי, סטקייה">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">צור קטגוריה</button>
+              </div>
+            </form>
+          </div>
+       </div>
+     </div>
       
   <%@include file='../admin_templates/footer.jsp'%>
