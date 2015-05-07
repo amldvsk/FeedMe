@@ -53,6 +53,28 @@
         <h2>מסעדות חדשות שנוספו</h2>
         <div class="sub-section">
           <ul class="list-inline rests">
+            <c:forEach var="rest" items="${restaurants}">
+                <li class="rest">
+                  <div class="rest-logo">
+                    <img src="${rest.getLogo()}" alt="placeholder+image">
+                  </div>
+                  <div class="rest-caption">
+                    <h4>${rest.getName()}</h4>
+                    <p><small><i class="fa fa-map-marker"></i> ${rest.getStreet()} ${rest.getStreetNum()}, ${rest.getCity()}</small></p>
+                    <div class="review">
+                      <ul class="list-inline">
+                          <li><i class="fa fa-star"></i></li>
+                          <li><i class="fa fa-star"></i></li>
+                          <li><i class="fa fa-star"></i></li>
+                          <li><i class="fa fa-star"></i></li>
+                          <li><i class="fa fa-star"></i></li>
+                          <li>24 ביקורות</li>
+                        </ul>
+                    </div> 
+                    <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a> 
+                  </div>
+                </li>
+             </c:forEach>
             <li class="rest">
               <div class="rest-logo">
                 <img src="http://www.cafe-hillel.co.il/wp-content/themes/hillel/img/logo-white.png" alt="placeholder+image">
