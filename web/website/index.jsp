@@ -56,7 +56,7 @@
             <c:forEach var="rest" items="${restaurants}">
                 <li class="rest">
                   <div class="rest-logo">
-                    <img src="${rest.getLogo()}" alt="placeholder+image">
+                    <img src="${pageContext.request.contextPath}/assets/Uploads/${rest.getLogo()}" alt="placeholder+image">
                   </div>
                   <div class="rest-caption">
                     <h4>${rest.getName()}</h4>
@@ -75,106 +75,7 @@
                   </div>
                 </li>
              </c:forEach>
-            <li class="rest">
-              <div class="rest-logo">
-                <img src="http://www.cafe-hillel.co.il/wp-content/themes/hillel/img/logo-white.png" alt="placeholder+image">
-              </div>
-              <div class="rest-caption">
-                <h4>קפה הלל</h4>
-                <p><small><i class="fa fa-map-marker"></i> לילינבלום 40, תל אביב יפו</small></p>
-                <div class="review">
-                  <ul class="list-inline">
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li>24 ביקורות</li>
-                    </ul>
-                </div> 
-                <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a> 
-              </div>
-            </li>
-            <li class="rest">
-              <div class="rest-logo">
-                <img src="http://www.arabica-rest.co.il/images/logo.png" alt="placeholder+image">
-              </div>
-              <div class="rest-caption">
-                <h4>ערביקה</h4>
-                <p><small><i class="fa fa-map-marker"></i> לילינבלום 40, תל אביב יפו</small></p>
-                <div class="review">
-                  <ul class="list-inline">
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li>24 ביקורות</li>
-                    </ul>
-                </div>  
-                <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a>
-              </div>
-            </li>
-            <li class="rest">
-              <div class="rest-logo">
-                <img src="http://kampaistreetwok.co.il/wp-content/uploads/2014/08/0006_logo_kampai.png" alt="placeholder+image">
-              </div>
-              <div class="rest-caption">
-                <h4>קמפאי</h4>
-                <p><small><i class="fa fa-map-marker"></i> לילינבלום 40, תל אביב יפו</small></p>
-                <div class="review">
-                  <ul class="list-inline">
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li>24 ביקורות</li>
-                    </ul>
-                </div>  
-                <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a>
-              </div>
-            </li>
-            <li class="rest">
-              <div class="rest-logo">
-                <img src="http://www.blackbarburger.co.il/warehouse/content/galleries/photos/pic_154_Big.jpg" alt="placeholder+image">
-              </div>
-              <div class="rest-caption">
-                <h4>Black Bar 'n' Burger</h4>
-                <p><small><i class="fa fa-map-marker"></i> לילינבלום 40, תל אביב יפו</small></p>
-                <div class="review">
-                  <ul class="list-inline">
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li>24 ביקורות</li>
-                    </ul>
-                </div>  
-                <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a>
-              </div>
-            </li>
-            <li class="rest">
-              <div class="rest-logo">
-                <img src="http://www.arabica-rest.co.il/images/logo.png" alt="placeholder+image">
-              </div>
-              <div class="rest-caption">
-                <h4>ערביקה</h4>
-                <p><small><i class="fa fa-map-marker"></i> לילינבלום 40, תל אביב יפו</small></p>
-                <div class="review">
-                  <ul class="list-inline">
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li>24 ביקורות</li>
-                    </ul>
-                </div>  
-                <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a>
-              </div>
-            </li>
+            
             <li class="rest">
               <div class="rest-logo">
                 <img src="http://kampaistreetwok.co.il/wp-content/uploads/2014/08/0006_logo_kampai.png" alt="placeholder+image">
