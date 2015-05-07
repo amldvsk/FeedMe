@@ -76,7 +76,7 @@
                 </li>
              </c:forEach>
             
-            <li class="rest">
+<!--            <li class="rest">
               <div class="rest-logo">
                 <img src="http://kampaistreetwok.co.il/wp-content/uploads/2014/08/0006_logo_kampai.png" alt="placeholder+image">
               </div>
@@ -95,7 +95,7 @@
                 </div>  
                 <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a>
               </div>
-            </li>
+            </li>-->
           </ul>
         </div>
       </div>
