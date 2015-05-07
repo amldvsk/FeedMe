@@ -61,7 +61,7 @@
                   <div class="rest-caption">
                     <h4>${rest.getName()}</h4>
                     <p><small><i class="fa fa-map-marker"></i> ${rest.getStreet()} ${rest.getStreetNum()}, ${rest.getCity()}</small></p>
-                    <div class="review">
+                    <div class="review hidden">
                       <ul class="list-inline">
                           <li><i class="fa fa-star"></i></li>
                           <li><i class="fa fa-star"></i></li>

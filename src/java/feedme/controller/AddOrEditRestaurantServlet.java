@@ -119,7 +119,7 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
             // new restaurant added successfully || restaurant successfully changed
             HttpSession session = request.getSession(true);
             session.setAttribute("Status", true);
-            response.sendRedirect("/resturents");
+            response.sendRedirect(request.getContextPath()+"/resturents");
         }  
         else{//2
             //This name is already exists in the database
