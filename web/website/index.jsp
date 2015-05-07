@@ -71,7 +71,7 @@
                           <li>24 ביקורות</li>
                         </ul>
                     </div> 
-                    <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a> 
+                    <a href="${pageContext.request.contextPath}/resturent_profile?res_id=${rest.getDbid()}" class="btn btn-green btn-blcok">הזמן עכשיו</a> 
                   </div>
                 </li>
              </c:forEach>
