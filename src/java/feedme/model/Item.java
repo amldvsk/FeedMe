@@ -28,6 +28,12 @@ public class Item {
         this.itemDescription = itemDescription;
         this.itemImagePath = itemImagePath;
     }
+    public Item(int itemID, String itemName, double itemPrice, int quantity) {
+        this.itemID = itemID;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.quantity = quantity;
+    }
 
     public int getItemID() {
         return itemID;

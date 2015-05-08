@@ -17,7 +17,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,9 +32,8 @@ public class test {
     
     public static void main(String [ ] args)
     {
-        
         //encryptTest();
-        insertUserTest();
+        //insertUserTest();
         //insertRestaurantTest();
        //addNewCatTest();
         //deleteUserTest();
@@ -42,6 +43,7 @@ public class test {
         //addNewMenuCatTest();
         //updateMenuCatTest();
         //addNewItemToMenuTest();
+         getRestaurantOrdersTest(5);
         //deleteItemFromMenuTest();
         //updateMenuItemTest();
         //getLatestOrderNumTest();
@@ -51,7 +53,8 @@ public class test {
         //getRecentRestaurantsByCat();
         //getNextRestaurantsByCat();
         //getItemMenu();
-        //getUsersByRoleTest(0);
+        //getUsersByRoleTest(0);   
+
      
     
     }
@@ -426,6 +429,23 @@ public class test {
     
     public static void getRestRank()
     {
+        
+    }
+      public static void getRestaurantOrdersTest(int restId)
+    {
+        DbOrderManagement dbor = new DbOrderManagement();
+        List<Order> orders = dbor.getOrdersByRestId(restId);
+        for(Order order : orders)
+        {
+            System.out.println("customer id :" + order.getOrderCustomerId() + " customer full name : " + order.getCustomerFullName() + "Customer addres : " + order.getCustomerAdress() + "orders date : " + order.getOrderDateAndTime());
+            Iterator it = order.getRestItemsMap().entrySet().iterator();
+            while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry)it.next();
+                    Item item= (Item)pair.getValue();
+                    System.out.println("item  name is : " + item.getItemName() + " item price is : " + item.getItemPrice());
+                    it.remove(); // avoids a ConcurrentModificationException
+    }
+        }
         
     }
 }

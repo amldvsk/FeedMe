@@ -5,6 +5,7 @@
  */
 package feedme.model;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class Order {
     
     private int orderId;
     private int orderCustomerId;
+    private Timestamp orderDateAndTime;
     private HashMap<Integer[] , Item > restItemsMap ;
     private String CustomerFullName;
     private String CustomerPhonenum;
@@ -28,10 +30,11 @@ public class Order {
     protected JSONObject orederObject;
    
 
-    public Order(int orderCustomerId, String CustomerFullName, String CustomerPhonenum) {
+    public Order(int orderCustomerId, String CustomerFullName, String CustomerPhonenum ,String custmerAddress) {
         this.orderCustomerId = orderCustomerId;
         this.CustomerFullName = CustomerFullName;
         this.CustomerPhonenum = CustomerPhonenum;
+        this.CustomerAdress = custmerAddress;
         restItemsMap  = new  HashMap<>();
     }
     
@@ -76,6 +79,14 @@ public class Order {
         return CustomerPhonenum;
     }
 
+    public Timestamp getOrderDateAndTime() {
+        return orderDateAndTime;
+    }
+
+    public void setOrderDateAndTime(Timestamp orderDateAndTime) {
+        this.orderDateAndTime = orderDateAndTime;
+    }
+
     public void setCustomerPhonenum(String CustomerPhonenum) {
         this.CustomerPhonenum = CustomerPhonenum;
     }
@@ -96,7 +107,11 @@ public class Order {
     public void setStatus(int status) {
         this.status = status;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Order{" + "orderId=" + orderId + ", orderCustomerId=" + orderCustomerId  + ", CustomerFullName=" + CustomerFullName + ", CustomerPhonenum=" + CustomerPhonenum + ", CustomerAdress=" + CustomerAdress + ", status=" + status +'}';
+    }
     
     
     public JSONObject toJson() throws JSONException {

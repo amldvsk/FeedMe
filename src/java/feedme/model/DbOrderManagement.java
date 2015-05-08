@@ -11,7 +11,10 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -185,5 +188,134 @@ public class DbOrderManagement {
         }
         
         return item;
+    }
+        private List<Integer> getOrdersNumByRestId(int restId)
+    {
+        List<Integer> ordersNum = new ArrayList<Integer>();
+        String spuName = "{CALL feedmedb.Spu_GetAllOrdersNumByRestId(?)}";
+        con = DbConnector.getInstance().getConn();
+        ResultSet rs = null;
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, restId);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                ordersNum.add(rs.getInt("order_id"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbOrderManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return ordersNum;
+    }
+    
+    private HashMap<Integer[] , Item> getItemsByOrderIdAndRestId(int restId , int orderId)
+    {
+        //List<Item> orderItems = new ArrayList<>();
+        String spuName = "{CALL feedmedb.Spu_GetItemsByOIdAndRId(?, ?)}";
+        con = DbConnector.getInstance().getConn();
+        HashMap<Integer[] , Item> orderItems = new HashMap<>();
+        ResultSet rs = null;
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, restId);
+            cstmt.setInt(2, orderId);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                Item newItem = new Item(rs.getInt("item_id"), rs.getString("item_name"), rs.getDouble("item_price"), rs.getInt("item_quant"));
+                orderItems.put(new Integer []{restId , newItem.getItemID()}, newItem);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbOrderManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return orderItems;
+    }
+    public List<Order> getOrdersByRestId(int restId)
+    {
+        List<Order> orders = new ArrayList<>();
+        String spuName = "{CALL feedmedb.Spu_GetCustomerDetailsByOrderAndRest(?,?)}";
+        
+        ResultSet rs = null;
+        Order currOrd;
+        List<Integer> ordersNum = getOrdersNumByRestId(restId);
+        try {
+        if(ordersNum != null){
+        for(Integer oNum : ordersNum){
+        
+            
+            con = DbConnector.getInstance().getConn();
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, restId);
+            cstmt.setInt(2, oNum);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                currOrd = new Order(rs.getInt("user_id") , rs.getString("user_fn") , rs.getString("user_phone") , rs.getString("user_add"));
+                currOrd.setOrderDateAndTime(rs.getTimestamp("order_date"));
+                currOrd.setOrderId(rs.getInt("order_id"));
+                currOrd.setRestItemsMap(getItemsByOrderIdAndRestId(restId , currOrd.getOrderId()));
+                orders.add(currOrd);
+            }
+            currOrd = null;
+            rs = null;
+        
+        
+        
+        
+        
+        }
+        }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DbOrderManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return orders;
+        
+        
     }
 }
