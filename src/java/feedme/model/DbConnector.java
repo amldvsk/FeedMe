@@ -21,7 +21,7 @@ public class DbConnector {
     private static DbConnector instance = null;
     private Connection conn = null;
     private static final String driverName = "com.mysql.jdbc.Driver"; 
-    private static final String url = "jdbc:mysql://localhost/feedmedb";
+    private static final String url = "jdbc:mysql://localhost/feedmedb?characterEncoding=utf8";
     private final static String password = "123456789";
     private final static String userName = "root";
     
