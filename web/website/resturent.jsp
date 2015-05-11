@@ -12,11 +12,11 @@
           <div class="header-content">
             <div class="rest_header clearfix">
               <div class="rest-icon pull-right">
-                <img src="http://kampaistreetwok.co.il/wp-content/uploads/2014/08/0006_logo_kampai.png" class="img-rounded" alt="placeholder+image">
+                <img src="${pageContext.request.contextPath}/assets/Uploads/${requestScope.resturent.getLogo()}" class="img-rounded" alt="placeholder+image">
               </div>
               <div class="rest_name">
-                <h1>${requestScope.rest.getName()}</h1>  
-                <h5 class="text-center"><i class="fa fa-map-marker"></i> לילינבלום 40, תל אביב יפו</h5>
+                <h1>${requestScope.resturent.getName()}</h1>  
+                <h5 class="text-center"><i class="fa fa-map-marker"></i> ${requestScope.resturent.getStreet()} ${requestScope.resturent.getStreetNum()}, ${requestScope.resturent.getCity()}</h5>
               </div>
             </div>
           </div>

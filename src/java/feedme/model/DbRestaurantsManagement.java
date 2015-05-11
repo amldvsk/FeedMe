@@ -401,5 +401,48 @@ public class DbRestaurantsManagement {
         return restRankingList;
     }
     
-    
+    public Restaurant getRestaurantById(int restId)
+    {
+        con = DbConnector.getInstance().getConn();
+        String spuName = "{CALL feedmedb.Spu_GetRestaurantById(?)}";
+        ResultSet rs  = null;
+        Restaurant rest  = null;
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, restId);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+               rest  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
+                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
+                rest.setDbid(rs.getInt("restid"));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
+            rest = new Restaurant("BigaBuGule","0546555234", "","dsfsd", "dsfsdfds", "adasd", 12, 12 , "agv");
+        }
+        finally
+        {
+              try {
+            if(cstmt != null)
+            {
+              
+                    cstmt.close();
+                } 
+            if(con != null)
+            {
+                con.close();
+            }
+              }
+            catch (SQLException ex) {
+                    Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
+        return rest;
+        
+        
+    }
 }

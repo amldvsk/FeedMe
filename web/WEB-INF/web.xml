@@ -44,6 +44,10 @@
         <servlet-name>AddOrDeleteCategory</servlet-name>
         <servlet-class>feedme.controller.AddOrDeleteCategoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RasturentProfileServlet</servlet-name>
+        <servlet-class>feedme.controller.RasturentProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CustomerRegistrationServlet</servlet-name>
         <url-pattern>/CustomerRegistrationServlet</url-pattern>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>AddOrDeleteCategoryServlet</servlet-name>
         <url-pattern>/add-resturent-category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RasturentProfileServlet</servlet-name>
+        <url-pattern>/resturent</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
