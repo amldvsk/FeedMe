@@ -1,41 +1,5 @@
 <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>FeedMe - ניהול</title>
-  <!-- STYLES -->
-  <!-- build:css lib/css/main.min.css -->
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/manager_main.css">
-  <!-- endbuild -->
-  <!-- SCRIPTS -->
-  <!-- build:js lib/js/main.min.js -->
-
-  <!-- endbuild -->
-  <!-- Custom Scripts -->
-
-  <!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
-  
-  
-
-  
-</head>
-<body >
-    <div id="page-wrapper">
-
-    <%@include file='../manager_templates/sidebar.jsp'%>
-
-    <div id="content-wrapper">
-      <div class="page-content">
-
-        <%@include file='../manager_templates/header.jsp'%>
-
+<%@include file='../manager_templates/head.jsp'%>
         <!-- Main Content -->
         <div class="main-content">
           <section class="white border hidden">
@@ -250,41 +214,4 @@
 
         </div>
 
-      </div><!-- End Page Content -->
-    </div><!-- End Content Wrapper -->
-  </div><!-- End Page Wrapper -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjy0n0TFNKTZ4S5Hq2w_FVU4E5EglSd6M&language=he"></script>
-  <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/manager_main.js"></script> 
-  <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-    $('#toggleSidebar').on('click', function(e) {
-      e.preventDefault();
-      var parent = $('#page-wrapper');
-      if(parent.hasClass('open')) {
-        parent.removeClass('open');
-
-      } else {
-        parent.addClass('open');
-      }
-    });
-
-    $(document).ready( function () {
-        $('.sort-table').DataTable({
-          paging: false,
-          searching: false,
-          "info":     false
-        });
-    } );
-     $('li.sidebar-list a').on('click', function() {
-      var parent = $('#page-wrapper');
-      if(!parent.hasClass('open')) {
-        parent.addClass('open');
-
-      }
-    });
-  </script>
-</body>
-</html>
+     <%@include file='../manager_templates/footer.jsp'%>

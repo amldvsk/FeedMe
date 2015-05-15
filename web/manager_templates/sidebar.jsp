@@ -19,15 +19,13 @@
           <a href="#/tables">ניהול מסעדה <span class="menu-icon fa fa-wrench"></span></a>
         </li>
         <li class="sidebar-list">
-          <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseOne" class="collapsed">משלוחנים <span class="menu-icon fa fa-motorcycle"></span></a>
+          <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseOne" class="collapsed">תפריט <span class="menu-icon fa fa-bars"></span></a>
             <div class="panel clearfix">
                   <div id="collapseOne" class="panel-collapse collapse">
                       <div class="panel-body">
                           <div class="sub-links">
-                            <a href="#" class="list-group-item">פריט</a>
-                            <a href="#" class="list-group-item">פריט</a>
-                            <a href="#" class="list-group-item">פריט</a>
-                            <a href="#" class="list-group-item">פריט</a>
+                            <a href="#" class="list-group-item">תפריט</a>
+                            <a href="#" class="list-group-item">הוספה פריט</a>
                           </div>
                       </div>
                   </div>
