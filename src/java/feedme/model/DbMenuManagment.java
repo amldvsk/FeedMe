@@ -7,7 +7,12 @@ package feedme.model;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -316,5 +321,96 @@ public class DbMenuManagment {
         
         
         return result;
+    }
+    
+    
+    public HashMap<Integer ,String> getMenuCat()
+    {
+        HashMap<Integer , String> menuCategories = new HashMap<>();
+        String spuName = "{CALL feedmedb.Spu_GetMenuCategories()}" ;
+        con = DbConnector.getInstance().getConn();
+        ResultSet rs = null;
+        
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                menuCategories.put(rs.getInt("categoryid"), rs.getString("category_name"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbMenuManagment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         finally
+        {
+             try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+     return menuCategories;   
+    }
+    
+    
+    
+    public HashMap<Map<Integer , String > , List<Item>> getMenuByRestaurantId(int restId)
+    {
+        HashMap<Map<Integer , String > , List<Item>> menuItems = new HashMap<>();
+        String spuName = "{CALL feedmedb.Spu_GetMenuItemsByRestId(?)}";
+        con  = DbConnector.getInstance().getConn();
+        ResultSet rs = null;
+        
+        
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, restId);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                Map<Integer , String> key = new HashMap<>();
+                key.put(rs.getInt("categoryid"), rs.getString("category_name"));
+                Item it = new Item(rs.getString("item_name") , rs.getDouble("item_price") , rs.getString("item_description") , rs.getString("item_image"));
+                it.setItemID(rs.getInt("itemid"));
+                List<Item> li  = menuItems.get(key);
+                if(li != null)
+                {
+                    li.add(it);
+                }
+                else
+                {
+                    li = new ArrayList<Item>();
+                    li.add(it);
+                    menuItems.put(key, li);
+                    
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbMenuManagment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+             try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+        return menuItems;
     }
 }

@@ -459,4 +459,17 @@ public class test {
             System.out.println(restaurant.toString());
         }
     }
+    
+    
+    
+    public static void  getAllRestaurantsTest()
+    {
+        List<Restaurant> rest ;
+        DbAdminManagmentTools dba = new DbAdminManagmentTools();
+        rest = dba.getAllRestaurants();
+        for(Restaurant re : rest)
+        {
+            System.out.println(re.toString());
+        }
+    }
 }

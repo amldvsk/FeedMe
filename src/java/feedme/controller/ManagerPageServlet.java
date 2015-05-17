@@ -45,18 +45,7 @@ public class ManagerPageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ManagerPageServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ManagerPageServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.setCharacterEncoding("UTF-8");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,8 +63,11 @@ public class ManagerPageServlet extends HttpServlet {
         try {
             processRequest(request, response);
             AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-            if(manager == null || PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes()))
-                response.sendRedirect(request.getContextPath() + "/index");
+            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())) {
+                response.sendRedirect(request.getContextPath() + "/");
+                return;
+            }
+                
             
             
             DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
@@ -83,12 +75,13 @@ public class ManagerPageServlet extends HttpServlet {
             
             List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
             
-            request.setAttribute("restaurant", restaurant);
+            request.setAttribute("restaurant", reslist.get(0));
             request.setAttribute("reslist", reslist);
             request.setAttribute("orders", orders);
             
             RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/index.jsp");
             dispatcher.forward(request, response);
+            return;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
             Logger.getLogger(ManagerPageServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

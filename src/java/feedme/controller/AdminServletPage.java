@@ -49,18 +49,7 @@ public class AdminServletPage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminServletPage</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminServletPage at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.setCharacterEncoding("UTF-8");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -78,8 +67,11 @@ public class AdminServletPage extends HttpServlet {
         try{
         processRequest(request, response);
         AuthenticatUser admin = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-        if(admin == null || PasswordEncryptionService.authenticate(Integer.toString(2), admin.getEncrypRole(), "Admin".getBytes()))
-            response.sendRedirect(request.getContextPath() + "/index");
+        if(admin == null || !PasswordEncryptionService.authenticate(Integer.toString(2), admin.getEncrypRole(), "Admin".getBytes())) {
+            response.sendRedirect(request.getContextPath() + "/");
+            return;
+        }
+            
         DbRestaurantsManagement dbrm = new DbRestaurantsManagement();
         DbAdminManagmentTools dbamt = new DbAdminManagmentTools();
         //List<Restaurant> restaurants = dbrm.getAllRestaurants();
@@ -103,6 +95,7 @@ public class AdminServletPage extends HttpServlet {
         
         RequestDispatcher  dispatcher = request.getRequestDispatcher("admin/index.jsp");
         dispatcher.forward(request, response);
+        return;
         }catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
             Logger.getLogger(AdminServletPage.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -131,5 +131,41 @@ public class DbAdminManagmentTools {
     }
     
     
-    
+    public List<Restaurant> getAllRestaurants()
+    {
+        List<Restaurant> restaurants = new ArrayList<>();
+        String spuName = "{CALL feedmedb.Spu_GetAllrestaurants()}";
+        con = DbConnector.getInstance().getConn();
+        ResultSet rs;
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                Restaurant res  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
+                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
+                res.setDbid(rs.getInt("restid"));
+                restaurants.add(res);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbAdminManagmentTools.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return restaurants;
+        
+    }
 }

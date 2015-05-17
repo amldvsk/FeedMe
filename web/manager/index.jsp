@@ -82,27 +82,6 @@
                                     <td>${rest.getStatus()}</td>
                                   </tr>
                              </c:forEach>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>בשה משה</td>
-                              <td>מבצע עובדה 51</td>
-                              <td>13/03/15 10:08:00</td>
-                              <td><span class="label label-danger">סטטוס 1</span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>אשה משה</td>
-                              <td>מבצע עובדה 51</td>
-                              <td>13/03/15 10:08:00</td>
-                              <td><span class="label label-success">סטטוס 2</span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>דשה משה</td>
-                              <td>מבצע עובדה 51</td>
-                              <td>13/03/15 10:08:00</td>
-                              <td><span class="label label-info">סטטוס 3</span></td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>

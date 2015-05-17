@@ -73,17 +73,17 @@ public class LoginServlet extends HttpServlet {
                                 encryRoleName = Integer.toString(user.getRole());
                                 encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Manager".getBytes());
                                 au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
-                                dispatcher = request.getRequestDispatcher("manager/index.jsp");
-                                dispatcher.forward(request, response);
-                                break;
+                                request.getSession(true).setAttribute("AuthenticatUser", au);
+                                response.sendRedirect(request.getContextPath()+"/manager");
+                                return;
                             case 2://admin page
                                 request.setAttribute("user", user);
                                 encryRoleName = Integer.toString(user.getRole());
                                 encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Admin".getBytes());
                                 au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
-                                dispatcher = request.getRequestDispatcher("admin/index.jsp");
-                                dispatcher.forward(request, response);
-                                break;
+                                request.getSession(true).setAttribute("AuthenticatUser", au);
+                                response.sendRedirect(request.getContextPath()+"/admin");
+                                return;
                             default:
                                 return;
                         }

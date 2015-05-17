@@ -24,11 +24,16 @@ public class DbRestaurantsManagement {
     
     private Connection con = null;
     CallableStatement cstmt = null;
-
+    private DbMenuManagment dbm = null;
+    
     public DbRestaurantsManagement() {
         
         con = DbConnector.getInstance().getConn();
+        dbm = new DbMenuManagment();
     }
+    
+    
+    
     
     public int addNewRestaurant(String name,int catId, String phone, String logo, String street, String streetNum, String city, int deliveryPrice, int minOrder, String estimatedTimeDel , int manId)
     {
@@ -75,9 +80,16 @@ public class DbRestaurantsManagement {
             }
         }
          
+        if (result ==0 || result == -1 )
+        {
+            return result;
+        }
+       
+        
+        result = dbm.addNewMenu("Menu" + name, result);
+       
         return result;
     }
-
     
     /**
      * 
