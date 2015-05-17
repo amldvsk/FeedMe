@@ -5,6 +5,7 @@
  */
 package feedme.controller;
 
+import feedme.model.AuthenticatUser;
 import feedme.model.DbUsersManagement;
 import feedme.model.PasswordEncryptionService;
 import feedme.model.User;
@@ -41,6 +42,9 @@ public class LoginServlet extends HttpServlet {
         String Password= request.getParameter("UserPass"); 
         int check;
         boolean authent;
+        AuthenticatUser au;
+        String encryRoleName;
+        byte[] encRole;
         List<byte[]> psal = new ArrayList<>();
         DbUsersManagement DB =  new DbUsersManagement();
         RequestDispatcher dispatcher = request.getRequestDispatcher("userprofile.jsp");
@@ -58,16 +62,25 @@ public class LoginServlet extends HttpServlet {
                         switch(user.getRole()){
                             case 0 ://user page
                                 request.setAttribute("user", user);
+                                encryRoleName = Integer.toString(user.getRole());
+                                encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Customer".getBytes());
+                                au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
                                 dispatcher = request.getRequestDispatcher("website/profile.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             case 1: //restorant page
                                 request.setAttribute("user", user);
+                                encryRoleName = Integer.toString(user.getRole());
+                                encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Manager".getBytes());
+                                au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
                                 dispatcher = request.getRequestDispatcher("manager/index.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             case 2://admin page
                                 request.setAttribute("user", user);
+                                encryRoleName = Integer.toString(user.getRole());
+                                encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Admin".getBytes());
+                                au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
                                 dispatcher = request.getRequestDispatcher("admin/index.jsp");
                                 dispatcher.forward(request, response);
                                 break;

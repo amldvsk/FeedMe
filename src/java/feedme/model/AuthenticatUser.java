@@ -15,12 +15,23 @@ public class AuthenticatUser {
     private String userFirstName;
     private String userLastName;
     private byte[] encrypRole;
+      private boolean loginResult = false;
 
-    public AuthenticatUser(int userId, String userFirstName, String userLastName, byte[] encrypRole) {
+    public boolean isLoginResult() {
+        return loginResult;
+    }
+
+    public void setLoginResult(boolean loginResult) {
+        this.loginResult = loginResult;
+    }
+  
+
+    public AuthenticatUser(int userId, String userFirstName, String userLastName, byte[] encrypRole, boolean loginResult) {
         this.userId = userId;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
         this.encrypRole = encrypRole;
+        this.loginResult = loginResult;
     }
 
     public int getUserId() {
