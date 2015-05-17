@@ -5,8 +5,8 @@
             <div class="user pull-left">
               <div class="item dropdown" >
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                  <img src="http://www.getrestaur.co.il/upload/companieslogo/1000873.png" class="img-circle pull-right">
-                  <span class="rest-name">נאפיס</span>
+                  <img src="${pageContext.request.contextPath}/assets/Uploads/${requestScope.restaurant.getLogo()}" class="img-circle pull-right">
+                  <span class="rest-name">${requestScope.restaurant.getName()}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-left" role="menu">
                   <li class="dropdown-header">

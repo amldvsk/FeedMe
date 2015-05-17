@@ -73,6 +73,15 @@
                             </tr>
                           </thead>
                           <tbody>
+                              <c:forEach var="order"  items="${orders}">
+                                <tr>
+                                    <th scope="row">${rest.getOrderId()}</th>
+                                    <td>${rest.getCustomerFullName()}</td>
+                                    <td>${rest.getCustomerAdress()}</td>
+                                    <td>${rest.getOrderDateAndTime()}</td>
+                                    <td>${rest.getStatus()}</td>
+                                  </tr>
+                             </c:forEach>
                             <tr>
                               <th scope="row">1</th>
                               <td>בשה משה</td>

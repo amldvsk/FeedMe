@@ -448,4 +448,15 @@ public class test {
         }
         
     }
+      
+      
+    public static void getRestaurantsByManagerIdTest(int mangerId)
+    {
+        DbRestaurantsManagement dbr = new DbRestaurantsManagement();
+        List<Restaurant> rest = dbr.getRestaurantsByManagerId(mangerId);
+        for(Restaurant restaurant : rest)
+        {
+            System.out.println(restaurant.toString());
+        }
+    }
 }
