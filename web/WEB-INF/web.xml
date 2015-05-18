@@ -48,6 +48,10 @@
         <servlet-name>RasturentProfileServlet</servlet-name>
         <servlet-class>feedme.controller.RasturentProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerReportsServlet</servlet-name>
+        <servlet-class>feedme.controller.ManagerReportsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CustomerRegistrationServlet</servlet-name>
         <url-pattern>/CustomerRegistrationServlet</url-pattern>
@@ -99,6 +103,10 @@
     <servlet-mapping>
         <servlet-name>RasturentProfileServlet</servlet-name>
         <url-pattern>/resturent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerReportsServlet</servlet-name>
+        <url-pattern>/ManagerReportsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
