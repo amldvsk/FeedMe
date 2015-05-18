@@ -18,10 +18,10 @@
                     <div class="panel-body">
                       <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
                       <div class="table-responsive">
-                          <form          enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/add-resturent">
+                          <form    id="create_resturent"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/add-resturent">
                             <div class="form-group clearfix">
                                 <div class="col-md-8">
-                                    <label for="exampleInputEmail1">בעל המסעדה</label>
+                                    <label for="select_admin">בעל המסעדה</label>
                                     <select name="managerId" id="select_admin" class="form-control">
                                         <option value="-1">בחר את הבעלים של המסעדה</option>
                                         <c:forEach var="type"  items="${managers}">
@@ -38,7 +38,7 @@
 
                             <div class="form-group clearfix">
                                 <div class="col-md-8">
-                                    <label for="exampleInputEmail1">קטגוריה</label>
+                                    <label for="select_category">קטגוריה</label>
                                     <select name="category" id="select_category" class="form-control">
                                         <option value="-1">בחר קטגוריה</option>
                                         <c:forEach var="type"  items="${categories}">
@@ -57,46 +57,46 @@
                                 <hr>
                                 <div class="form-group clearfix">
                                     <div class="col-md-8">
-                                        <label for="exampleInputEmail1">שם המסעדה</label>
-                                        <input type="text" class="form-control" name="newName" id="exampleInputEmail1" placeholder="שם המסעדה">
+                                        <label for="newName">שם המסעדה</label>
+                                        <input type="text" class="form-control" name="newName" id="newName" placeholder="שם המסעדה">
                                      </div>
                                     <div class="col-md-4">
-                                         <label for="exampleInputPassword1">טלפון</label>
-                                  <input type="text" class="form-control" name="phone" id="exampleInputPassword1" placeholder="טלפון">
+                                         <label for="phone">טלפון</label>
+                                  <input type="text" class="form-control" name="phone" id="phone" placeholder="טלפון">
                                      </div>
 
                                 </div>
                                  <div class="form-group clearfix">
                                      <div class="col-md-4">
-                                        <label for="exampleInputPassword1">כתובת</label>
-                                        <input type="text" class="form-control" name="street" id="exampleInputPassword1" placeholder="כתובת">
+                                        <label for="street">כתובת</label>
+                                        <input type="text" class="form-control" name="street" id="street" placeholder="כתובת">
                                      </div>
                                      <div class="col-md-4">
-                                        <label for="exampleInputPassword1">מספר</label>
-                                        <input type="text" class="form-control" name="streetNum" id="exampleInputPassword1" placeholder="מספר">
+                                        <label for="streetNum">מספר</label>
+                                        <input type="text" class="form-control" name="streetNum" id="streetNum" placeholder="מספר">
                                      </div>
                                      <div class="col-md-4">
-                                        <label for="exampleInputPassword1">עיר</label>
-                                        <input type="text" class="form-control" name="city" id="exampleInputPassword1" placeholder="עיר">
+                                        <label for="city">עיר</label>
+                                        <input type="text" class="form-control" name="city" id="city" placeholder="עיר">
                                      </div>
                                 </div>
                                   <div class="form-group clearfix">
                                       <div class="col-md-4">
-                                          <label for="exampleInputPassword1">מחיר משלוח</label>
-                                          <input type="text" class="form-control" name="deliveryPrice" id="exampleInputPassword1" placeholder="מחיר משלוח">
+                                          <label for="deliveryPrice">מחיר משלוח</label>
+                                          <input type="text" class="form-control" name="deliveryPrice" id="deliveryPrice" placeholder="מחיר משלוח">
                                       </div>
                                       <div class="col-md-4">
                                           <label for="exampleInputPassword1">מינימום הזמנה</label>
                                           <input type="text" class="form-control" name="minOrder" id="exampleInputPassword1" placeholder="מינימום הזמנה">
                                       </div>
                                       <div class="col-md-4">
-                                          <label for="exampleInputPassword1">זמן משלוח משוער</label>
-                                          <input type="text" class="form-control" name="estimatedTimeDel" id="exampleInputPassword1" placeholder="זמן משלוח משוער">
+                                          <label for="estimatedTimeDel">זמן משלוח משוער</label>
+                                          <input type="text" class="form-control" name="estimatedTimeDel" id="estimatedTimeDel" placeholder="זמן משלוח משוער">
                                       </div>
                                   </div>
                                 <div class="form-group">
-                                  <label for="exampleInputFile">לוגו</label>
-                                  <input type="file" name="logo" id="exampleInputFile">
+                                  <label for="logo">לוגו</label>
+                                  <input type="file" name="logo" id="logo">
                                 </div>
                                 <input type="hidden" value="1" name="action">
                                 <button type="submit" class="btn btn-success">הוסף מסעדה</button>
