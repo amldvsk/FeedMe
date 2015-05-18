@@ -57,6 +57,11 @@ public class ManagerReportsServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/");
                 return;                
             }
+            else{
+                DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
+                List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
+                request.setAttribute("reslist", reslist);
+            }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ManagerReportsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidKeySpecException ex) {
@@ -67,21 +72,7 @@ public class ManagerReportsServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        processRequest(request, response);
-        AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-        try {
-            if(!(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| manager.isLoginResult()== true)) {
-                //Manager
-                //int userId = manager.getUserId();
-                DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
-                List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
-                request.setAttribute("reslist", reslist);
-            }   
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(ManagerReportsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(ManagerReportsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);    
 
     }
 
