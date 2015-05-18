@@ -63,7 +63,7 @@ public class ManagerPageServlet extends HttpServlet {
         try {
             processRequest(request, response);
             AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| manager.isLoginResult()== true) {
+            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())) {
                 response.sendRedirect(request.getContextPath() + "/");
                 return;
             }

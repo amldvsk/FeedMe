@@ -23,7 +23,7 @@
                             <div class="form-group clearfix">
                                 <div class="col-md-8">
                                     <label for="exampleInputEmail1">קטגוריה</label>
-                                    <select name="category" id="select_category" class="form-control">
+                                    <select name="itemMenuCatId" id="select_category" class="form-control">
                                         <option value="-1">בחר קטגוריה</option>
                                         <c:forEach var="category"  items="${categories}">
                                           <option value="${category.key}">${category.value}</option>
@@ -57,6 +57,7 @@
                                   <input type="file" name="logo" id="exampleInputFile">
                                 </div>
                                 <input type="hidden" value="1" name="action">
+                                <input type="hidden" value="${requestScope.restaurant.getDbid()}" name="itemRestId">
                                 <button type="submit" class="btn btn-success">הוסף מוצר</button>
                             </div>
                           </form>
