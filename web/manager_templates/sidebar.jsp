@@ -25,7 +25,7 @@
                       <div class="panel-body">
                           <div class="sub-links">
                             <a href="#" class="list-group-item">תפריט</a>
-                            <a href="#" class="list-group-item">הוספה פריט</a>
+                            <a href="${pageContext.request.contextPath}/menu-item-management" class="list-group-item">הוספה פריט</a>
                           </div>
                       </div>
                   </div>

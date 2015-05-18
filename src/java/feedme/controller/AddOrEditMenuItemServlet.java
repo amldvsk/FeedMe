@@ -5,12 +5,19 @@
  */
 package feedme.controller;
 
+import feedme.model.AuthenticatUser;
 import feedme.model.DbMenuManagment;
+import feedme.model.PasswordEncryptionService;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -35,20 +42,35 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
         private String fileName;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AEODMenuItemServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AEODMenuItemServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        
+        
+        AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+        try {
+            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())) {
+                response.sendRedirect(request.getContextPath() + "/");
+                return;
+            }   } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AddOrEditRestaurantServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(AddOrEditRestaurantServlet.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect(request.getContextPath() + "/");
+            return;
+        }
+        
+        HashMap<Integer ,String> menuCat = new DbMenuManagment().getMenuCat();
+        request.setAttribute("categories", menuCat);
+        
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/edit_menu_item.jsp");
+        dispatcher.forward(request, response);
+        
+    }   
 
     
    
@@ -56,6 +78,20 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+        try {
+            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())) {
+                response.sendRedirect(request.getContextPath() + "/");
+                return;
+            }   } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AddOrEditRestaurantServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(AddOrEditRestaurantServlet.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect(request.getContextPath() + "/");
+            return;
+        }
+        
         request.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);       
         RequestDispatcher dispatcher = request.getRequestDispatcher("newjsp.jsp");
