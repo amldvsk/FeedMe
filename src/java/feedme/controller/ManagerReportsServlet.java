@@ -6,14 +6,23 @@
 package feedme.controller;
 
 import feedme.model.AuthenticatUser;
+import feedme.model.DbOrderManagement;
 import feedme.model.DbRestaurantsManagement;
+import feedme.model.Item;
+import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
 import feedme.model.Restaurant;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -58,9 +67,43 @@ public class ManagerReportsServlet extends HttpServlet {
                 return;                
             }
             else{
+                Calendar now = Calendar.getInstance();
                 DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
                 List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
-                request.setAttribute("reslist", reslist);
+                List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
+                //request.setAttribute("reslist", reslist);
+                int counter=0;                
+                Map<String, String> dateAndNumOfOrders = new HashMap<String, String>();
+                Map<String, String> dateAndPrice = new HashMap<String, String>();
+                for(Order ord:orders){
+                    counter=0;
+                    HashMap<Integer[],Item> items=ord.getRestItemsMap();
+                    int totalPrice=0;
+                    for (Item it: items.values()) {
+                          totalPrice+=it.getQuantity() * it.getItemPrice();                   
+                     }
+                    int day=ord.getOrderDateAndTime().getDate();
+                    int month= ord.getOrderDateAndTime().getMonth();
+                    int year=ord.getOrderDateAndTime().getYear();                  
+                    String fullDate= Integer.toString(day)+"/"+Integer.toString(month)+"/"+Integer.toString(year);//dd/MM/yyyy                   
+                    if(dateAndNumOfOrders.get(fullDate)== null && month == now.get(Calendar.MONTH) && year == now.get(Calendar.YEAR)){// check if the key is not exists
+                       for(Order o:orders){
+                            int dayy=o.getOrderDateAndTime().getDate();
+                            int monthh= o.getOrderDateAndTime().getMonth();
+                            int yearr=o.getOrderDateAndTime().getYear(); 
+                            String fullDatee= Integer.toString(dayy)+"/"+Integer.toString(monthh)+"/"+Integer.toString(yearr);//dd/MM/yyyy 
+                            if(fullDate.equals(fullDatee)  ){
+                                counter++;
+                                dateAndNumOfOrders.put(fullDate, Integer.toString(counter));
+                                dateAndPrice.put(fullDate, Integer.toString(totalPrice));
+
+                            }
+                       } 
+                    }
+
+                }
+                request.setAttribute("dateAndNumOfOrders", dateAndNumOfOrders);
+                request.setAttribute("dateAndPrice", dateAndPrice);
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ManagerReportsServlet.class.getName()).log(Level.SEVERE, null, ex);
