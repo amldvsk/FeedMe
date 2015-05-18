@@ -6,20 +6,15 @@
 package feedme.controller;
 
 import feedme.model.AuthenticatUser;
-import feedme.model.Customer;
-import feedme.model.DbAdminManagmentTools;
 import feedme.model.DbOrderManagement;
 import feedme.model.DbRestaurantsManagement;
-import feedme.model.DbUsersManagement;
-import feedme.model.Manager;
+import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
 import feedme.model.Restaurant;
-import feedme.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,8 +29,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nirk
  */
-@WebServlet(name = "AdminServletPage", urlPatterns = {"/admin"})
-public class AdminServletPage extends HttpServlet {
+@WebServlet(name = "ManagerRestaurantOrdersServlet", urlPatterns = {"/ManagerRestaurantOrdersServlet"})
+public class ManagerRestaurantOrdersServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,7 +44,18 @@ public class AdminServletPage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ManagerRestaurantOrdersServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ManagerRestaurantOrdersServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,40 +70,29 @@ public class AdminServletPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-        processRequest(request, response);
-        AuthenticatUser admin = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-        if(admin == null || !PasswordEncryptionService.authenticate(Integer.toString(2), admin.getEncrypRole(), "Admin".getBytes())|| admin.isLoginResult()== true) {
-            response.sendRedirect(request.getContextPath() + "/");
+                try {
+            processRequest(request, response);
+            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| manager.isLoginResult()== true) {
+                response.sendRedirect(request.getContextPath() + "/");
+                return;
+            }
+                
+            
+            
+            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
+            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
+            
+            List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
+            
+           
+            request.setAttribute("orders", orders);
+            
+            RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/orders.jsp");
+            dispatcher.forward(request, response);
             return;
-        }
-            
-        DbRestaurantsManagement dbrm = new DbRestaurantsManagement();
-        DbAdminManagmentTools dbamt = new DbAdminManagmentTools();
-        //List<Restaurant> restaurants = dbrm.getAllRestaurants();
-        List<Customer> customers = new ArrayList<>() ;
-        
-        List<User> managers = dbamt.getAllUsersByRole(1);
-        
-        
-        
-        for(User user : dbamt.getAllUsersByRole(0))
-        {
-            customers.add((Customer)user);
-            
-        }
-        
-        
-        
-        //request.setAttribute("restaurant", restaurants);
-        request.setAttribute("reslist", customers);
-        request.setAttribute("orders", managers);
-        
-        RequestDispatcher  dispatcher = request.getRequestDispatcher("admin/index.jsp");
-        dispatcher.forward(request, response);
-        return;
-        }catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
-            Logger.getLogger(AdminServletPage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+            Logger.getLogger(ManagerPageServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
