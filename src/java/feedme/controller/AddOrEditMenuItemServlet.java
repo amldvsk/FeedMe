@@ -7,7 +7,11 @@ package feedme.controller;
 
 import feedme.model.AuthenticatUser;
 import feedme.model.DbMenuManagment;
+import feedme.model.DbOrderManagement;
+import feedme.model.DbRestaurantsManagement;
+import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
+import feedme.model.Restaurant;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +20,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -64,8 +69,10 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
             return;
         }
         
+        List<Restaurant> reslist = new DbRestaurantsManagement().getRestaurantsByManagerId(manager.getUserId());
         HashMap<Integer ,String> menuCat = new DbMenuManagment().getMenuCat();
         request.setAttribute("categories", menuCat);
+        request.setAttribute("restaurant", reslist.get(0));
         
         RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/edit_menu_item.jsp");
         dispatcher.forward(request, response);
@@ -84,7 +91,8 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
             if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())) {
                 response.sendRedirect(request.getContextPath() + "/");
                 return;
-            }   } catch (NoSuchAlgorithmException ex) {
+            }   
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(AddOrEditRestaurantServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(AddOrEditRestaurantServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,7 +102,6 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);       
-        RequestDispatcher dispatcher = request.getRequestDispatcher("newjsp.jsp");
         String itemName= request.getParameter("itemName");
         String itemPrice= request.getParameter("itemPrice");
         String itemDescrip= request.getParameter("itemDescrip");

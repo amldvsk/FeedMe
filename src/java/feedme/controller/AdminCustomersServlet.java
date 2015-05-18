@@ -6,15 +6,16 @@
 package feedme.controller;
 
 import feedme.model.AuthenticatUser;
-import feedme.model.DbOrderManagement;
+import feedme.model.Customer;
+import feedme.model.DbAdminManagmentTools;
 import feedme.model.DbRestaurantsManagement;
-import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
-import feedme.model.Restaurant;
+import feedme.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,14 +25,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author nirk
  */
-@WebServlet(name = "ManagerPageServlet", urlPatterns = {"/manager"})
-public class ManagerPageServlet extends HttpServlet {
+@WebServlet(name = "AdminCustomersServlet", urlPatterns = {"/AdminCustomersServlet"})
+public class AdminCustomersServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +45,18 @@ public class ManagerPageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AdminCustomersServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AdminCustomersServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,36 +71,37 @@ public class ManagerPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())) {
-                response.sendRedirect(request.getContextPath() + "/");
-                return;
-            }
-                
-            
-            
-            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
-            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
-            
-            List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
-            
-            request.setAttribute("restaurant", reslist.get(0));
-            request.setAttribute("reslist", reslist);
-            request.setAttribute("orders", orders);
-            
-            RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/index.jsp");
-            dispatcher.forward(request, response);
+                try{
+        processRequest(request, response);
+        AuthenticatUser admin = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+        if(admin == null || !PasswordEncryptionService.authenticate(Integer.toString(2), admin.getEncrypRole(), "Admin".getBytes())|| admin.isLoginResult()== true) {
+            response.sendRedirect(request.getContextPath() + "/");
             return;
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
-            Logger.getLogger(ManagerPageServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
+            
+        DbAdminManagmentTools dbamt = new DbAdminManagmentTools();
+        
+        List<Customer> customers = new ArrayList<>() ;
         
         
-
+        
+        
+        for(User user : dbamt.getAllUsersByRole(0))
+        {
+            customers.add((Customer)user);
+            
+        }
+        
+        
+        
+        request.setAttribute("customers", customers);
+        
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("admin/customers.jsp");
+        dispatcher.forward(request, response);
+        return;
+        }catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+            Logger.getLogger(AdminServletPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
