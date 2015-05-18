@@ -67,6 +67,7 @@ public class ManagerReportsServlet extends HttpServlet {
                 return;                
             }
             else{
+                int totalPrice=0;
                 Calendar now = Calendar.getInstance();
                 DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
                 List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
@@ -77,11 +78,7 @@ public class ManagerReportsServlet extends HttpServlet {
                 Map<String, String> dateAndPrice = new HashMap<String, String>();
                 for(Order ord:orders){
                     counter=0;
-                    HashMap<Integer[],Item> items=ord.getRestItemsMap();
-                    int totalPrice=0;
-                    for (Item it: items.values()) {
-                          totalPrice+=it.getQuantity() * it.getItemPrice();                   
-                     }
+                    totalPrice=0;
                     int day=ord.getOrderDateAndTime().getDate();
                     int month= ord.getOrderDateAndTime().getMonth();
                     int year=ord.getOrderDateAndTime().getYear();                  
@@ -92,8 +89,14 @@ public class ManagerReportsServlet extends HttpServlet {
                             int monthh= o.getOrderDateAndTime().getMonth();
                             int yearr=o.getOrderDateAndTime().getYear(); 
                             String fullDatee= Integer.toString(dayy)+"/"+Integer.toString(monthh)+"/"+Integer.toString(yearr);//dd/MM/yyyy 
-                            if(fullDate.equals(fullDatee)  ){
+                            if(fullDate.equals(fullDatee)){
                                 counter++;
+                                HashMap<Integer[],Item> items=o.getRestItemsMap();
+                                int tempPrice=0;
+                                for (Item it: items.values()) {
+                                     tempPrice+=it.getQuantity() * it.getItemPrice();                   
+                                }
+                                totalPrice+=tempPrice;
                                 dateAndNumOfOrders.put(fullDate, Integer.toString(counter));
                                 dateAndPrice.put(fullDate, Integer.toString(totalPrice));
 
