@@ -116,8 +116,8 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
 
                 String itemMenuCatId= request.getParameter("itemMenuCatId");
                 String itemRestId= request.getParameter("itemRestId");
-                String itemMenuId= request.getParameter("itemMenuId");
-                result = ob.AddNewMenuItem(itemName, Double.parseDouble(itemPrice), itemDescrip, fileName, Integer.parseInt(itemMenuCatId), Integer.parseInt(itemRestId), Integer.parseInt(itemMenuId));                
+                int itemMenuId= new DbRestaurantsManagement().getRestaurantById(Integer.parseInt(itemRestId)).getMenuId();
+                result = ob.AddNewMenuItem(itemName, Double.parseDouble(itemPrice), itemDescrip, fileName, Integer.parseInt(itemMenuCatId), Integer.parseInt(itemRestId), itemMenuId);                
                 break;           
             case 2 :
                  String itemId= request.getParameter("itemId");

@@ -25,9 +25,10 @@ public class Restaurant {
     private String estimatedTimeDel;
     private int dbid;
     protected JSONObject resturentObject;
+    private int menuId;
     
 
-    public Restaurant(String name, String phone, String logo, String street, String streetNum, String city, int deliveryPrice, int minOrder, String estimatedTimeDel) {
+    public Restaurant(String name, String phone, String logo, String street, String streetNum, String city, int deliveryPrice, int minOrder, String estimatedTimeDel ) {
         this.name = name;
         this.phone = phone;
         this.logo = logo;
@@ -37,7 +38,16 @@ public class Restaurant {
         this.deliveryPrice = deliveryPrice;
         this.minOrder = minOrder;
         this.estimatedTimeDel = estimatedTimeDel;
+       
         
+    }
+
+    public int getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(int menuId) {
+        this.menuId = menuId;
     }
     
     

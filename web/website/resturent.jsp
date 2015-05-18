@@ -41,11 +41,45 @@
         <div role="tabpanel" class="rest_cont tab-pane fade active in" id="orders" aria-labelledby="home-tab">
           <!-- Navigation Buttons -->
             
-
+          
             <!-- Content -->
             <div class="col-md-8 resturen_menu_items">
               <div class="tab-content">
-                <div class="tab-pane active" id="home">
+                  
+                  <c:forEach var="menuItem"  items="${menuItems}" varStatus="count">
+                    <c:forEach var="menuItemKey"  items="${menuItem.key}">
+                        <c:choose>
+                            <c:when test="${count.count == 1}">
+                               <div class="tab-pane active" id="${menuItemKey.key}">
+                            </c:when>
+                            <c:otherwise>
+                                <div class="tab-pane " id="${menuItemKey.key}">
+                            </c:otherwise>
+                        </c:choose>
+                        
+                            <h3>${menuItemKey.value}</h3>
+                            
+                            <ul class="list-inline items">
+                                <c:forEach var="item"  items="${menuItem.value}">
+                                    <li class="item">
+                                        <div class="item-logo">
+                                          <img src="${pageContext.request.contextPath}/assets/Uploads/${item.getItemImagePath()}" alt="placeholder+image">
+                                        </div>
+                                        <div class="item-caption">
+                                          <h4>${item.getItemName()}</h4>
+                                          <h5 style="margin:0; padding: 5px;" >${item.getItemPrice()} &#8362;</h5>
+                                          <!--<p><small>${item.getItemPrice()} &#8362;</small></p>-->
+                                          <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a> 
+                                        </div>
+                                      </li>
+                                </c:forEach>
+                            </ul>
+                            
+                        </div>
+                    </c:forEach>
+                </c:forEach>
+                  
+                <div class="tab-pane hidden" id="home">
                   <h3>ארוחת בוקר</h3>
                     
                     <ul class="list-inline items">
@@ -123,9 +157,21 @@
 
             <div class="col-md-3 col-md-offset-1">
               <ul class="nav nav-pills nav-stacked" id="myTabs">
-                <li class="active"><a href="#home">ארוחת בוקר</a></li>
+<!--                <li class="active"><a href="#home">ארוחת בוקר</a></li>
                 <li><a href="#profile">ארוחת צהריים</a></li>
-                <li><a href="#messages">ארוחת ערב</a></li>
+                <li><a href="#messages">ארוחת ערב</a></li>-->
+                <c:forEach var="menuItem"  items="${menuItems}" varStatus="count">
+                    <c:forEach var="menuItemKey"  items="${menuItem.key}"  >
+                          <c:choose>
+                                <c:when test="${count.count == 1}">
+                                   <li  class="active"><a href="#${menuItemKey.key}" >${menuItemKey.value}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="#${menuItemKey.key}" >${menuItemKey.value}</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                    </c:forEach>
+                </c:forEach>
               </ul>
             </div>
 

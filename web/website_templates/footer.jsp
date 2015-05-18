@@ -48,45 +48,47 @@
                       required: true,
                       minlength: 2,
                   },
-                  lastName {
+                  lastName: {
                       required: true,
                       minlength: 2,
                   },
-                  userName {
+                  userName: {
                       required: true,
                       minlength: 2,
                   },
-                  email {
+                  email: {
                       required: true,
                       email: true
                   },
-                  pw {
+                  pw: {
                       required: true,
                       minlength: 2,
                   },
-                  phone {
+                  phone: {
                       required: true,
                       minlength: 10,
                       maxlength: 10,
                       digits: true
                   },
-                  bday {
+                  bday: {
                       required: true,
                       date: true
                   },
-                  address {
+                  address: {
                       required: true,
                       minlength: 2,
                   },
-                  city {
+                  city: {
                       required: true,
                       minlength: 2,
                   },
-                  street_num {
+                  street_num: {
                       required: true,
+                      digits: true
                   },
-                  home_num {
+                  home_num: {
                       required: true,
+                      digits:true
                   }
               }
           });
