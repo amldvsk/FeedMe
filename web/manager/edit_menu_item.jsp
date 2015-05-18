@@ -25,8 +25,8 @@
                                     <label for="exampleInputEmail1">קטגוריה</label>
                                     <select name="category" id="select_category" class="form-control">
                                         <option value="-1">בחר קטגוריה</option>
-                                        <c:forEach var="type"  items="${categories}">
-                                          <option value="${type.value}">${type.key}</option>
+                                        <c:forEach var="category"  items="${categories}">
+                                          <option value="${category.key}">${category.value}</option>
                                        </c:forEach>
                                     </select>
                                  </div>
