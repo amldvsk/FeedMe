@@ -33,7 +33,7 @@
     <p class="clearfix"> <span>סך הכל</span> <span id="calc_sum">${sessionScope.shoppingCart.calcSum()} &#8362;</span></p>
     </div> <!-- cd-cart-total -->
    
-    <a href="#0" class="checkout-btn">השלם הזמנה</a>
+    <a href="${pageContext.request.contextPath}/website/complete_order.jsp" class="checkout-btn">השלם הזמנה</a>
     
     <!-- <p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p> -->
   </div> <!-- cd-cart -->

@@ -69,7 +69,7 @@
                                           <h4>${item.getItemName()}</h4>
                                           <h5 style="margin:0; padding: 5px;" >${item.getItemPrice()} &#8362;</h5>
                                           <!--<p><small>${item.getItemPrice()} &#8362;</small></p>-->
-                                          <a href="#" class="btn btn-green btn-blcok add-to-cart-btn">הזמן עכשיו</a> 
+                                          <a href="#" class="btn btn-green btn-blcok add-to-cart-btn">הוסף לסל</a> 
                                         </div>
                                       </li>
                                 </c:forEach>
