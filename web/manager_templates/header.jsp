@@ -13,21 +13,13 @@
                     תפריט
                   </li>
                   <li class="divider"></li>
-                  <li class="link">
-                    <a href="#">
-                      משהו
-                    </a>
-                  </li>
-                  <li class="link">
-                    <a href="#">
-                      משהו
-                    </a>
-                  </li>
-                  <li class="link">
-                    <a href="#">
-                      משהו
-                    </a>
-                  </li>
+                  <c:forEach var="rest"  items="${requestScope.reslist}">
+                    <li class="link">
+                        <a href="#">
+                          ${rest.getName()}
+                        </a>
+                      </li>
+                 </c:forEach>
                   <li class="divider"></li>
                   <li class="link">
                     <a href="#">

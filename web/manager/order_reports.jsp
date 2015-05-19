@@ -35,10 +35,10 @@
                         <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
                         <div class="table-responsive">
                             <c:forEach var="data"  items="${requestScope.dateAndNumOfOrders}">
-                              <h1>${data.key} ${data.value}</h1>
+                              <!--<h1>${data.key} ${data.value}</h1>-->
                            </c:forEach>
                               <c:forEach var="data2"  items="${requestScope.dateAndPrice}">
-                              <h1>${data2.key} ${data2.value}</h1>
+                              <!--<h1>${data2.key} ${data2.value}</h1>-->
                            </c:forEach>
                               <h1>${requestScope.dateAndPrice}</h1>
                               <h1>${requestScope.dateAndNumOfOrders}</h1>
