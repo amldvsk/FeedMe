@@ -5,6 +5,8 @@
  */
 package feedme.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,7 +24,7 @@ public class Order {
     private int orderId;
     private int orderCustomerId;
     private Timestamp orderDateAndTime;
-    private HashMap<Integer[] , Item > restItemsMap ;
+    private HashMap<HashMapKey , Item > restItemsMap ;
     private String CustomerFullName;
     private String CustomerPhonenum;
     private String CustomerAdress;
@@ -59,11 +61,11 @@ public class Order {
         this.orderCustomerId = orderCustomerId;
     }
 
-    public HashMap<Integer[], Item> getRestItemsMap() {
+    public HashMap<HashMapKey, Item> getRestItemsMap() {
         return restItemsMap;
     }
 
-    public void setRestItemsMap(HashMap<Integer[], Item> restItemsMap) {
+    public void setRestItemsMap(HashMap<HashMapKey, Item> restItemsMap) {
         this.restItemsMap = restItemsMap;
     }
 
@@ -107,7 +109,24 @@ public class Order {
     public void setStatus(int status) {
         this.status = status;
     }
+    
+    public Double calcSum() {
+        Double sum = 0.0;
+        for( Item t : getRestItemsMap().values() ) {
+            sum += (t.getItemPrice() * t.getQuantity());
+        }
+        return round(sum, 2);
+    }
+    
+    
+    public  double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
 
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+    
     @Override
     public String toString() {
         return "Order{" + "orderId=" + orderId + ", orderCustomerId=" + orderCustomerId  + ", CustomerFullName=" + CustomerFullName + ", CustomerPhonenum=" + CustomerPhonenum + ", CustomerAdress=" + CustomerAdress + ", status=" + status +'}';
@@ -123,6 +142,7 @@ public class Order {
         orederObject.put("CustomerPhonenum", getCustomerPhonenum());
         orederObject.put("CustomerAdress", getCustomerAdress());
         orederObject.put("status", getStatus());
+        orederObject.put("order_sum", calcSum());
         orederObject.put("restItemsMap", new JSONArray());
         JSONArray restItemsArray = orederObject.getJSONArray("restItemsMap");
         for( Item item : getRestItemsMap().values() ) {

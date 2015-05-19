@@ -6,6 +6,7 @@
 package feedme.controller;
 
 import feedme.model.DbHPOnLoad;
+import feedme.model.Order;
 import feedme.model.Restaurant;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,7 +59,11 @@ public class HomePageServlet extends HttpServlet {
          category = dbPageOnLoad.getCategories();
          restaurants = dbPageOnLoad.getRecentRestaurants(6);
           
-          
+         if( request.getSession().getAttribute("shoppingCart") == null ) {
+             request.getSession().setAttribute("shoppingCart", new Order());
+         } 
+         
+         
          request.setAttribute("category", category);
          request.setAttribute("restaurants", restaurants);
          

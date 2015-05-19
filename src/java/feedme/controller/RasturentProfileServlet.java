@@ -5,10 +5,15 @@
  */
 package feedme.controller;
 
+import feedme.model.DbMenuManagment;
 import feedme.model.DbRestaurantsManagement;
+import feedme.model.Item;
 import feedme.model.Restaurant;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,8 +60,10 @@ public class RasturentProfileServlet extends HttpServlet {
         try {
             restId = Integer.parseInt(request.getParameter("res_id"));
             Restaurant res = new DbRestaurantsManagement().getRestaurantById(restId);
+            HashMap<Map<Integer , String > , List<Item>> menuItems = new DbMenuManagment().getMenuByRestaurantId(restId);
             RequestDispatcher dispatcher = request.getRequestDispatcher("website/resturent.jsp");
             request.setAttribute("resturent", res);
+            request.setAttribute("menuItems", menuItems);
             dispatcher.forward(request, response);
         }catch(NumberFormatException e) {
             e.printStackTrace();

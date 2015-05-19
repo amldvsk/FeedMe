@@ -43,14 +43,14 @@ public class test {
         //addNewMenuCatTest();
         //updateMenuCatTest();
         //addNewItemToMenuTest();
-         getRestaurantOrdersTest(5);
+        // getRestaurantOrdersTest(5);
         //deleteItemFromMenuTest();
         //updateMenuItemTest();
         //getLatestOrderNumTest();
         //deleteRestTest();
         //updateMenuTest();
         //getResturantsCitiesTest();
-        //getRecentRestaurantsByCat();
+        getRecentRestaurantsByCat();
         //getNextRestaurantsByCat();
         //getItemMenu();
         //getUsersByRoleTest(0);   
@@ -138,7 +138,7 @@ public class test {
         int minOrder =50;
         String estimatedTimeDel = "שעתיים";
         int managerId = 1;
-        Restaurant rest = new Restaurant("Kampai", phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel);
+        Restaurant rest = new Restaurant("Kampai", phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel );
         rest.setDbid(8);
         DbRestaurantsManagement rm = new DbRestaurantsManagement();
         int result = rm.updateRestaurant(rest, 1 , managerId);
@@ -364,7 +364,7 @@ public class test {
         List<Restaurant> lRest = DBRM.getLatestRestaurantsByCat(3, catid);
         for(Restaurant rest : lRest  )
         {
-            System.out.println(rest.getName());
+            System.out.println("rest name : " + rest.getName() + " rest menuId : " + rest.getMenuId());
         }
     }
     

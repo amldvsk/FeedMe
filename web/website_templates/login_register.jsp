@@ -11,14 +11,14 @@
       <div id="feed-login"> <!-- log in form -->
         <form class="feed-form" accept-charset="UTF-8" method="POST" action="${pageContext.request.contextPath}/Login">
           <p class="fieldset">
-            <label class="image-replace feed-email" for="signin-email">E-mail</label>
-            <input class="full-width has-padding has-border" id="signin-email" type="text" name="Username" placeholder="שם משתמש" required>
+            <label class="image-replace feed-email" for="Username">E-mail</label>
+            <input class="full-width has-padding has-border" id="Username" type="text" name="Username" placeholder="שם משתמש" required>
             <span class="feed-error-message">Error message here!</span>
           </p>
 
           <p class="fieldset">
-            <label class="image-replace feed-password" for="signin-password">Password</label>
-            <input class="full-width has-padding has-border" id="signin-password" name="UserPass" type="text"  placeholder="סיסמה" required>
+            <label class="image-replace feed-password" for="UserPass">Password</label>
+            <input class="full-width has-padding has-border" id="UserPass" name="UserPass" type="text"  placeholder="סיסמה" required>
             <a href="#0" class="hide-password">Hide</a>
             
             <span class="feed-error-message">Error message here!</span>
@@ -44,48 +44,48 @@
         <form class="feed-form" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/registration">
           <div class="clearfix">
             <p class="fieldset pull-right" style="margin: 0; width: calc(100% / 2 - 5px)">
-              <label class="image-replace feed-username" for="signup-firstname">שם פרטי</label>
-              <input class="full-width has-padding has-border" name="firstName" id="signup-firstname" type="text" placeholder="שם פרטי" required>
+              <label class="image-replace feed-username" for="firstName">שם פרטי</label>
+              <input class="full-width has-padding has-border" name="firstName" id="firstName" type="text" placeholder="שם פרטי" required>
               <span class="feed-error-message">Error message here!</span>
             </p>
 
             <p class="fieldset pull-left" style="margin: 0;   width: calc(100% / 2 - 5px)">
-              <label class="image-replace feed-username" for="signup-lastname">שם משפחה</label>
-              <input class="full-width has-padding has-border" name="lastName" id="signup-lastname" type="text" placeholder="שם משפחה" required>
+              <label class="image-replace feed-username" for="lastName">שם משפחה</label>
+              <input class="full-width has-padding has-border" name="lastName" id="lastName" type="text" placeholder="שם משפחה" required>
               <span class="feed-error-message">Error message here!</span>
             </p>
           </div>
           
 
           <p class="fieldset">
-            <label class="image-replace feed-username" for="signup-username">שם משתמש</label>
-            <input class="full-width has-padding has-border" name="userName" id="signup-username" type="text" placeholder="שם משתמש" required>
+            <label class="image-replace feed-username" for="userName">שם משתמש</label>
+            <input class="full-width has-padding has-border" name="userName" id="userName" type="text" placeholder="שם משתמש" required>
             <span class="feed-error-message">Error message here!</span>
           </p>
 
           <p class="fieldset">
-            <label class="image-replace feed-email" for="signup-email">E-mail</label>
-            <input class="full-width has-padding has-border" name="email" id="signup-email" type="email" placeholder="כתובת דוא״ל" required>
+            <label class="image-replace feed-email" for="email">E-mail</label>
+            <input class="full-width has-padding has-border" name="email" id="email" type="email" placeholder="כתובת דוא״ל" required>
             <span class="feed-error-message">Error message here!</span>
           </p>
 
           <p class="fieldset">
-            <label class="image-replace feed-password" for="signup-password">Password</label>
-            <input class="full-width has-padding has-border" name="pw" id="signup-password" type="text"  placeholder="סיסמה" required>
+            <label class="image-replace feed-password" for="pw">Password</label>
+            <input class="full-width has-padding has-border" name="pw" id="pw" type="text"  placeholder="סיסמה" required>
             <a href="#0" class="hide-password">Hide</a>
             <span class="feed-error-message">Error message here!</span>
           </p>
           
           <div class="clearfix">
             <p class="fieldset pull-right" style="  margin: 0; width: calc(55% - 5px)">
-              <label class="image-replace feed-phone" for="signup-phone">מספר טלפון</label>
-              <input class="full-width has-padding has-border" name="phone" id="signup-phone" type="text"  placeholder="מספר טלפון" required>
+              <label class="image-replace feed-phone" for="phone">מספר טלפון</label>
+              <input class="full-width has-padding has-border" name="phone" id="phone" type="text"  placeholder="מספר טלפון" required>
               <span class="feed-error-message">Error message here!</span>
             </p>
 
              <p class="fieldset pull-left" style="margin: 0; width: calc(45% - 5px)">
-                <label class="image-replace feed-birth" for="signup-birth">תאריך לידה</label>
-                <input style="padding: 8px;" class="full-width has-padding has-border" name="bday" id="signup-birth" type="date"  placeholder="תאריך לידה dd/mm/yyyy" required>
+                <label class="image-replace feed-birth" for="bday">תאריך לידה</label>
+                <input style="padding: 8px;" class="full-width has-padding has-border" name="bday" id="bday" type="date"  placeholder="תאריך לידה dd/mm/yyyy" required>
                 <span class="feed-error-message">Error message here!</span>
               </p>
           </div>
@@ -98,27 +98,27 @@
           </p>-->
 
         <p class="fieldset">
-            <label class="image-replace feed-phone" for="signup-phone">כתובת מגורים</label>
-            <input class="full-width has-padding has-border" name="address" id="signup-phone" type="text"  placeholder="כתובת מגורים" required>
+            <label class="image-replace feed-phone" for="address">כתובת מגורים</label>
+            <input class="full-width has-padding has-border" name="address" id="address" type="text"  placeholder="כתובת מגורים" required>
             <span class="feed-error-message">Error message here!</span>
         </p>
 
           <div class="clearfix">
             <p class="fieldset pull-right" style="margin: 0; width: calc(60% - 5px)">
-              <label class="image-replace feed-phone" for="signup-phone">עיר</label>
-              <input class="full-width has-padding has-border" name="city" id="signup-phone" type="text"  placeholder="עיר" required>
+              <label class="image-replace feed-phone" for="city">עיר</label>
+              <input class="full-width has-padding has-border" name="city" id="city" type="text"  placeholder="עיר" required>
               <span class="feed-error-message">Error message here!</span>
             </p>
 
              <p class="fieldset pull-right" style="margin: 0px 5px; width: calc(20% - 5px)">
-                <label class="image-replace feed-birth" for="signup-birth">מספר בית</label>
-                <input class="full-width has-padding has-border" name="street_num" id="signup-birth" type="text"  placeholder="בית" required>
+                <label class="image-replace feed-birth" for="street_num">מספר בית</label>
+                <input class="full-width has-padding has-border" name="street_num" id="street_num" type="text"  placeholder="בית" required>
                 <span class="feed-error-message">Error message here!</span>
               </p>
               
               <p class="fieldset pull-right" style="margin: 0; width: calc(20% - 5px)">
-                <label class="image-replace feed-birth" for="signup-birth">מספר דירה</label>
-                <input class="full-width has-padding has-border" name="home_num" id="signup-birth" type="text"  placeholder="דירה" required>
+                <label class="image-replace feed-birth" for="home_num">מספר דירה</label>
+                <input class="full-width has-padding has-border" name="home_num" id="home_num" type="text"  placeholder="דירה" required>
                 <span class="feed-error-message">Error message here!</span>
               </p>
           </div>

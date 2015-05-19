@@ -236,15 +236,16 @@ public class DbRestaurantsManagement {
             while(rs.next())
             {
                 Restaurant res  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
-                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
+                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time")  );
                 res.setDbid(rs.getInt("restid"));
+                res.setMenuId(rs.getInt("menuid"));
                 restaurants.add(res);
             }
                 
         } catch (SQLException ex) {
             Logger.getLogger(DbRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
              Restaurant res  = new Restaurant("BigaBuGule" , "0546555257" , null ,
-                "הגשר" , "12" ,"פתח תקווה" ,15, 15,"שעה" );
+                "הגשר" , "12" ,"פתח תקווה" ,15, 15,"שעה"  );
                 res.setDbid(0);
                 restaurants.add(res);
         }
@@ -287,15 +288,16 @@ public class DbRestaurantsManagement {
             while(rs.next())
             {
                 Restaurant res  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
-                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
+                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time")  );
                 res.setDbid(rs.getInt("restid"));
+                res.setMenuId(rs.getInt("menuid"));
                 restaurants.add(res);
             }
                 
         } catch (SQLException ex) {
             Logger.getLogger(DbRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
              Restaurant res  = new Restaurant("BigaBuGule" , "0546555257" , null ,
-                "הגשר" , "12" ,"פתח תקווה" ,15, 15,"שעה" );
+                "הגשר" , "12" ,"פתח תקווה" ,15, 15,"שעה"  );
                 res.setDbid(0);
                 restaurants.add(res);
         }
@@ -427,8 +429,9 @@ public class DbRestaurantsManagement {
             while(rs.next())
             {
                rest  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
-                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
+                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time")  );
                 rest.setDbid(rs.getInt("restid"));
+                rest.setMenuId(rs.getInt("menuid"));
                 
             }
         } catch (SQLException ex) {
@@ -475,8 +478,9 @@ public class DbRestaurantsManagement {
             while(rs.next())
             {
                  Restaurant res  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
-                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
+                rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time")   );
                 res.setDbid(rs.getInt("restid"));
+                res.setMenuId(rs.getInt("menuid"));
                 restaurants.add(res);
             }
         } catch (SQLException ex) {

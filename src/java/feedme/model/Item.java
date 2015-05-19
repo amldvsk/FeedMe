@@ -15,11 +15,12 @@ import org.json.JSONObject;
 public class Item {
     
     private int itemID;
-    private String itemName;
-    private double itemPrice;
-    private String itemDescription;
-    private String itemImagePath;
-    private int quantity;
+    private String itemName = null;
+    private double itemPrice = 0;
+    private String itemDescription = null;
+    private String itemImagePath = null;
+    private int quantity = 0;
+    private int restId;
     protected JSONObject itemObject;
 
     public Item(String itemName, double itemPrice, String itemDescription, String itemImagePath) {
@@ -99,14 +100,26 @@ public class Item {
             System.out.println("Fuck Off");
         }
     }
+
+    public int getRestId() {
+        return restId;
+    }
+
+    public void setRestId(int restId) {
+        this.restId = restId;
+    }
+    
+    
     
     public JSONObject toJson() throws JSONException {
         itemObject = new JSONObject();
         itemObject.put("itemID", getItemID());
-        itemObject.put("itemPrice", getItemID());
-        itemObject.put("itemDescription", getItemID());
-        itemObject.put("itemImagePath", getItemID());
-        itemObject.put("quantity", getItemID());
+        itemObject.put("itemName", getItemName());
+        itemObject.put("itemPrice", getItemPrice());
+        itemObject.put("itemDescription", getItemDescription());
+        itemObject.put("itemImagePath", getItemImagePath());
+        itemObject.put("quantity", getQuantity());
+        itemObject.put("rest_id", getRestId());
         return itemObject;
     }
     

@@ -147,6 +147,7 @@ public class DbAdminManagmentTools {
                 Restaurant res  = new Restaurant(rs.getString("rest_name") , rs.getString("phone") , rs.getString("logo") ,
                 rs.getString("street") , rs.getString("street_num") , rs.getString("city") ,rs.getInt("delivery_price"), rs.getInt("min_order"),rs.getString("estimated_time") );
                 res.setDbid(rs.getInt("restid"));
+                res.setMenuId(rs.getInt("menuid"));
                 restaurants.add(res);
             }
         } catch (SQLException ex) {
