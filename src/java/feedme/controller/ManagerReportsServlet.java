@@ -21,9 +21,11 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -109,8 +111,11 @@ public class ManagerReportsServlet extends HttpServlet {
                     }
 
                 }
-                request.setAttribute("dateAndNumOfOrders", dateAndNumOfOrders);
-                request.setAttribute("dateAndPrice", dateAndPrice);
+                 //Sort 
+                 TreeMap<String, String> Sorted_dateAndNumOfOrders = new TreeMap<String, String>(dateAndNumOfOrders);
+                 Map<String, String> Sorted_dateAndPrice = new TreeMap<String, String>(dateAndPrice);
+                request.setAttribute("dateAndNumOfOrders", Sorted_dateAndNumOfOrders);
+                request.setAttribute("dateAndPrice", Sorted_dateAndPrice);
                 request.setAttribute("restaurant", reslist.get(0));
                 request.setAttribute("reslist", reslist);
                 RequestDispatcher  dispatcher = request.getRequestDispatcher("/manager/order_reports.jsp");
