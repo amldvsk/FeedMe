@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,17 +44,18 @@ public class test {
         //addNewMenuCatTest();
         //updateMenuCatTest();
         //addNewItemToMenuTest();
-        // getRestaurantOrdersTest(5);
+        //getRestaurantOrdersTest(20);
         //deleteItemFromMenuTest();
         //updateMenuItemTest();
         //getLatestOrderNumTest();
         //deleteRestTest();
         //updateMenuTest();
         //getResturantsCitiesTest();
-        getRecentRestaurantsByCat();
+        //getRecentRestaurantsByCat();
         //getNextRestaurantsByCat();
         //getItemMenu();
-        //getUsersByRoleTest(0);   
+        //getUsersByRoleTest(0); 
+        addNewOrderTest();
 
      
     
@@ -353,7 +355,40 @@ public class test {
     
     public static void addNewOrderTest()
     {
-        int restId1 ;
+        int restId1 = 6 ;
+        int restId2 = 20 ;
+        DbUsersManagement dbu = new DbUsersManagement();
+        DbOrderManagement bdor = new DbOrderManagement();
+        HashMap<HashMapKey , Item> items = new HashMap<>();
+        
+        Customer cust = (Customer)dbu.getUserByUserName("nadav");
+        Item it1 = bdor.getItemById(2);
+        Item it2 = bdor.getItemById(7);
+        Item it3 = bdor.getItemById(8);
+        it3.increaseQunatity();
+        it2.setQuantity(5);
+        items.put(new HashMapKey(it1.getItemID(),restId1 ), it1);
+        items.put(new HashMapKey(it2.getItemID(),restId1 ), it2);
+        items.put(new HashMapKey(it3.getItemID() ,restId2 ), it3);
+        
+        Order ord = new Order( cust.getDbId() , cust.getFullName() , cust.getPhone() , cust.getFullAdress());
+        ord.setRestItemsMap(items);
+            
+        bdor.addNewOrder(ord);
+           /* for (HashMapKey hmk : ord.getRestItemsMap().keySet())
+            {
+                int restId  = hmk.getSecondNumber();
+                Item ito = ord.getRestItemsMap().get(hmk);
+                System.out.println(restId);
+                System.out.println(ito.toString());
+                
+                
+            }*/
+          
+        
+        
+        
+        
     }
     
     public static void getRecentRestaurantsByCat()

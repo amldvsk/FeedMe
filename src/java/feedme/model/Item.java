@@ -108,6 +108,11 @@ public class Item {
     public void setRestId(int restId) {
         this.restId = restId;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" + "itemID=" + itemID + ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", itemDescription=" + itemDescription + ", itemImagePath=" + itemImagePath + ", quantity=" + quantity + ", restId=" + restId + '}';
+    }
     
     
     
