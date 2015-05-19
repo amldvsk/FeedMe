@@ -15,8 +15,27 @@
            <!--<li><a href="../navbar/">Default</a></li>-->
             <!--<li class=""><a href="./">Static top <span class="sr-only">(current)</span></a></li>-->
             <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
-            <li><a class="feed-signin" href="#0">התחבר</a></li>
-            <li><a class="feed-signup" href="#0">הירשם</a></li>
+            <c:choose>
+                <c:when test="${sessionScope.AuthenticatUser != null}">
+                   <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">שלום, ${sessionScope.AuthenticatUser.getUserFirstName()} ${sessionScope.AuthenticatUser.getUserLastName()} <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">One more separated link</a></li>
+                        </ul>
+                      </li>
+                </c:when>
+                <c:otherwise>
+                    <li><a class="feed-signin" href="#0">התחבר</a></li>
+                    <li><a class="feed-signup" href="#0">הירשם</a></li>
+                </c:otherwise>
+            </c:choose>
+            
             <li id="cd-cart-trigger"><a class="cd-img-replace" href="#0"><i class="fa fa-shopping-cart"></i></a></li>
           </ul>
         </div><!--/.nav-collapse -->
