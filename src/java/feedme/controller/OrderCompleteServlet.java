@@ -5,23 +5,10 @@
  */
 package feedme.controller;
 
-import feedme.model.AuthenticatUser;
-import feedme.model.DbMenuManagment;
 import feedme.model.DbOrderManagement;
-import feedme.model.DbRestaurantsManagement;
-import feedme.model.Item;
 import feedme.model.Order;
-import feedme.model.PasswordEncryptionService;
-import feedme.model.Restaurant;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nirk
  */
-@WebServlet(name = "ManagerRestaurantMenuesServlet", urlPatterns = {"/ManagerRestaurantMenuesServlet"})
-public class ManagerRestaurantMenuesServlet extends HttpServlet {
+@WebServlet(name = "OrderDetailsServlet", urlPatterns = {"/order-complete"})
+public class OrderCompleteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,10 +40,10 @@ public class ManagerRestaurantMenuesServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManagerRestaurantMenuesServlet</title>");            
+            out.println("<title>Servlet OrderDetailsServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManagerRestaurantMenuesServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet OrderDetailsServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,33 +61,7 @@ public class ManagerRestaurantMenuesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| manager.isLoginResult()== true) {
-                response.sendRedirect(request.getContextPath() + "/");
-                return;
-            }
-                
-            
-            
-            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
-            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
-            HashMap<Map<Integer,String>,List<Item>> menues = new DbMenuManagment().getMenuByRestaurantId(reslist.get(0).getDbid());
-            
-            request.setAttribute("menu", menues);
-          
-            
-
-            
-            RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/menue.jsp");
-            dispatcher.forward(request, response);
-            return;
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
-            Logger.getLogger(ManagerPageServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        processRequest(request, response);
     }
 
     /**
@@ -115,6 +76,31 @@ public class ManagerRestaurantMenuesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        String fullName = request.getParameter("fname");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        Order cart = (Order)request.getSession().getAttribute("shoppingCart");
+        
+        cart.setCustomerFullName(fullName);
+        cart.setCustomerPhonenum(phone);
+        cart.setCustomerAdress(address);
+        
+        DbOrderManagement dbom = new DbOrderManagement();
+        int result = dbom.addNewOrder(cart);
+        if(result == 1)
+        {
+            request.setAttribute("shoppingCart", new Order());
+            response.sendRedirect(request.getContextPath()+"/website/order_completed.jsp");
+            return;
+        }
+        else
+        {
+            request.setAttribute("shoppingCart", "התרחשה שגיאה אנא נסו שנית");
+            response.sendRedirect(request.getContextPath()+"/website/complete_order.jsp");
+            return;
+
+        }
+  
     }
 
     /**

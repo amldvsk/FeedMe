@@ -49,28 +49,28 @@ public class DbOrderManagement {
         String custAddr = currOrd.getCustomerAdress();
         String custPhone = currOrd.getCustomerPhonenum();
         con = DbConnector.getInstance().getConn();
-        Iterator it = currOrd.getRestItemsMap().entrySet().iterator();
-        currOrd.setOrderId(orderNum);
+
+        currOrd.setOrderId(++orderNum);
+        HashMap<HashMapKey , Item> itemsRest = currOrd.getRestItemsMap();
         try {
             result = 0;
-            while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            int restId = (int)pair.getKey();
-            Item item = (Item)pair.getValue();
-            cstmt = con.prepareCall(spuName);
-            cstmt.clearParameters();
-            cstmt.setInt(1,currOrd.getOrderId());
-            cstmt.setInt(2, item.getItemID());
-            cstmt.setInt(3,restId);
-            cstmt.setInt(4, customerId);
-            cstmt.setString(5,custFullName);
-            cstmt.setString(6 , custAddr);
-            cstmt.setString(7 , custPhone);
-            cstmt.setInt(8, item.getQuantity());
-            result += cstmt.executeUpdate();
-            
-            
+           
+            for(HashMapKey hmk : itemsRest.keySet()){
+                int restId = hmk.getSecondNumber();
+                Item item = itemsRest.get(hmk);
+                cstmt = con.prepareCall(spuName);
+                cstmt.clearParameters();
+                cstmt.setInt(1,currOrd.getOrderId());
+                cstmt.setInt(2, item.getItemID());
+                cstmt.setInt(3,restId);
+                cstmt.setInt(4, customerId);
+                cstmt.setString(5,custFullName);
+                cstmt.setString(6 , custAddr);
+                cstmt.setString(7 , custPhone);
+                cstmt.setInt(8, item.getQuantity());
+                result += cstmt.executeUpdate();
             }
+ 
         } catch (SQLException ex) {
             Logger.getLogger(DbOrderManagement.class.getName()).log(Level.SEVERE, null, ex);
             result = -2;
@@ -96,6 +96,10 @@ public class DbOrderManagement {
         if(result == currOrd.getRestItemsMap().size())
         {
             result = 1;
+        }
+        else
+        {
+            result = -1 ;
         }
         return result;
     }
