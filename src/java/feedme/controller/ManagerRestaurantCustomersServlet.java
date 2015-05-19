@@ -9,6 +9,7 @@ import feedme.model.AuthenticatUser;
 import feedme.model.Customer;
 import feedme.model.DbRestaurantsManagement;
 import feedme.model.PasswordEncryptionService;
+import feedme.model.Restaurant;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -81,9 +82,13 @@ public class ManagerRestaurantCustomersServlet extends HttpServlet {
                 return;
                 
             }
-            
+            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
+            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
+            request.setAttribute("restaurant", reslist.get(0));
+            request.setAttribute("reslist", reslist);            
             //customers = dbrm.getCustomersByManagerId(manager.getUserId());
             //request.setAttribute("customers", customers);
+
             
             RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/customers.jsp");
             dispatcher.forward(request, response);
