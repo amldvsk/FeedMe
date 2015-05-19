@@ -46,7 +46,7 @@
                 </div>
             </div>
             <h4>פרטי כרטיס אשראי</h4>
-            <div class="add_item_fileds hidden-fileds">
+            <div class="add_item_cradit_card hidden-fileds">
                 <div class="form-group clearfix">
                     <div class="col-md-6">
                         <label for="itemName">כתובת למשלוח</label>

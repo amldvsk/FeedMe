@@ -1303,6 +1303,14 @@ div.bottom-navigation ul.nav li a:hover {
 }
 
 
+.place-order-wrapper .add_item_fileds {
+    border-bottom: 2px dashed #eee;
+    padding-bottom: 10px;
+}
+
+.place-order-wrapper .add_item_cradit_card {
+    padding-top: 10px;
+}
 
 .place-order-wrapper #place_order h4 {
     margin-bottom: 15px;
