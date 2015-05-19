@@ -24,7 +24,7 @@
 
       <div class="order-customer-details" >
         <h3>פרטי המשלוח</h3>
-        <form    id="place_order"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/menu-item-management">
+        <form    id="place_order"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/order-complete">
             <h4>פרטים אישיים</h4>
             <div class="add_item_fileds hidden-fileds">
                 <div class="form-group clearfix">

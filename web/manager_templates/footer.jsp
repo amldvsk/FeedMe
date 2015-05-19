@@ -9,6 +9,7 @@
   <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/manager_main.js"></script> 
   <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/Chart.min.js"></script>
   <script type="text/javascript">
     $('#toggleSidebar').on('click', function(e) {
       e.preventDefault();
@@ -70,6 +71,66 @@
                         }
           }
       });
+      
+  </script>
+  
+  
+  
+  <script>
+      
+      if( $('#orders_sum').length > 0 ){
+          Chart.defaults.global.responsive = true;
+          var ctx = document.getElementById("orders_num").getContext("2d");
+            var data = {
+                            
+                          
+                   
+                          labels: [
+                              <c:forEach var="data"  items="${requestScope.dateAndNumOfOrders}">
+                                    "${data.key}",
+                                </c:forEach>
+                          ],
+                          datasets: [
+                              {
+                                  label: "My First dataset",
+                                  fillColor: "rgba(220,220,220,0.5)",
+                                  strokeColor: "rgba(220,220,220,0.8)",
+                                  highlightFill: "rgba(220,220,220,0.75)",
+                                  highlightStroke: "rgba(220,220,220,1)",
+                                  data: [
+                                            <c:forEach var="data"  items="${requestScope.dateAndNumOfOrders}">
+                                                ${data.value},
+                                            </c:forEach>
+                                        ]
+                              },
+                          ]
+                      };
+            var ordersSum = new Chart(ctx).Bar(data);
+            
+            var ctx = document.getElementById("orders_sum").getContext("2d");
+            var data = {
+                          labels: [
+                              <c:forEach var="data2"  items="${requestScope.dateAndPrice}">
+                                    "${data2.key}",
+                                </c:forEach>
+                          ],
+                          datasets: [
+                              {
+                                  label: "My Second dataset",
+                                  fillColor: "rgba(151,187,205,0.5)",
+                                  strokeColor: "rgba(151,187,205,0.8)",
+                                  highlightFill: "rgba(151,187,205,0.75)",
+                                  highlightStroke: "rgba(151,187,205,1)",
+                                  data: [
+                                            <c:forEach var="data2"  items="${requestScope.dateAndPrice}">
+                                                ${data2.value},
+                                            </c:forEach>
+                                        ]
+                              }
+                          ]
+                      };
+            var ordersNum = new Chart(ctx).Bar(data);
+      }
       
   </script>
   
