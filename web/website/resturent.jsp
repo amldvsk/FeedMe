@@ -61,7 +61,7 @@
                             
                             <ul class="list-inline items">
                                 <c:forEach var="item"  items="${menuItem.value}">
-                                    <li class="item">
+                                    <li class="item" data-item-id="${item.getItemID()}" data-item-price="${item.getItemPrice()}" data-rest-id="${requestScope.resturent.getDbid()}" data-item-name="${item.getItemName()}">
                                         <div class="item-logo">
                                           <img src="${pageContext.request.contextPath}/assets/Uploads/${item.getItemImagePath()}" alt="placeholder+image">
                                         </div>

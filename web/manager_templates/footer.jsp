@@ -62,8 +62,7 @@
                         },
               itemPrice:       {
                             required: true,
-                            minlength: 2,
-                            digit : true
+                            digits: true
                         },
               logo:    {
                             required: true,
