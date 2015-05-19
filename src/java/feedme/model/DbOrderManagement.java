@@ -223,12 +223,12 @@ public class DbOrderManagement {
         return ordersNum;
     }
     
-    private HashMap<Integer[] , Item> getItemsByOrderIdAndRestId(int restId , int orderId)
+    private HashMap<HashMapKey , Item> getItemsByOrderIdAndRestId(int restId , int orderId)
     {
         //List<Item> orderItems = new ArrayList<>();
         String spuName = "{CALL feedmedb.Spu_GetItemsByOIdAndRId(?, ?)}";
         con = DbConnector.getInstance().getConn();
-        HashMap<Integer[] , Item> orderItems = new HashMap<>();
+        HashMap<HashMapKey , Item> orderItems = new HashMap<>();
         ResultSet rs = null;
         
         try {
@@ -240,7 +240,7 @@ public class DbOrderManagement {
             while(rs.next())
             {
                 Item newItem = new Item(rs.getInt("item_id"), rs.getString("item_name"), rs.getDouble("item_price"), rs.getInt("item_quant"));
-                orderItems.put(new Integer []{restId , newItem.getItemID()}, newItem);
+                orderItems.put(new HashMapKey(restId, newItem.getItemID()), newItem);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DbOrderManagement.class.getName()).log(Level.SEVERE, null, ex);

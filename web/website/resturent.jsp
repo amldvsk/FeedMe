@@ -59,7 +59,7 @@
                         
                             <h3>${menuItemKey.value}</h3>
                             
-                            <ul class="list-inline items">
+                            <ul class="list-inline items resturen_menu_items" data-href="${pageContext.request.contextPath}/update-cart">
                                 <c:forEach var="item"  items="${menuItem.value}">
                                     <li class="item" data-item-id="${item.getItemID()}" data-item-price="${item.getItemPrice()}" data-rest-id="${requestScope.resturent.getDbid()}" data-item-name="${item.getItemName()}">
                                         <div class="item-logo">
@@ -69,7 +69,7 @@
                                           <h4>${item.getItemName()}</h4>
                                           <h5 style="margin:0; padding: 5px;" >${item.getItemPrice()} &#8362;</h5>
                                           <!--<p><small>${item.getItemPrice()} &#8362;</small></p>-->
-                                          <a href="#" class="btn btn-green btn-blcok">הזמן עכשיו</a> 
+                                          <a href="#" class="btn btn-green btn-blcok add-to-cart-btn">הזמן עכשיו</a> 
                                         </div>
                                       </li>
                                 </c:forEach>

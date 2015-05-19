@@ -8,6 +8,7 @@ package feedme.controller;
 import feedme.model.AuthenticatUser;
 import feedme.model.DbOrderManagement;
 import feedme.model.DbRestaurantsManagement;
+import feedme.model.HashMapKey;
 import feedme.model.Item;
 import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
@@ -91,7 +92,7 @@ public class ManagerReportsServlet extends HttpServlet {
                             String fullDatee= Integer.toString(dayy)+"/"+Integer.toString(monthh)+"/"+Integer.toString(yearr);//dd/MM/yyyy 
                             if(fullDate.equals(fullDatee)){
                                 counter++;
-                                HashMap<Integer[],Item> items=o.getRestItemsMap();
+                                HashMap<HashMapKey,Item> items=o.getRestItemsMap();
                                 int tempPrice=0;
                                 for (Item it: items.values()) {
                                      tempPrice+=it.getQuantity() * it.getItemPrice();                   

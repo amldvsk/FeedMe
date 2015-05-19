@@ -454,7 +454,7 @@ p {
   padding-bottom: 1em;
 }
 #cd-cart .cd-cart-total span {
-  float: right;
+  /*float: right;*/
 }
 #cd-cart .cd-cart-total::after {
   /* clearfix */
@@ -592,7 +592,7 @@ color: #fff;
   padding-bottom: 1em;
 }
 #cd-cart .cd-cart-total span {
-  float: right;
+  //float: right;
 }
 #cd-cart .cd-cart-total::after {
   /* clearfix */

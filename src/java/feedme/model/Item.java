@@ -15,11 +15,11 @@ import org.json.JSONObject;
 public class Item {
     
     private int itemID;
-    private String itemName;
-    private double itemPrice;
-    private String itemDescription;
-    private String itemImagePath;
-    private int quantity;
+    private String itemName = null;
+    private double itemPrice = 0;
+    private String itemDescription = null;
+    private String itemImagePath = null;
+    private int quantity = 0;
     protected JSONObject itemObject;
 
     public Item(String itemName, double itemPrice, String itemDescription, String itemImagePath) {
@@ -103,10 +103,11 @@ public class Item {
     public JSONObject toJson() throws JSONException {
         itemObject = new JSONObject();
         itemObject.put("itemID", getItemID());
-        itemObject.put("itemPrice", getItemID());
-        itemObject.put("itemDescription", getItemID());
-        itemObject.put("itemImagePath", getItemID());
-        itemObject.put("quantity", getItemID());
+        itemObject.put("itemName", getItemName());
+        itemObject.put("itemPrice", getItemPrice());
+        itemObject.put("itemDescription", getItemDescription());
+        itemObject.put("itemImagePath", getItemImagePath());
+        itemObject.put("quantity", getQuantity());
         return itemObject;
     }
     
