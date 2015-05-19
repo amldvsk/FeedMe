@@ -37,7 +37,7 @@
                   <div id="collapseTwo" class="panel-collapse collapse">
                       <div class="panel-body">
                         <div class="sub-links">
-                          <a href="#" class="list-group-item">פריט</a>
+                          <a href="${pageContext.request.contextPath}/manager/order_reports" class="list-group-item">דוח הזמנות</a>
                           <a href="#" class="list-group-item">פריט</a>
                           <a href="#" class="list-group-item">פריט</a>
                           <a href="#" class="list-group-item">פריט</a>

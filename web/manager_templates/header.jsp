@@ -68,7 +68,9 @@
             </div>
             <div class="meta">
               <div class="page">
+                ${sessionScope.AuthenticatUser.getUserFirstName()} ${sessionScope.AuthenticatUser.getUserLastName()} -
                 ניהול מסעדה
+                
               </div>
               <div class="breadcrumb-links hidden">
                 בית / דשבורד

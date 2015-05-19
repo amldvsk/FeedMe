@@ -106,7 +106,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManagerReportsServlet</servlet-name>
-        <url-pattern>/ManagerReportsServlet</url-pattern>
+        <url-pattern>/manager/order_reports</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
