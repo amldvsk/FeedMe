@@ -12,12 +12,12 @@
         <li class="sidebar-list">
           <a href="${pageContext.request.contextPath}/manager">דשבורד <span class="menu-icon fa fa-tachometer"></span></a>
         </li>
-        <li class="sidebar-list">
+<!--        <li class="sidebar-list">
           <a href="#/tables">משלוחים <span class="menu-icon fa fa-truck"></span></a>
         </li>
         <li class="sidebar-list">
           <a href="#/tables">ניהול מסעדה <span class="menu-icon fa fa-wrench"></span></a>
-        </li>
+        </li>-->
         <li class="sidebar-list">
           <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseOne" class="collapsed">תפריט <span class="menu-icon fa fa-bars"></span></a>
             <div class="panel clearfix">
@@ -43,7 +43,7 @@
                   </div>
               </div>
         </li>
-        <li class="sidebar-list">
+<!--        <li class="sidebar-list">
           <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseThree" class="collapsed">לקוחות <span class="menu-icon fa fa-users"></span></a>
             <div class="panel clearfix">
                   <div id="collapseThree" class="panel-collapse collapse">
@@ -57,7 +57,7 @@
                       </div>
                   </div>
               </div>
-        </li>
+        </li>-->
       </ul>
       <div class="sidebar-footer">
         <div class="col-xs-4">
