@@ -100,6 +100,8 @@ public class ManagerReportsServlet extends HttpServlet {
                 }
                 request.setAttribute("dateAndNumOfOrders", dateAndNumOfOrders);
                 request.setAttribute("dateAndPrice", dateAndPrice);
+                request.setAttribute("restaurant", reslist.get(0));
+                request.setAttribute("reslist", reslist);
                 RequestDispatcher  dispatcher = request.getRequestDispatcher("/manager/order_reports.jsp");
                 dispatcher.forward(request, response);
             }
