@@ -24,6 +24,8 @@
                             <c:forEach var="data2"  items="${requestScope.dateAndPrice}">
                             <h1>${data2.key} ${data2.value}</h1>
                          </c:forEach>
+                            <h1>${requestScope.dateAndPrice}</h1>
+                            <h1>${requestScope.dateAndNumOfOrders}</h1>
                       </div>
                     </div>
                   </div>
