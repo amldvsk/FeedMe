@@ -87,7 +87,7 @@ public class ManagerRestaurantMenuesServlet extends HttpServlet {
             DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
             List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
             HashMap<Map<Integer,String>,List<Item>> menues = new DbMenuManagment().getMenuByRestaurantId(reslist.get(0).getDbid());
-            
+ 
             request.setAttribute("menu", menues);
           
             
