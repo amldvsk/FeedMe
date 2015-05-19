@@ -25,7 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +36,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author david
  */
+@WebServlet(name = "ManagerReportsServlet", urlPatterns = {"/manager/order_reports"})
+
 public class ManagerReportsServlet extends HttpServlet {
 
     
@@ -107,6 +111,8 @@ public class ManagerReportsServlet extends HttpServlet {
                 }
                 request.setAttribute("dateAndNumOfOrders", dateAndNumOfOrders);
                 request.setAttribute("dateAndPrice", dateAndPrice);
+                RequestDispatcher  dispatcher = request.getRequestDispatcher("/manager/order_reports.jsp");
+                dispatcher.forward(request, response);
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ManagerReportsServlet.class.getName()).log(Level.SEVERE, null, ex);
