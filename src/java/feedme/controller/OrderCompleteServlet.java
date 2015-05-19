@@ -91,11 +91,13 @@ public class OrderCompleteServlet extends HttpServlet {
         {
             request.setAttribute("shoppingCart", new Order());
             response.sendRedirect(request.getContextPath()+"/website/order_completed.jsp");
+            return;
         }
         else
         {
             request.setAttribute("shoppingCart", "התרחשה שגיאה אנא נסו שנית");
             response.sendRedirect(request.getContextPath()+"/website/complete_order.jsp");
+            return;
 
         }
   
