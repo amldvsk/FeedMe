@@ -73,7 +73,12 @@ public class Customer extends User{
         this.city = city;
     }
     
-    
+    public String getFullAdress()
+    {
+        String fullAdd;
+        fullAdd = this.getApartNum() + "/" + this.getHouseNum() + " , " + this.getStreet() + " , " + this.getCity();
+        return fullAdd;
+    }
     @Override
     public JSONObject toJson() throws JSONException {
         super.toJson();
