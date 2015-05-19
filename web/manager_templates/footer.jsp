@@ -36,5 +36,43 @@
       }
     });
   </script>
+  
+  
+  <script type="text/javascript">
+      $('#itemMenuCatId').on('change', function() {
+          if($(this).val() != '-1') {
+              $('.add_item_fileds').removeClass('hidden');
+          } else {
+              $('.add_item_fileds').addClass('hidden');
+          }
+      });
+  </script>
+  
+  <script type="text/javascript" >
+      
+      $('#add_menu_item').validate({
+          rules: {
+              itemName: {
+                            required: true,
+                            minlength: 2,
+                        },
+              itemDescrip:        {
+                            required: true,
+                            minlength: 2,
+                        },
+              itemPrice:       {
+                            required: true,
+                            minlength: 2,
+                            digit : true
+                        },
+              logo:    {
+                            required: true,
+                            minlength: 2,
+                        }
+          }
+      });
+      
+  </script>
+  
 </body>
 </html>
