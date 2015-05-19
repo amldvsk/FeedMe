@@ -55,7 +55,7 @@ public class ManagerReportsServlet extends HttpServlet {
         // Check if user is :admin\manager\customer
         AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
         try {
-            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| manager.isLoginResult()== true) {
+            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| manager.isLoginResult()== false) {
                 response.sendRedirect(request.getContextPath() + "/");
                 return;                
             }
