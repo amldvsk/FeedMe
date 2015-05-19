@@ -85,7 +85,11 @@ public class ManagerRestaurantOrdersServlet extends HttpServlet {
             
             List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
             
-           
+
+            
+            
+            request.setAttribute("restaurant", reslist.get(0));
+            request.setAttribute("reslist", reslist);           
             request.setAttribute("orders", orders);
             
             RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/orders.jsp");
