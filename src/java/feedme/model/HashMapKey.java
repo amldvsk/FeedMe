@@ -10,8 +10,8 @@ package feedme.model;
  * @author adi
  */
 public class HashMapKey {
-    private final int firstNumber;
-    private final int secondNumber;
+    private int firstNumber;
+    private int secondNumber;
 
     public HashMapKey(int firstNumber, int secondNumber) {
         this.firstNumber = firstNumber;
@@ -35,4 +35,24 @@ public class HashMapKey {
         result = 31 * result + Integer.valueOf(this.secondNumber).hashCode();
         return result;
     }
+
+    public int getFirstNumber() {
+        return firstNumber;
+    }
+
+    public void setFirstNumber(int firstNumber) {
+        this.firstNumber = firstNumber;
+    }
+
+    public int getSecondNumber() {
+        return secondNumber;
+    }
+
+    public void setSecondNumber(int secondNumber) {
+        this.secondNumber = secondNumber;
+    }
+    
+    
+    
+    
 }
