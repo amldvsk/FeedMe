@@ -2,10 +2,10 @@
 <div id="cd-shadow-layer"></div>
   <div id="cd-cart">
     <h2>סל קניות</h2>
-    <ul class="cd-cart-items">
+    <ul class="cd-cart-items" data-href="${pageContext.request.contextPath}/update-cart" >
         <c:forEach var="cartItem" items="${sessionScope.shoppingCart.getRestItemsMap()}">
-            <li>
-                <span class="cd-qty">${cartItem.value.getQuantity()}</span> ${cartItem.value.getItemName()}
+            <li class="item" data-item-id="${cartItem.value.getItemID()}" data-item-price="${cartItem.value.getItemPrice()}" data-rest-id="${cartItem.value.getRestId()}" data-item-name="${cartItem.value.getItemName()}">
+                <span class="cd-qty">X ${cartItem.value.getQuantity()}</span> ${cartItem.value.getItemName()}
                 <div class="cd-price">${cartItem.value.getItemPrice()} &#8362;</div>
                 <a href="#0" class="cd-item-remove cd-img-replace"></a>
               </li>

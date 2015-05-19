@@ -61,18 +61,24 @@ public class OrderServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int itemid = Integer.parseInt(request.getParameter("itemid"));
         int restid = Integer.parseInt(request.getParameter("restid"));
-
+        int action = Integer.parseInt(request.getParameter("action"));
+        HashMapKey rest_item = new HashMapKey(itemid, restid);
         HttpSession session = request.getSession(false);
         Order cart =(Order)session.getAttribute("shoppingCart");
-        DbOrderManagement dbOrderManagement = new DbOrderManagement();
-        Item item = dbOrderManagement.getItemById(itemid);
-        HashMapKey rest_item = new HashMapKey(itemid, restid);
-        if(cart.getRestItemsMap().get(rest_item) == null)
-        {
-            cart.getRestItemsMap().put(rest_item,item);
+        if( action == 1 ) {
+             DbOrderManagement dbOrderManagement = new DbOrderManagement();
+            Item item = dbOrderManagement.getItemById(itemid);
+            item.setRestId(restid);
+            if(cart.getRestItemsMap().get(rest_item) == null)
+            {
+                cart.getRestItemsMap().put(rest_item,item);
+            } else {
+                cart.getRestItemsMap().get(rest_item).increaseQunatity();
+            }
         } else {
-            cart.getRestItemsMap().get(rest_item).increaseQunatity();
+            cart.getRestItemsMap().remove(rest_item);
         }
+       
         
        
         

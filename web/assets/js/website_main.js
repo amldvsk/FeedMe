@@ -266,17 +266,13 @@ $('.resturen_menu_items li.item a.add-to-cart-btn').on('click', function(e) {
           url: cart_url,
           type: "POST",
           contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-          data: {itemid : item_id, restid :rest_id },
+          data: {itemid : item_id, restid :rest_id, action : 1 },
         });
 
         request.done(function(msg) {
-          console.log(msg);
+//          console.log(msg);
           var cartItems = $('.cd-cart-items');
-          cartItems.empty();
-          $.each(msg.cart.restItemsMap, function(i, item) {
-              li = '<li><span class="cd-qty">'+item.quantity+'</span> '+item.itemName+'<div class="cd-price">'+item.itemPrice+'</div><a href="#0" class="cd-item-remove cd-img-replace"></a></li>';
-              cartItems.append(li);
-          });
+          appendToCart(msg, cartItems);
           $('#calc_sum').html("&#8362;"+msg.cart_sum);
           $('#cd-cart-trigger').trigger('click');
           
@@ -287,3 +283,44 @@ $('.resturen_menu_items li.item a.add-to-cart-btn').on('click', function(e) {
         });
     
 });
+
+
+
+$('body').on('click', '.cd-cart-items li.item a.cd-item-remove', function(e) {
+    e.preventDefault();
+    var parent = $(this).parents('li.item');
+    cart_url = $('ul.cd-cart-items').data('href');
+    console.log( cart_url +" "+ parent.data('item-name') +" "+ parent.data('item-id') +" "+ parent.data('item-price') +" "+ parent.data('rest-id'));
+    
+    item_id = parent.data('item-id');
+    rest_id = parent.data('rest-id');
+    
+    var request = $.ajax({
+          url: cart_url,
+          type: "POST",
+          contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+          data: {itemid : item_id, restid :rest_id, action : 2 },
+        });
+
+        request.done(function(msg) {
+//          console.log(msg);
+          var cartItems = $('.cd-cart-items');
+          appendToCart(msg, cartItems);
+          $('#calc_sum').html("&#8362;"+msg.cart_sum);
+          
+        });
+
+        request.fail(function(jqXHR, textStatus) {
+          console.log( "Request failed: " + textStatus );
+        });
+    
+});
+
+
+function appendToCart(msg, cart) {
+    cart.empty();
+    $.each(msg.cart.restItemsMap, function(i, item) {
+        li = '<li class="item" data-item-id="'+item.itemID+'" data-item-price="'+item.itemPrice+'" data-rest-id="'+item.rest_id+'" data-item-name="'+item.itemName+'"><span class="cd-qty">'+item.quantity+'</span> '+item.itemName+'<div class="cd-price">'+item.itemPrice+'</div><a href="#0" class="cd-item-remove cd-img-replace"></a></li>';
+        cart.append(li);
+    });
+}

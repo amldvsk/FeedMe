@@ -20,6 +20,7 @@ public class Item {
     private String itemDescription = null;
     private String itemImagePath = null;
     private int quantity = 0;
+    private int restId;
     protected JSONObject itemObject;
 
     public Item(String itemName, double itemPrice, String itemDescription, String itemImagePath) {
@@ -99,6 +100,16 @@ public class Item {
             System.out.println("Fuck Off");
         }
     }
+
+    public int getRestId() {
+        return restId;
+    }
+
+    public void setRestId(int restId) {
+        this.restId = restId;
+    }
+    
+    
     
     public JSONObject toJson() throws JSONException {
         itemObject = new JSONObject();
@@ -108,6 +119,7 @@ public class Item {
         itemObject.put("itemDescription", getItemDescription());
         itemObject.put("itemImagePath", getItemImagePath());
         itemObject.put("quantity", getQuantity());
+        itemObject.put("rest_id", getRestId());
         return itemObject;
     }
     
