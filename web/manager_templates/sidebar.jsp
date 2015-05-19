@@ -10,7 +10,7 @@
         </li>
         <li class="sidebar-title"><span>תפריט</span></li>
         <li class="sidebar-list">
-          <a href="#">דשבורד <span class="menu-icon fa fa-tachometer"></span></a>
+          <a href="${pageContext.request.contextPath}/manager">דשבורד <span class="menu-icon fa fa-tachometer"></span></a>
         </li>
         <li class="sidebar-list">
           <a href="#/tables">משלוחים <span class="menu-icon fa fa-truck"></span></a>
@@ -38,9 +38,6 @@
                       <div class="panel-body">
                         <div class="sub-links">
                           <a href="${pageContext.request.contextPath}/manager/order_reports" class="list-group-item">דוח הזמנות</a>
-                          <a href="#" class="list-group-item">פריט</a>
-                          <a href="#" class="list-group-item">פריט</a>
-                          <a href="#" class="list-group-item">פריט</a>
                         </div>
                       </div>
                   </div>
