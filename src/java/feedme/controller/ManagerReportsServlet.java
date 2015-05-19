@@ -60,7 +60,7 @@ public class ManagerReportsServlet extends HttpServlet {
                 return;                
             }
             else{
-                int totalPrice=0;
+                double totalPrice=0;
                 Calendar now = Calendar.getInstance();
                 DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
                 List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
@@ -72,26 +72,37 @@ public class ManagerReportsServlet extends HttpServlet {
                 for(Order ord:orders){
                     counter=0;
                     totalPrice=0;
-                    int day=ord.getOrderDateAndTime().getDate();
-                    int month= ord.getOrderDateAndTime().getMonth();
-                    int year=ord.getOrderDateAndTime().getYear();                  
+                    //-----------------
+                    long timestamp = ord.getOrderDateAndTime().getTime();
+                    Calendar cal = Calendar.getInstance();                    
+                    Date d = new Date(timestamp);
+                    cal.setTime(d);
+                    //============
+                    int day=cal.get(Calendar.DATE);
+                    int month= cal.get(Calendar.MONTH)+1;
+                    int year=cal.get(Calendar.YEAR);                 
                     String fullDate= Integer.toString(day)+"/"+Integer.toString(month)+"/"+Integer.toString(year);//dd/MM/yyyy                   
-                    if(dateAndNumOfOrders.get(fullDate)== null && month == now.get(Calendar.MONTH) && year == now.get(Calendar.YEAR)){// check if the key is not exists
+                    if(dateAndNumOfOrders.get(fullDate)== null && month == now.get(Calendar.MONTH)+1 && year == now.get(Calendar.YEAR)){// check if the key is not exists
                        for(Order o:orders){
-                            int dayy=o.getOrderDateAndTime().getDate();
-                            int monthh= o.getOrderDateAndTime().getMonth();
-                            int yearr=o.getOrderDateAndTime().getYear(); 
+                            long timestampp = o.getOrderDateAndTime().getTime();
+                            Calendar call = Calendar.getInstance();                    
+                            Date dd = new Date(timestampp);
+                            call.setTime(dd);
+                            //============
+                            int dayy=call.get(Calendar.DATE);
+                            int monthh= call.get(Calendar.MONTH)+1;
+                            int yearr=call.get(Calendar.YEAR);  
                             String fullDatee= Integer.toString(dayy)+"/"+Integer.toString(monthh)+"/"+Integer.toString(yearr);//dd/MM/yyyy 
                             if(fullDate.equals(fullDatee)){
                                 counter++;
                                 HashMap<HashMapKey,Item> items=o.getRestItemsMap();
-                                int tempPrice=0;
+                                double tempPrice=0;
                                 for (Item it: items.values()) {
                                      tempPrice+=it.getQuantity() * it.getItemPrice();                   
                                 }
                                 totalPrice+=tempPrice;
                                 dateAndNumOfOrders.put(fullDate, Integer.toString(counter));
-                                dateAndPrice.put(fullDate, Integer.toString(totalPrice));
+                                dateAndPrice.put(fullDate, Double.toString(totalPrice));
 
                             }
                        } 
