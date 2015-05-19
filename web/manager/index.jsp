@@ -8,7 +8,7 @@
           <section>
             <div class="container-fluid">
 
-              <div class="row">
+              <div class="row hidden">
         
           
 
@@ -75,11 +75,11 @@
                           <tbody>
                               <c:forEach var="order"  items="${orders}">
                                 <tr>
-                                    <th scope="row">${rest.getOrderId()}</th>
-                                    <td>${rest.getCustomerFullName()}</td>
-                                    <td>${rest.getCustomerAdress()}</td>
-                                    <td>${rest.getOrderDateAndTime()}</td>
-                                    <td>${rest.getStatus()}</td>
+                                    <th scope="row">${order.getOrderId()}</th>
+                                    <td>${order.getCustomerFullName()}</td>
+                                    <td>${order.getCustomerAdress()}</td>
+                                    <td>${order.getOrderDateAndTime()}</td>
+                                    <td>${order.getStatus()}</td>
                                   </tr>
                              </c:forEach>
                           </tbody>
