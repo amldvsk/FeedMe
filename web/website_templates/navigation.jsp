@@ -35,7 +35,7 @@
                     <li><a class="feed-signup" href="#0">הירשם</a></li>
                 </c:otherwise>
             </c:choose>
-            
+             <li><a href="${pageContext.request.contextPath}/website/about.jsp">קצת עלינו</a></li>
             <li id="cd-cart-trigger"><a class="cd-img-replace" href="#0"><i class="fa fa-shopping-cart"></i></a></li>
           </ul>
         </div><!--/.nav-collapse -->
