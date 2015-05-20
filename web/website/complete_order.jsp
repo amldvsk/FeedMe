@@ -1,6 +1,12 @@
 <jsp:directive.page contentType="text/html;charset=UTF-8"/>
 <%@include file='../website_templates/head.jsp'%>
 <%@include file='../website_templates/navigation.jsp'%>
+
+
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
+
 <c:forEach var="i" begin="1" end="5">
 <!--Item <c:out value="${i}"/><p>-->
 </c:forEach>
@@ -21,48 +27,68 @@
 
 <section class="place-order-wrapper">
   <div class="container">
-
+      <div class="order-summery" >
       <div class="order-customer-details" >
         <h3>פרטי המשלוח</h3>
-        <form    id="place_order"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/order-complete">
+        <form    id="place_order" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/order-complete">
             <h4>פרטים אישיים</h4>
             <div class="add_item_fileds hidden-fileds">
                 <div class="form-group clearfix">
                     <div class="col-md-6">
-                        <label for="itemName">כתובת למשלוח</label>
-                        <input type="text" class="form-control" name="itemName" id="itemName" placeholder="כתובת למשלוח">
+                        <label for="address">כתובת למשלוח</label>
+                        <input type="text" class="form-control" name="address" id="address" placeholder="כתובת למשלוח">
                      </div>
                     <div class="col-md-6">
-                         <label for="itemPrice">שם פרטי ושם משפחה</label>
-                  <input type="text" class="form-control" name="itemPrice" id="itemPrice" placeholder="שם פרטי ושם משפחה">
+                         <label for="fname">שם פרטי ושם משפחה</label>
+                  <input type="text" class="form-control" name="fname" id="fname" placeholder="שם פרטי ושם משפחה">
                      </div>
 
                 </div>
                  <div class="form-group clearfix">
                      <div class="col-md-12">
-                        <label for="itemDescrip">טלפון לברורים</label>
-                        <input type="text" class="form-control" name="itemDescrip" id="itemDescrip" placeholder="טלפון לברורים">
+                        <label for="phone">טלפון לברורים</label>
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="טלפון לברורים">
                      </div>
                 </div>
             </div>
             <h4>פרטי כרטיס אשראי</h4>
             <div class="add_item_cradit_card hidden-fileds">
                 <div class="form-group clearfix">
-                    <div class="col-md-6">
-                        <label for="itemName">כתובת למשלוח</label>
-                        <input type="text" class="form-control" name="itemName" id="itemName" placeholder="כתובת למשלוח">
+                    
+                    <div class="col-md-4">
+                         <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" name="cvv" id="cvv" placeholder="3 ספרות בגב הכרטיס">
                      </div>
-                    <div class="col-md-6">
-                         <label for="itemPrice">שם פרטי ושם משפחה</label>
-                  <input type="text" class="form-control" name="itemPrice" id="itemPrice" placeholder="שם פרטי ושם משפחה">
+                    
+                    <div class="col-md-8">
+                        <label for="craditNum">מספר כרטיס</label>
+                        <input type="text" class="form-control" name="craditNum" id="craditNum" placeholder="מספר כרטיס">
                      </div>
 
                 </div>
-                 <div class="form-group clearfix">
-                     <div class="col-md-12">
-                        <label for="itemDescrip">טלפון לברורים</label>
-                        <input type="text" class="form-control" name="itemDescrip" id="itemDescrip" placeholder="טלפון לברורים">
+                <div class="form-group clearfix">
+                    
+                    <div class="col-md-12">
+                        <label for="">תוקף</label>
                      </div>
+                    <div class="col-md-6">
+                        <label for="card_mounth">חודש</label>
+                        <select class="form-control" name="card_mounth" id="card_mounth">
+                            <c:forEach begin="1" end="12" varStatus="loop">
+                                <option value="${loop.index}">${loop.index}</option>
+                            </c:forEach>
+                        </select>
+                     </div>
+                    <div class="col-md-6">
+                         <label for="card_year">שנה</label>
+                         <select class="form-control" name="card_year" id="card_year">
+                             <c:forEach begin="0" end="4" varStatus="loop">
+                                <c:set var="currentYear" value="${year + loop.index}" />
+                                <option value="${currentYear}" ${form.workloadYear == currentYear ? 'selected="selected"' : ''}>${currentYear}</option>
+                            </c:forEach>
+                         </select>
+                     </div>
+
                 </div>
             </div>
         </form>
@@ -125,8 +151,15 @@
         
       </div>
       <div class="cart-btn clearfix" >
-          <div class="text-center"><button type="submit" class="btn btn-success btn-lg">שלח הזמנה</button></div>
+          <div class="text-center"><button type="submit" id="submit_order" class="btn btn-success btn-lg">שלח הזמנה</button></div>
       </div>
+    </div>
+    <div class="order-compleated hidden" >
+        <div class="alert alert-success" role="alert">
+            הזמנתך התקבלה בהצלחה
+             <b>מספר הזמנה <span class="order_nubmber" ></span></b>
+        </div>
+    </div>
   </div>  
 </section>
 

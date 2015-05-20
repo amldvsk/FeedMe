@@ -9,12 +9,16 @@ import feedme.model.DbOrderManagement;
 import feedme.model.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -35,18 +39,7 @@ public class OrderCompleteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet OrderDetailsServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet OrderDetailsServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.setCharacterEncoding("UTF-8");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,19 +80,31 @@ public class OrderCompleteServlet extends HttpServlet {
         
         DbOrderManagement dbom = new DbOrderManagement();
         int result = dbom.addNewOrder(cart);
-        if(result == 1)
-        {
-            request.setAttribute("shoppingCart", new Order());
-            response.sendRedirect(request.getContextPath()+"/website/order_completed.jsp");
-            return;
-        }
-        else
-        {
-            request.setAttribute("shoppingCart", "התרחשה שגיאה אנא נסו שנית");
-            response.sendRedirect(request.getContextPath()+"/website/complete_order.jsp");
-            return;
+        JSONObject orderStatus = new JSONObject();
+        try {
+                if(result == 1)
+                {
+                    
+                    request.getSession().setAttribute("shoppingCart", new Order());
+                    orderStatus.put("status", 1);
 
-        }
+                }
+                else
+                {
+                    orderStatus.put("shoppingCartError", "התרחשה שגיאה אנא נסו שנית");
+                    orderStatus.put("status", 0);
+
+                }
+                orderStatus.put("order", cart.toJson());
+                response.setContentType("application/json");
+                PrintWriter writer = response.getWriter();
+                writer.print(orderStatus);
+                response.getWriter().flush();
+            } catch (JSONException ex) {
+                Logger.getLogger(OrderCompleteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        
   
     }
 

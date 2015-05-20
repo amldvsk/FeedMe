@@ -50,7 +50,7 @@ public class DbOrderManagement {
         String custPhone = currOrd.getCustomerPhonenum();
         con = DbConnector.getInstance().getConn();
 
-        currOrd.setOrderId(++orderNum);
+        currOrd.setOrderId(orderNum);
         HashMap<HashMapKey , Item> itemsRest = currOrd.getRestItemsMap();
         try {
             result = 0;

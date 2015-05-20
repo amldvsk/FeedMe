@@ -94,5 +94,67 @@
           });
           
       </script>
+      
+      
+      <script type="text/javascript">
+          $(document).ready(function(){
+            $('#place_order').validate({
+                  rules: {
+                      address: {
+                          required: true,
+                          minlength: 2
+                      },
+                      fname: {
+                          required: true,
+                          minlength: 2
+                      },
+                      phone: {
+                          required: true,
+                          minlength: 2,
+                          digits:true
+                      },
+                      cvv: {
+                          required: true,
+                          digits :true,
+                           minlength: 3,
+                           maxlength: 3
+                      },
+                      craditNum: {
+                          required: true,
+                          minlength: 2,
+                          digits :true
+                      },
+                  },
+              });
+          });
+          $('#submit_order').on('click', function() {
+              if( $('#place_order').valid() ) {
+                  var request = $.ajax({
+                    url: $('#place_order').attr('action'),
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+                    data: $('#place_order').serialize(),
+                  });
+
+                  request.done(function(msg) {
+                    console.log(msg);
+                    if( msg.status == 1 ) {
+                        $('.order-summery').addClass('hidden');
+                        $('.order-compleated span.order_nubmber').text(msg.order.orderId);
+                        $('.order-compleated').removeClass('hidden');
+                    }
+                  });
+
+                  request.fail(function(jqXHR, textStatus) {
+                    console.log( "Request failed: " + textStatus );
+                  });
+
+                  return false;
+              }
+          });
+          
+          
+      </script>
+      
   </body>
 </html>
