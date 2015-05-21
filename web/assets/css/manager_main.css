@@ -25,6 +25,16 @@ a a:focus {
   float: right;
 }
 
+
+.dropdown-menu {
+    width: 100%;
+}
+
+.dropdown-menu li a {
+    text-align: right;
+}
+
+
 /* Labels
 =================================================================== */
 .label {

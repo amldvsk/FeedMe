@@ -65,7 +65,7 @@
                   },
                   phone: {
                       required: true,
-                      minlength: 10,
+                      minlength: 6,
                       maxlength: 10,
                       digits: true
                   },
@@ -105,7 +105,8 @@
                       },
                       phone: {
                           required: true,
-                          minlength: 2,
+                          minlength: 6,
+                          maxlength : 10,
                           digits:true
                       },
                       cvv: {
@@ -170,8 +171,8 @@
         
 
         $(document).ready(function() {
-
-            openSocket();
+            if($('.place-order-wrapper').length > 0)
+                openSocket();
         });
 
         var webSocket;

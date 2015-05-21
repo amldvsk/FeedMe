@@ -97,6 +97,7 @@
               phone:       {
                             required: true,
                             minlength: 2,
+                            maxlength : 10,
                             digit : true
                         },
               email:    {

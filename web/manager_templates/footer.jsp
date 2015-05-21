@@ -171,7 +171,7 @@
 
 
         $(document).ready(function() {
-
+            $('<audio id="chatAudio"><source src="${pageContext.request.contextPath}/assets/sounds/notify.ogg" type="audio/ogg"><source src="${pageContext.request.contextPath}/assets/sounds/notify.mp3" type="audio/mpeg"><source src="${pageContext.request.contextPath}/assets/sounds/notify.wav" type="audio/wav"></audio>').appendTo('body');
             openSocket();
         });
 
@@ -257,7 +257,10 @@
                   $('.notifications-overlay ul.order-summery-list li').each(function() {
                       $(this).addClass('active');
                   });
-                
+                  
+                  $(document).attr("title", $(document).attr("title") + "התקבלה הזמנה חדשה ");
+                  
+                  $('#chatAudio')[0].play();
             }
         }
 
@@ -265,6 +268,7 @@
 
         $('body').on('click', '.notifications-overlay ul.order-summery-list li', function() {
             $(this).remove();
+            $(document).attr("title", "FeedMe - ניהול");
         });
           
       </script>

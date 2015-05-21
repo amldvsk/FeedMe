@@ -37,7 +37,7 @@ import javax.servlet.http.Part;
  *
  * @author User
  */
-@WebServlet(name = "AddOrEditMenuItemServlet", urlPatterns = {"/menu-item-management"})
+@WebServlet(name = "AddOrEditMenuItemServlet", urlPatterns = {"/manager/menu-item-management"})
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
                  maxFileSize=1024*1024*10,      // 10MB
                  maxRequestSize=1024*1024*50)   // 50MB
@@ -74,8 +74,9 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
         request.setAttribute("categories", menuCat);
         request.setAttribute("restaurant", reslist.get(0));
         
-        RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/edit_menu_item.jsp");
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("edit_menu_item.jsp");
         dispatcher.forward(request, response);
+        return;
         
     }   
 
@@ -131,6 +132,7 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
         if (result!=0){// ok
                     HttpSession session = request.getSession(true);
                     session.setAttribute("Status", true);
+                    response.sendRedirect(request.getContextPath() + "/manager/menus");
                 }else{//err
                     HttpSession session = request.getSession(true);
                     session.setAttribute("Status", false);

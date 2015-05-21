@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>CustomerRegistrationServlet</servlet-name>
-        <servlet-class>feedme.controller.CustomerRegistrationServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>feedme.controller.NewServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddRestaurant</servlet-name>
         <servlet-class>feedme.controller.AddOrEditRestaurantServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RemoveRestaurantServlet</servlet-name>
         <servlet-class>feedme.controller.RemoveRestaurantServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditRestaurantServlet</servlet-name>
-        <servlet-class>feedme.controller.EditRestaurantServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditUsersServlet</servlet-name>
@@ -37,7 +25,7 @@
         <servlet-class>feedme.controller.AddOrEditMenuServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AEODMenuItemServlet</servlet-name>
+        <servlet-name>AddOrEditMenuItemServlet</servlet-name>
         <servlet-class>feedme.controller.AddOrEditMenuItemServlet</servlet-class>
     </servlet>
     <servlet>
@@ -53,24 +41,12 @@
         <servlet-class>feedme.controller.ManagerReportsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CustomerRegistrationServlet</servlet-name>
-        <url-pattern>/CustomerRegistrationServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>NewServlet</servlet-name>
-        <url-pattern>/NewServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddRestaurant</servlet-name>
         <url-pattern>/AddRestaurant</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RemoveRestaurantServlet</servlet-name>
         <url-pattern>/RemoveRestaurantServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditRestaurantServlet</servlet-name>
-        <url-pattern>/EditRestaurantServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditUsersServlet</servlet-name>
@@ -89,10 +65,6 @@
         <url-pattern>/AddOrEditMenuServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AEODMenuItemServlet</servlet-name>
-        <url-pattern>/AEODMenuItemServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ResturentsServlet</servlet-name>
         <url-pattern>/resturents</url-pattern>
     </servlet-mapping>
@@ -107,6 +79,22 @@
     <servlet-mapping>
         <servlet-name>ManagerReportsServlet</servlet-name>
         <url-pattern>/manager/order_reports</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerRestaurantOrdersServlet</servlet-name>
+        <url-pattern>/manager/orders</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerRestaurantCustomersServlet</servlet-name>
+        <url-pattern>/manager/customers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerRestaurantMenuesServlet</servlet-name>
+        <url-pattern>/manager/menus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddOrEditMenuItemServlet</servlet-name>
+        <url-pattern>/manager/menu-item-management</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

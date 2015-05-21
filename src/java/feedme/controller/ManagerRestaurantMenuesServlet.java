@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nirk
  */
-@WebServlet(name = "ManagerRestaurantMenuesServlet", urlPatterns = {"/ManagerRestaurantMenuesServlet"})
+@WebServlet(name = "ManagerRestaurantMenuesServlet", urlPatterns = {"/manager/menus"})
 public class ManagerRestaurantMenuesServlet extends HttpServlet {
 
     /**
@@ -48,18 +48,7 @@ public class ManagerRestaurantMenuesServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ManagerRestaurantMenuesServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ManagerRestaurantMenuesServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.setCharacterEncoding("UTF-8");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,7 +66,7 @@ public class ManagerRestaurantMenuesServlet extends HttpServlet {
         try {
             processRequest(request, response);
             AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| manager.isLoginResult()== true) {
+            if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| !manager.isLoginResult()) {
                 response.sendRedirect(request.getContextPath() + "/");
                 return;
             }
@@ -88,12 +77,20 @@ public class ManagerRestaurantMenuesServlet extends HttpServlet {
             List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
             HashMap<Map<Integer,String>,List<Item>> menues = new DbMenuManagment().getMenuByRestaurantId(reslist.get(0).getDbid());
  
-            request.setAttribute("menu", menues);
-          
+            request.setAttribute("menus", menues);
+            
+            
+            
+            
+            
+           
+            
+            request.setAttribute("restaurant", reslist.get(0));
+            request.setAttribute("reslist", reslist);
             
 
             
-            RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/menue.jsp");
+            RequestDispatcher  dispatcher = request.getRequestDispatcher("menus.jsp");
             dispatcher.forward(request, response);
             return;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
