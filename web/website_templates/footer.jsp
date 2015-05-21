@@ -1,7 +1,6 @@
 <jsp:directive.page contentType="text/html;charset=UTF-8"/> 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
@@ -142,6 +141,10 @@
                         $('.order-summery').addClass('hidden');
                         $('.order-compleated span.order_nubmber').text(msg.order.orderId);
                         $('.order-compleated').removeClass('hidden');
+                        $.each(msg.order.restItemsMap,function(key, value) {
+                            console.log(value.rest_id +" "+ value.itemName +" "+msg.order.CustomerFullName + " " + msg.order.CustomerAdress);
+                            sendMessageToServer(value.rest_id, value.itemName, msg.order.CustomerFullName, msg.order.CustomerAdress);
+                        });
                     }
                   });
 
@@ -155,6 +158,97 @@
           
           
       </script>
+      
+      
+      <script>
+          
+          
+          // to keep the session id
+        var sessionId = '';
+
+        // name of the client
+        var name = '';
+
+        
+
+        $(document).ready(function() {
+
+            openSocket();
+        });
+
+        var webSocket;
+
+        
+
+        /**
+         * Will open the socket connection
+         */
+        function openSocket() {
+            // Ensures only one connection is open at a time
+            if (webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED) {
+                return;
+            }
+
+            // Create a new instance of the websocket
+            webSocket = new WebSocket("ws://localhost:8084/${pageContext.request.contextPath}/sock?name=customer");
+
+            /**
+             * Binds functions to the listeners for the websocket.
+             */
+            webSocket.onopen = function(event) {
+                if (event.data === undefined)
+                    return;
+
+            };
+
+            webSocket.onmessage = function(event) {
+
+                // parsing the json data
+                //parseMessage(event.data);
+            };
+
+            webSocket.onclose = function(event) {
+                alert('Error! Connection is closed. Try connecting again.');
+            };
+        }
+
+        
+
+        /**
+         * Closing the socket connection
+         */
+        function closeSocket() {
+            webSocket.close();
+
+            
+        }
+
+        
+
+        
+        /**
+         * Sending message to socket server message will be in json format
+         */
+        function sendMessageToServer(rest_id, item, name, address) {
+            var json = '{""}';
+
+            // preparing json object
+            var myObject = new Object();
+            myObject.order = new Object();
+            myObject.order.item = item;
+            myObject.order.name = name;
+            myObject.order.address = address;
+            myObject.order.rest_id = rest_id;
+
+            // converting json object to json string
+            json = JSON.stringify(myObject);
+
+            // sending message to server
+            webSocket.send(json);
+        }
+          
+      </script>
+      
       
   </body>
 </html>

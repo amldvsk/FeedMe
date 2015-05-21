@@ -69,6 +69,7 @@ public class HomePageServlet extends HttpServlet {
          
         RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");
         dispatcher.forward(request, response);
+        return;
     }
 
     /**

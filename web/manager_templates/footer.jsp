@@ -2,6 +2,32 @@
 </div><!-- End Page Content -->
     </div><!-- End Content Wrapper -->
   </div><!-- End Page Wrapper -->
+  
+  
+  
+
+
+<!-- Modal -->
+<div class="modal fade" id="order_popup_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">הזמנה חדשה שהתקבלה</h4>
+      </div>
+      <div class="modal-body">
+          <ul class="list-unstyled order-summery-list" >
+              
+          </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -134,5 +160,95 @@
       
   </script>
   
+  
+  
+  
+  <script>
+          
+          
+          // to keep the session id
+        var sessionId = '';
+
+        // name of the client
+        var name = ${requestScope.restaurant.getDbid()};
+
+
+        $(document).ready(function() {
+
+            openSocket();
+        });
+
+        var webSocket;
+
+        /**
+         * Will open the socket connection
+         */
+        function openSocket() {
+            // Ensures only one connection is open at a time
+            if (webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED) {
+                return;
+            }
+
+            // Create a new instance of the websocket
+            webSocket = new WebSocket("ws://localhost:8084/${pageContext.request.contextPath}/sock?name=" + name);
+
+            /**
+             * Binds functions to the listeners for the websocket.
+             */
+            webSocket.onopen = function(event) {
+                if (event.data === undefined)
+                    return;
+
+            };
+
+            webSocket.onmessage = function(event) {
+
+                // parsing the json data
+                parseMessage(event.data);
+            };
+
+            webSocket.onclose = function(event) {
+                alert('Error! Connection is closed. Try connecting again.');
+            };
+        }
+
+        
+        /**
+         * Closing the socket connection
+         */
+        function closeSocket() {
+            webSocket.close();
+        }
+
+        /**
+         * Parsing the json message. The type of message is identified by 'flag' node
+         * value flag can be self, new, message, exit
+         */
+        function parseMessage(message) {
+            var jObj = $.parseJSON(message);
+            
+            console.log(jObj);
+            
+            if( jObj.address != null ) {
+                
+                
+                li_address = '<li><p><b>כתובת</b> '+jObj.address+' </p></li>';
+                li_name = '<li><p><b>שם</b> '+jObj.name+' </p></li>';
+                li_item = '<li><p><b>מוצר</b> '+jObj.item+' </p></li>';
+                
+                appendLi = li_address + li_name + li_item;
+                $('#order_popup_model').find('.modal-body .order-summery-list').empty();
+                $('#order_popup_model').find('.modal-body .order-summery-list').html(appendLi);
+                $('#order_popup_model').modal('show');
+            }
+        }
+
+        
+
+        
+          
+      </script>
+      
+      
 </body>
 </html>
