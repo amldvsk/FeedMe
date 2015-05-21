@@ -2,12 +2,16 @@
 package feedme.controller;
 
 import feedme.model.Admin;
+import feedme.model.AuthenticatUser;
 import feedme.model.Customer;
 import feedme.model.DbUsersManagement;
 import feedme.model.Manager;
+import feedme.model.PasswordEncryptionService;
 import feedme.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -56,6 +60,12 @@ public class UserRegistrationServlet extends HttpServlet {
         //processRequest(request, response);
         
         request.setCharacterEncoding("UTF-8");
+        
+        boolean authent;
+        AuthenticatUser au;
+        String encryRoleName;
+        byte[] encRole = null;
+        
          User user = null;
          Date d = null;
          String street = null;
@@ -91,7 +101,7 @@ public class UserRegistrationServlet extends HttpServlet {
          }
 
              
-
+         
          
          DbUsersManagement dbUserManagment = new DbUsersManagement();
          int result = dbUserManagment.addNewUser(firstName,lastName,userName,pw,phone,email,role,d,street,houseNum,apartmentNum,city);
@@ -103,22 +113,59 @@ public class UserRegistrationServlet extends HttpServlet {
              {
                  case 0:
                       user  = (Customer)dbUserManagment.getUserByUserName(userName);
-                      dispatcher = request.getRequestDispatcher("website/profile.jsp");
-                     break;
+                      encryRoleName = Integer.toString(user.getRole());
+                        {
+                            try {
+                                encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Customer".getBytes());
+                            } catch (NoSuchAlgorithmException ex) {
+                                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (InvalidKeySpecException ex) {
+                                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
+                        request.getSession(true).setAttribute("AuthenticatUser", au);
+                        response.sendRedirect(request.getContextPath()+"/profile");
+                        return;
                  case 1:
                       user  = (Manager)dbUserManagment.getUserByUserName(userName);
-                      dispatcher = request.getRequestDispatcher("manager/index.jsp");
-                     break;
+                      encryRoleName = Integer.toString(user.getRole());
+                        {
+                            try {
+                                encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Manager".getBytes());
+                            } catch (NoSuchAlgorithmException ex) {
+                                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (InvalidKeySpecException ex) {
+                                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
+                        request.getSession(true).setAttribute("AuthenticatUser", au);
+                        response.sendRedirect(request.getContextPath()+"/manager");
+                        return;
                  case 2:
                        user  = (Admin)dbUserManagment.getUserByUserName(userName);
-                       dispatcher = request.getRequestDispatcher("admin/index.jsp");
-                        break;
+                       encryRoleName = Integer.toString(user.getRole());
+                        {
+                            try {
+                                encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Admin".getBytes());
+                            } catch (NoSuchAlgorithmException ex) {
+                                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (InvalidKeySpecException ex) {
+                                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
+                        request.getSession(true).setAttribute("AuthenticatUser", au);
+                        response.sendRedirect(request.getContextPath()+"/admin");
+                        return;
+                        
              }
-             request.setAttribute("user", user);
+             //request.setAttribute("user", user);
         
              //response.sendRedirect("website/success.jsp");
              
-            dispatcher.forward(request, response);
+            //dispatcher.forward(request, response);
             
 //            PrintWriter out = response.getWriter();
 //            response.setContentType("application/json;charset=UTF-8");
