@@ -26,8 +26,9 @@
                 <div class="form-group">
                   <select class="selectpicker" data-width="100%">
                     <option>איפה תרצה לאכול ?</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
+                    <c:forEach var="citie" items="${cities}">
+                        <option value="${citie}">${citie}</option>
+                     </c:forEach>
                   </select>
                 </div>
                 <div class="form-group">

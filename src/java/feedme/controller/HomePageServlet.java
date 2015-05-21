@@ -58,13 +58,14 @@ public class HomePageServlet extends HttpServlet {
          
          category = dbPageOnLoad.getCategories();
          restaurants = dbPageOnLoad.getRecentRestaurants(6);
-          
+         List<String> cities = dbPageOnLoad.getCities();
          if( request.getSession().getAttribute("shoppingCart") == null ) {
              request.getSession().setAttribute("shoppingCart", new Order());
          } 
          
          
          request.setAttribute("category", category);
+         request.setAttribute("cities", cities);
          request.setAttribute("restaurants", restaurants);
          
         RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");

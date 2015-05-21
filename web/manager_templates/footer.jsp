@@ -6,32 +6,20 @@
   
   
 
-
-<!-- Modal -->
-<div class="modal fade" id="order_popup_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">הזמנה חדשה שהתקבלה</h4>
-      </div>
-      <div class="modal-body">
-          <ul class="list-unstyled order-summery-list" >
-              
-          </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <div class="notifications-overlay">
     <ul class="list-unstyled order-summery-list" >
-        
+<!--        <li class="notification active">
+            <div class="alert alert-info" role="alert">
+                <h4>
+                    <b>הזמנה חדשה</b>
+                </h4>
+                <ul class="list-unstyled text-center">
+                    <li class="clearfix"><div class="pull-right"><b>כתובת: </b></div> <span>ASDASD</span></li> 
+                    <li class="clearfix"><div class="pull-right"><b>שם: </b></div> <span>sdfsdfdsf</span>  </li>
+                    <li class="clearfix"><div class="pull-right"><b>פריט: </b></div> <span>adgfdfsg</span> </li>
+                </ul>
+            </div>
+        </li>-->
     </ul>
 </div>
 
@@ -249,9 +237,24 @@
 //                $('#order_popup_model').find('.modal-body .order-summery-list').empty();
 //                $('#order_popup_model').find('.modal-body .order-summery-list').html(appendLi);
 //                $('#order_popup_model').modal('show');
-                  li = '<li><div class="alert alert-info" role="alert"><h4><b>הזמנה חדשה</b></h4><b>כתובת</b> '+jObj.address+' <b>שם</b> '+jObj.name+ '  <b>מוצר</b> '+jObj.item+' </p></div></li>';
-                  $('.notifications-overlay ul').append(li);
-                  $('.notifications-overlay ul li').each(function() {
+                  
+                  
+                  li = '<li class="notification">'+
+                            '<div class="alert alert-info" role="alert">'+
+                                '<h4>'+
+                                    '<b>הזמנה חדשה</b>'+
+                                '</h4>'+
+                                '<ul class="list-unstyled text-center">'+
+                                    '<li class="clearfix"><div class="pull-right"><b>כתובת: </b></div> <span>ASDASD</span></li> '+
+                                    '<li class="clearfix"><div class="pull-right"><b>שם: </b></div> <span>sdfsdfdsf</span>  </li>'+
+                                    '<li class="clearfix"><div class="pull-right"><b>פריט: </b></div> <span>adgfdfsg</span> </li>'+
+                                '</ul>'+
+                            '</div>'+
+                        '</li>';
+                  
+                  $('.notifications-overlay ul.order-summery-list').append(li);
+                  
+                  $('.notifications-overlay ul.order-summery-list li').each(function() {
                       $(this).addClass('active');
                   });
                 
@@ -260,7 +263,9 @@
 
         
 
-        
+        $('body').on('click', '.notifications-overlay ul.order-summery-list li', function() {
+            $(this).remove();
+        });
           
       </script>
       

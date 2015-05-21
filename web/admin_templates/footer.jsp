@@ -129,10 +129,6 @@
                             required: true,
                             minlength: 2,
                         },
-              city:       {
-                            required: true,
-                            minlength: 2,                            
-                        },
               deliveryPrice:    {
                             required: true,
                             minlength: 2,

@@ -77,10 +77,6 @@
                       required: true,
                       minlength: 2,
                   },
-                  city: {
-                      required: true,
-                      minlength: 2,
-                  },
                   street_num: {
                       required: true,
                       digits: true
