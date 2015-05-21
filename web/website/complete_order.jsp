@@ -159,6 +159,27 @@
             הזמנתך התקבלה בהצלחה
              <b>מספר הזמנה <span class="order_nubmber" ></span></b>
         </div>
+        
+        <div class="order-rating">
+            <h4>דירוג חווית הזמנה</h4>
+            <hr>
+            <div class="text-center">
+                <form action="action">
+                <ul class="list-inline text-center">
+                    <li><p class="star"></p></li>
+                    <li><p class="star"></p></li>
+                    <li><p class="star"></p></li>
+                    <li><p class="star"></p></li>
+                    <li><p class="star"></p></li>
+                </ul>
+                <p class="votes-rating-number"></p>
+                <textarea class="form-control" placeholder="הוסף ביקורת"></textarea>
+                <input type="hidden" value="0" name="stars" id="rating-stars" />
+                 <div class="text-center"><button type="submit" id="submit_rating" class="btn btn-success">שלח דירוג</button></div>
+                </form>
+            </div>
+        </div>
+        
     </div>
   </div>  
 </section>

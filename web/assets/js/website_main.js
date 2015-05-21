@@ -347,3 +347,35 @@ jQuery(document).ready(function($){
     });
   });
 });
+
+
+
+$('.order-rating ul li').hover(
+        
+        function() {
+            $(this).prevAll().andSelf().find('p.star').addClass('active');
+            $(this).nextAll().find('p.star').removeClass('active');
+        }, function() {
+            $(this).prevAll().andSelf().find('p.star').removeClass('active');
+            setVotes($(this));
+        }
+        
+);
+
+
+$('.order-rating ul li').on('click', function() {
+    $(this).prevAll().andSelf().find('p.star').addClass('active');
+    $(this).nextAll().find('p.star').removeClass('active');
+});
+
+
+var rating_text = ['גרוע', 'לא אהבתי', 'היה בסדר', 'אהבתי', 'אהבתי מאוד'];
+
+function setVotes(widget) {
+    widget.prevAll().andSelf().find('p.star').addClass('active');
+    widget.nextAll().find('p.star').removeClass('active');
+    rating = widget.parent().find('li p.star.active').length;
+    $('.votes-rating-number').text(rating_text[rating-1]);
+    $('#rating-stars').val(rating);
+    
+}

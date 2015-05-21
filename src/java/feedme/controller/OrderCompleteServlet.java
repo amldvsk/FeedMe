@@ -5,10 +5,14 @@
  */
 package feedme.controller;
 
+import feedme.model.AuthenticatUser;
 import feedme.model.DbOrderManagement;
 import feedme.model.Order;
+import feedme.model.PasswordEncryptionService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -77,6 +81,18 @@ public class OrderCompleteServlet extends HttpServlet {
         cart.setCustomerFullName(fullName);
         cart.setCustomerPhonenum(phone);
         cart.setCustomerAdress(address);
+        int userId = 0;
+        AuthenticatUser customer = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+        try {
+            if( customer != null && PasswordEncryptionService.authenticate(Integer.toString(0), customer.getEncrypRole(), "Customer".getBytes())) {
+                userId = ((AuthenticatUser)request.getSession().getAttribute("AuthenticatUser")).getUserId();
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(OrderCompleteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(OrderCompleteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cart.setOrderCustomerId(userId);
         
         DbOrderManagement dbom = new DbOrderManagement();
         int result = dbom.addNewOrder(cart);

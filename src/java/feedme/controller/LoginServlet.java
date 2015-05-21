@@ -61,15 +61,15 @@ public class LoginServlet extends HttpServlet {
                     if(user!= null  ){ // if user exists in database && the password is correct
                         switch(user.getRole()){
                             case 0 ://user page
-                                request.setAttribute("user", user);
+                                
                                 encryRoleName = Integer.toString(user.getRole());
                                 encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Customer".getBytes());
                                 au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
-                                dispatcher = request.getRequestDispatcher("website/profile.jsp");
-                                dispatcher.forward(request, response);
+                                request.getSession(true).setAttribute("AuthenticatUser", au);
+                                response.sendRedirect(request.getContextPath()+"/profile");
                                 break;
                             case 1: //restorant page
-                                request.setAttribute("user", user);
+                                
                                 encryRoleName = Integer.toString(user.getRole());
                                 encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Manager".getBytes());
                                 au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
@@ -77,7 +77,7 @@ public class LoginServlet extends HttpServlet {
                                 response.sendRedirect(request.getContextPath()+"/manager");
                                 return;
                             case 2://admin page
-                                request.setAttribute("user", user);
+                                
                                 encryRoleName = Integer.toString(user.getRole());
                                 encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Admin".getBytes());
                                 au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);

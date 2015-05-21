@@ -22,7 +22,7 @@
                  </c:forEach>
                   <li class="divider"></li>
                   <li class="link">
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/logout">
                       התנתק
                     </a>
                   </li>

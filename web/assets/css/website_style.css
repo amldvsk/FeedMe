@@ -1795,3 +1795,37 @@ div.bottom-navigation ul.nav li a:hover {
 }
 
 /* -----------------------  About Us --------------------------- */
+
+
+.order-rating ul {
+    direction: ltr;
+    margin-bottom: 0;
+}
+
+.order-rating ul li {
+    cursor: pointer;
+    
+}
+
+p.votes-rating-number {
+    font-size: 16px;
+    font-weight: bolder;
+    margin-top: 5px;
+}
+
+.order-rating ul li p.star:after {
+    font-size: 20px;
+    content:'\f006';
+    font-family: FontAwesome;
+}
+
+.order-rating ul li p.star.active:after {
+    font-size: 20px;
+    content:'\f005';
+    font-family: FontAwesome;
+    color: #f1c40f;
+}
+
+#submit_rating {
+    margin-top: 10px;
+}
