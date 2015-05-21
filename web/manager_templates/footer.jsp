@@ -28,6 +28,14 @@
   </div>
 </div>
 
+
+<div class="notifications-overlay">
+    <ul class="list-unstyled order-summery-list" >
+        
+    </ul>
+</div>
+
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -161,11 +169,12 @@
   </script>
   
   
-  
+<c:set var="req" value="${pageContext.request}" />
+<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
   
   <script>
           
-          
+         
           // to keep the session id
         var sessionId = '';
 
@@ -190,7 +199,7 @@
             }
 
             // Create a new instance of the websocket
-            webSocket = new WebSocket("ws://localhost:8084/${pageContext.request.contextPath}/sock?name=" + name);
+            webSocket = new WebSocket("ws://localhost:${req.serverPort}/${pageContext.request.contextPath}/sock?name=" + name);
 
             /**
              * Binds functions to the listeners for the websocket.
@@ -208,7 +217,7 @@
             };
 
             webSocket.onclose = function(event) {
-                alert('Error! Connection is closed. Try connecting again.');
+                console.log('Error! Connection is closed. Try connecting again.');
             };
         }
 
@@ -232,14 +241,20 @@
             if( jObj.address != null ) {
                 
                 
-                li_address = '<li><p><b>כתובת</b> '+jObj.address+' </p></li>';
-                li_name = '<li><p><b>שם</b> '+jObj.name+' </p></li>';
-                li_item = '<li><p><b>מוצר</b> '+jObj.item+' </p></li>';
+//                li_address = '<li><p><b>כתובת</b> '+jObj.address+' </p></li>';
+//                li_name = '<li><p><b>שם</b> '+jObj.name+' </p></li>';
+//                li_item = '<li><p><b>מוצר</b> '+jObj.item+' </p></li>';
+//                
+//                appendLi = li_address + li_name + li_item;
+//                $('#order_popup_model').find('.modal-body .order-summery-list').empty();
+//                $('#order_popup_model').find('.modal-body .order-summery-list').html(appendLi);
+//                $('#order_popup_model').modal('show');
+                  li = '<li><div class="alert alert-info" role="alert"><h4><b>הזמנה חדשה</b></h4><b>כתובת</b> '+jObj.address+' <b>שם</b> '+jObj.name+ '  <b>מוצר</b> '+jObj.item+' </p></div></li>';
+                  $('.notifications-overlay ul').append(li);
+                  $('.notifications-overlay ul li').each(function() {
+                      $(this).addClass('active');
+                  });
                 
-                appendLi = li_address + li_name + li_item;
-                $('#order_popup_model').find('.modal-body .order-summery-list').empty();
-                $('#order_popup_model').find('.modal-body .order-summery-list').html(appendLi);
-                $('#order_popup_model').modal('show');
             }
         }
 

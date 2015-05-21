@@ -159,6 +159,8 @@
           
       </script>
       
+<c:set var="req" value="${pageContext.request}" />
+<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
       
       <script>
           
@@ -190,7 +192,7 @@
             }
 
             // Create a new instance of the websocket
-            webSocket = new WebSocket("ws://localhost:8084/${pageContext.request.contextPath}/sock?name=customer");
+            webSocket = new WebSocket("ws://localhost:${req.serverPort}/${pageContext.request.contextPath}/sock?name=customer");
 
             /**
              * Binds functions to the listeners for the websocket.
@@ -208,7 +210,7 @@
             };
 
             webSocket.onclose = function(event) {
-                alert('Error! Connection is closed. Try connecting again.');
+                console.log('Error! Connection is closed. Try connecting again.');
             };
         }
 

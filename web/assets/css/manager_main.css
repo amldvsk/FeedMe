@@ -935,3 +935,34 @@ table.dataTable.no-footer {
 #cd-zoom-out {
   background-position: 50% -32px;
 }
+
+
+
+
+
+.notifications-overlay {
+    position: fixed;
+    top: 15px;
+    left:10px;
+    right:10px;
+    width:70%;
+    margin: 0 auto;
+    z-index: 5000;
+}
+
+
+.notifications-overlay ul li {
+    -ms-transform: translate(0,-9999px); /* IE 9 */
+    -webkit-transform: translate(0,-9999px); /* Safari */
+    transform: translate(0,-9999px);
+    -webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -o-transition: 1s ease-in-out;
+    transition: 1s ease-in-out;
+}
+
+.notifications-overlay ul li.active {
+    -ms-transform: translate(0,0); /* IE 9 */
+    -webkit-transform: translate(0,0); /* Safari */
+    transform: translate(0,0);
+}
