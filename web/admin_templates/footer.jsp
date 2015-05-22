@@ -2,7 +2,7 @@
  </div><!-- End Page Content -->
     </div><!-- End Content Wrapper -->
 </div><!-- End Page Wrapper -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script> 
   <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjy0n0TFNKTZ4S5Hq2w_FVU4E5EglSd6M&language=he"></script>
