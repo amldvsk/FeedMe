@@ -329,5 +329,62 @@ public class DbUsersManagement {
         
         return paSalt;
     }
-    
+ 
+     
+     public User getUserById(int userdId)
+    {
+        String spuName = "{CALL feedmedb.Spu_GetUserByid(?)}";
+        User user = null;
+        ResultSet rs ;
+        Connection c = DbConnector.getInstance().getConn();
+        try {
+            
+            cstmt = c.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1,userdId);
+            rs = cstmt.executeQuery();
+            if(rs.next() != false){
+            int role = rs.getInt("role" );
+            switch(role)
+            {
+                case 0 :
+                    user = new Customer(rs.getString("firstname"),rs.getString("lastname"), rs.getString("username") ,   rs.getString("phone") ,  rs.getString("email") ,
+                            rs.getInt("role" ) , rs.getDate("bday") ,rs.getString("street")  ,rs.getString("house_num") , rs.getString("apartment_num") , rs.getString("city") );
+                            user.setDbId(rs.getInt("userid"));
+                       
+                            
+                    break;
+                case 1:
+                    user = new Manager(rs.getString("firstname"),rs.getString("lastname"), rs.getString("username") ,   rs.getString("phone") ,  rs.getString("email") ,
+                            rs.getInt("role" ));
+                    user.setDbId(rs.getInt("userid"));
+                    
+                    break;
+                case 2:
+                    
+                     user = new Admin(rs.getString("firstname"),rs.getString("lastname"), rs.getString("username") ,  rs.getString("phone") ,  rs.getString("email") ,
+                            rs.getInt("role" ));
+                    user.setDbId(rs.getInt("userid"));
+                    break;
+            }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+        finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return user;
+    }
 }

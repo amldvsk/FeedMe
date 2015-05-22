@@ -6,6 +6,7 @@
 package feedme.controller;
 
 import feedme.model.AuthenticatUser;
+import feedme.model.Customer;
 import feedme.model.DbUsersManagement;
 import feedme.model.PasswordEncryptionService;
 import feedme.model.User;
@@ -70,7 +71,7 @@ public class CustomerServletPage extends HttpServlet {
             Logger.getLogger(CustomerServletPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        request.setAttribute("user", customer);
+        request.setAttribute("customer", (Customer)new DbUsersManagement().getUserById(customer.getUserId()));
         RequestDispatcher dispatcher = request.getRequestDispatcher("website/profile.jsp");
         dispatcher.forward(request, response);
         return;
