@@ -24,7 +24,7 @@
               <hr>
               <form class="form-inline">
                 <div class="form-group">
-                  <select class="selectpicker" data-width="100%" id="where_to_eat" data-href="${pageContext.request.contextPath}/update-category">
+                  <select name="where" class="selectpicker" data-width="100%" id="where_to_eat" data-href="${pageContext.request.contextPath}/update-category">
                     <option vlaue="-1">איפה תרצה לאכול ?</option>
                     <c:forEach var="citie" items="${cities}">
                         <option value="${citie}">${citie}</option>
@@ -32,7 +32,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <select class="selectpicker" data-width="100%" id="what_category">
+                  <select class="selectpicker" data-width="100%" id="what_category" name="what">
                     <option>נא לבחור אזור</option>
                   </select>
                 </div>
