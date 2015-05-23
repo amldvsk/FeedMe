@@ -63,7 +63,6 @@ public class ManagerRestaurantCustomersServlet extends HttpServlet {
 
         try {
             processRequest(request, response);
-            HashMap<Integer,List<Customer>> customers;
             DbRestaurantsManagement dbrm = new DbRestaurantsManagement();
             AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
             if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| !manager.isLoginResult()) {
@@ -75,8 +74,8 @@ public class ManagerRestaurantCustomersServlet extends HttpServlet {
             List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
             request.setAttribute("restaurant", reslist.get(0));
             request.setAttribute("reslist", reslist);            
-            //customers = dbrm.getCustomersByManagerId(manager.getUserId());
-            //request.setAttribute("customers", customers);
+            List<Customer> customers = dbrm.getCustomersByManagerId(manager.getUserId());
+            request.setAttribute("customers", customers);
 
             
             RequestDispatcher  dispatcher = request.getRequestDispatcher("customers.jsp");

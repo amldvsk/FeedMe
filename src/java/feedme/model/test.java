@@ -507,4 +507,24 @@ public class test {
             System.out.println(re.toString());
         }
     }
+    
+    
+    
+    public static void getCatByCityTest(String cityName)
+    {
+        DbHPOnLoad dbh = new DbHPOnLoad();
+        HashMap<String , Integer> cats = dbh.getCategoriesByCity(cityName);
+        System.out.println(cats.get("פיצה"));
+    }
+    
+    
+    public static void getCustomersByManagerIdTest(int managerId)
+    {
+        DbRestaurantsManagement dbr = new DbRestaurantsManagement();
+        List<Customer> customers = dbr.getCustomersByManagerId(managerId);
+        for(Customer c : customers)
+        {
+            System.out.println(c.getFullAdress());
+        }
+    }
 }

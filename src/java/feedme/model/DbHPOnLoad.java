@@ -181,4 +181,44 @@ public class DbHPOnLoad {
         return restRankingList;
     }
     
+    
+    
+    public HashMap<String , Integer > getCategoriesByCity( String cityName)
+    {
+        con = DbConnector.getInstance().getConn();
+        String spuName = "{CALL feedmedb.Spu_GetCatByCity(?)}";
+        HashMap<String , Integer > cat = new HashMap<>();
+        try {
+                
+                cstmt =con.prepareCall(spuName);
+                cstmt.clearParameters();
+                cstmt.setString(1, cityName);
+                rs = cstmt.executeQuery();
+                while(rs.next())
+                {
+                    cat.put(rs.getString("catName"), rs.getInt("pkid"));
+                }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            try {
+            if(cstmt != null)
+            {
+                cstmt.close();
+            }
+            if( con != null)
+            {
+                con.close();
+            }
+            }catch(SQLException ex)
+            {
+                Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return cat;
+    }
 }

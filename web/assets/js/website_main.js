@@ -510,3 +510,39 @@ $('#submit_order').on('click', function() {
       return false;
   }
 });
+
+
+
+
+$('#where_to_eat').on('change', function() {
+    city_choose = $(this).val();
+    if( city_choose == "איפה תרצה לאכול ?" ) {
+        $('#what_category').empty();
+        $('#what_category').append('<option value="-1">נא לבחור אזור</option>');
+        $('#what_category').selectpicker('refresh');
+        return;
+    }
+    url = $(this).data('href');
+    var request = $.ajax({
+        url: url,
+        type: "POST",
+        contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+        data: { city : city_choose },
+      });
+
+    request.done(function(msg) {
+      console.log(msg);
+      $('#what_category').empty();
+      $('#what_category').append('<option value="-1">מה תרצה לאכול ?</option>');
+      $.each(msg.categorys, function(key, value) {
+        $('#what_category').append('<option value="'+value.cat_id+'">'+value.cat_name+'</option>');
+      });
+      $('#what_category').selectpicker('refresh');
+    });
+
+    request.fail(function(jqXHR, textStatus) {
+      console.log( "Request failed: " + textStatus );
+    });
+      
+    
+});

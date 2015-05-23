@@ -505,4 +505,52 @@ public class DbRestaurantsManagement {
         }
         return restaurants;
     }
+    
+    
+    
+    public List<Customer> getCustomersByManagerId(int managerId)
+    {
+        List<Customer> customers = new ArrayList<>();
+        String spuName = "{CALL feedmedb.Spu_GetCustomersByManagerId(?)}";
+        con = DbConnector.getInstance().getConn();
+        ResultSet rs = null;
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, managerId);
+            rs= cstmt.executeQuery();
+            while(rs.next())
+            {
+               Customer cust = new Customer(rs.getString("firstname"),rs.getString("lastname"), rs.getString("username") ,   rs.getString("phone") ,  rs.getString("email") ,
+                            rs.getInt("role" ) , rs.getDate("bday") ,rs.getString("street")  ,rs.getString("house_num") , rs.getString("apartment_num") , rs.getString("city") );
+                           cust.setDbId(rs.getInt("userid"));
+                            customers.add(cust);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbRestaurantsManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+          finally
+        {
+              try {
+            if(cstmt != null)
+            {
+              
+                    cstmt.close();
+                } 
+            if(con != null)
+            {
+                con.close();
+            }
+              }
+            catch (SQLException ex) {
+                    Logger.getLogger(DbHPOnLoad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
+        
+        
+        return customers;
+    }
 }

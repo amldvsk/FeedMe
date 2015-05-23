@@ -23,19 +23,21 @@
                             <tr>
                               <th>#</th>
                               <th>שם</th>
-                              <th>רחוב</th>
-                              <th>שעת הזמנה</th>
-                              <th>סטטוס</th>
+                              <th>כתובת</th>
+                              <th>טלפון</th>
+                              <th>אימייל</th>
+                              <th>תאריך לידה</th>
                             </tr>
                           </thead>
                           <tbody>
-                              <c:forEach var="order"  items="${orders}">
+                              <c:forEach var="customer"  items="${customers}">
                                 <tr>
-                                    <th scope="row">${order.getOrderId()}</th>
-                                    <td>${order.getCustomerFullName()}</td>
-                                    <td>${order.getCustomerAdress()}</td>
-                                    <td>${order.getOrderDateAndTime()}</td>
-                                    <td>${order.getStatus()}</td>
+                                    <th scope="row">${customers.getDbId()}</th>
+                                    <td>${customers.getFullName()}</td>
+                                    <td>${customers.getStreet()} ${customers.getHouseNum()} ${customers.getApartNum()}, ${customers.getCity()}</td>
+                                    <td>${customers.getPhone()}</td>
+                                    <td>${customers.getEmail()}</td>
+                                    <td>${customers.getbDay()}</td>
                                   </tr>
                              </c:forEach>
                           </tbody>
