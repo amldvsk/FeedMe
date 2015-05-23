@@ -133,4 +133,23 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>-->
+    
+<!--    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>Intranet</realm-name>
+  </login-config>
+  
+  <security-constraint>
+   <web-resource-collection>
+      <web-resource-name>Business Plan</web-resource-name>
+      <url-pattern>/admin/*</url-pattern>
+   </web-resource-collection>
+   <auth-constraint>
+      <role-name>admin</role-name>
+   </auth-constraint>
+</security-constraint>
+
+    <security-role>
+	<role-name>admin</role-name>
+    </security-role>-->
 </web-app>
