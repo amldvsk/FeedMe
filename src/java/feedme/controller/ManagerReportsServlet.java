@@ -107,10 +107,12 @@ public class ManagerReportsServlet extends HttpServlet {
                                 totalPrice+=tempPrice;
                                 //==========
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                Date date_obj = (Date) sdf.parse(fullDate);
+                                java.util.Date date_obj =  sdf.parse(fullDate);
+                                java.sql.Date sqlStartDate = new java.sql.Date(date_obj.getTime());
+
                                 //===========
-                                dateAndNumOfOrders.put(date_obj, Integer.toString(counter));
-                                dateAndPrice.put(date_obj, Double.toString(totalPrice));
+                                dateAndNumOfOrders.put(sqlStartDate, Integer.toString(counter));
+                                dateAndPrice.put(sqlStartDate, Double.toString(totalPrice));
 
                             }
                        } 
@@ -121,7 +123,7 @@ public class ManagerReportsServlet extends HttpServlet {
                 //==========================
                 
                 
-                
+               
                 
                  TreeMap<Date, String> Sorted_dateAndNumOfOrders = new TreeMap<Date, String>(dateAndNumOfOrders);
                  Map<Date, String> Sorted_dateAndPrice = new TreeMap<Date, String>(dateAndPrice);
