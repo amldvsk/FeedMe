@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adi
  */
+@WebServlet(name = "HomePageServlet", urlPatterns = {"/index"})
 public class HomePageServlet extends HttpServlet {
 
     /**
@@ -51,7 +53,7 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HashMap<String,Integer> category;
+         HashMap<String,Integer> category = new HashMap<>();
          List<Restaurant> restaurants;
          
          DbHPOnLoad dbPageOnLoad = new DbHPOnLoad();

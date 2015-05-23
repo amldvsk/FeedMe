@@ -5,6 +5,7 @@ import feedme.model.Admin;
 import feedme.model.AuthenticatUser;
 import feedme.model.Customer;
 import feedme.model.DbUsersManagement;
+import feedme.model.EmailUtility;
 import feedme.model.Manager;
 import feedme.model.PasswordEncryptionService;
 import feedme.model.User;
@@ -125,6 +126,7 @@ public class UserRegistrationServlet extends HttpServlet {
                         }
                         au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
                         request.getSession(true).setAttribute("AuthenticatUser", au);
+                        sendEmail( (Customer)user );
                         response.sendRedirect(request.getContextPath()+"/profile");
                         return;
                  case 1:
@@ -188,5 +190,29 @@ public class UserRegistrationServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void sendEmail(Customer customer) {
+        
+        
+        String recipient = customer.getEmail();
+        String subject = "Wellcome To FeedMe";
+        String content = "Hello," + customer.getFullName() +" Thank You For Your Registration at FeedMe";
+        String host = getServletContext().getInitParameter("host");
+        String port = getServletContext().getInitParameter("port");
+        String user = getServletContext().getInitParameter("user");
+        String pass = getServletContext().getInitParameter("pass");
+        String resultMessage = "";
+        
+        try {
+            EmailUtility.sendEmail(host, port, user, pass, recipient, subject,
+                    content);
+            resultMessage = "The e-mail was sent successfully";
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            resultMessage = "There were an error: " + ex.getMessage();
+        } finally {
+            
+        }
+    }
 
 }

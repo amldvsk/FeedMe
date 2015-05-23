@@ -22,7 +22,7 @@
                 <li>האוכל בדרך</li>
               </ul>
               <hr>
-              <form class="form-inline">
+              <form class="form-inline" method="get">
                 <div class="form-group">
                   <select name="where" class="selectpicker" data-width="100%" id="where_to_eat" data-href="${pageContext.request.contextPath}/update-category">
                     <option vlaue="-1">איפה תרצה לאכול ?</option>

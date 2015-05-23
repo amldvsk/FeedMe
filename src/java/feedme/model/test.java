@@ -527,4 +527,27 @@ public class test {
             System.out.println(c.getFullAdress());
         }
     }
+    
+    public static void registrationMailTest()
+    {
+        String recipient = "nadavbi87@gmail.com";
+        String subject = "Wellcome To FeedMe";
+        String content = "ברוך הבא טוסיק";
+        String host = "smtp.gmail.com";
+        String port = "587";
+        String user = "FeedMeOrg@gmail.com";
+        String pass = "feedme12345";
+        String resultMessage = "";
+        
+        try {
+            EmailUtility.sendEmail(host, port, user, pass, recipient, subject,
+                    content);
+            resultMessage = "The e-mail was sent successfully";
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            resultMessage = "There were an error: " + ex.getMessage();
+        } finally {
+            
+        }
+    }
 }

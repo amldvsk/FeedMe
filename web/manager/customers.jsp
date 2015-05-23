@@ -32,12 +32,12 @@
                           <tbody>
                               <c:forEach var="customer"  items="${customers}">
                                 <tr>
-                                    <th scope="row">${customers.getDbId()}</th>
-                                    <td>${customers.getFullName()}</td>
-                                    <td>${customers.getStreet()} ${customers.getHouseNum()} ${customers.getApartNum()}, ${customers.getCity()}</td>
-                                    <td>${customers.getPhone()}</td>
-                                    <td>${customers.getEmail()}</td>
-                                    <td>${customers.getbDay()}</td>
+                                    <th scope="row">${customer.getDbId()}</th>
+                                    <td>${customer.getFullName()}</td>
+                                    <td>${customer.getStreet()} ${customer.getHouseNum()} ${customer.getApartNum()}, ${customer.getCity()}</td>
+                                    <td>${customer.getPhone()}</td>
+                                    <td>${customer.getEmail()}</td>
+                                    <td>${customer.getbDay()}</td>
                                   </tr>
                              </c:forEach>
                           </tbody>

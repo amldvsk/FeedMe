@@ -105,4 +105,32 @@
         <welcome-file>index</welcome-file>
         <welcome-file>website/index.jsp</welcome-file>
     </welcome-file-list>
+    <context-param>
+        <param-name>host</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>port</param-name>
+        <param-value>587</param-value>
+    </context-param>
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>FeedMeOrg@gmail.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>pass</param-name>
+        <param-value>feedme12345</param-value>
+    </context-param>
+    <!-- SSL settings. only allow HTTPS access to JIRA -->
+<!--    <security-constraint>
+        <display-name>feedMe</display-name>
+        <web-resource-collection>
+            <web-resource-name>Entire Application</web-resource-name>
+            <description/>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>-->
 </web-app>

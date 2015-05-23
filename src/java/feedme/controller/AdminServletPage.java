@@ -67,7 +67,7 @@ public class AdminServletPage extends HttpServlet {
         try{
         processRequest(request, response);
         AuthenticatUser admin = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-        if(admin == null || !PasswordEncryptionService.authenticate(Integer.toString(2), admin.getEncrypRole(), "Admin".getBytes())|| admin.isLoginResult()== true) {
+        if(admin == null || !PasswordEncryptionService.authenticate(Integer.toString(2), admin.getEncrypRole(), "Admin".getBytes())|| !admin.isLoginResult()) {
             response.sendRedirect(request.getContextPath() + "/");
             return;
         }
