@@ -19,9 +19,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,8 +71,8 @@ public class ManagerReportsServlet extends HttpServlet {
                 List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
                 //request.setAttribute("reslist", reslist);
                 int counter=0;                
-                Map<String, String> dateAndNumOfOrders = new HashMap<String, String>();
-                Map<String, String> dateAndPrice = new HashMap<String, String>();
+                Map<Date, String> dateAndNumOfOrders = new HashMap<Date, String>();
+                Map<Date, String> dateAndPrice = new HashMap<Date, String>();
                 for(Order ord:orders){
                     counter=0;
                     totalPrice=0;
@@ -103,8 +105,12 @@ public class ManagerReportsServlet extends HttpServlet {
                                      tempPrice+=it.getQuantity() * it.getItemPrice();                   
                                 }
                                 totalPrice+=tempPrice;
-                                dateAndNumOfOrders.put(fullDate, Integer.toString(counter));
-                                dateAndPrice.put(fullDate, Double.toString(totalPrice));
+                                //==========
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                Date date_obj = (Date) sdf.parse(fullDate);
+                                //===========
+                                dateAndNumOfOrders.put(date_obj, Integer.toString(counter));
+                                dateAndPrice.put(date_obj, Double.toString(totalPrice));
 
                             }
                        } 
@@ -112,8 +118,13 @@ public class ManagerReportsServlet extends HttpServlet {
 
                 }
                  //Sort 
-                 TreeMap<String, String> Sorted_dateAndNumOfOrders = new TreeMap<String, String>(dateAndNumOfOrders);
-                 Map<String, String> Sorted_dateAndPrice = new TreeMap<String, String>(dateAndPrice);
+                //==========================
+                
+                
+                
+                
+                 TreeMap<Date, String> Sorted_dateAndNumOfOrders = new TreeMap<Date, String>(dateAndNumOfOrders);
+                 Map<Date, String> Sorted_dateAndPrice = new TreeMap<Date, String>(dateAndPrice);
                 request.setAttribute("dateAndNumOfOrders", Sorted_dateAndNumOfOrders);
                 request.setAttribute("dateAndPrice", Sorted_dateAndPrice);
                 request.setAttribute("restaurant", reslist.get(0));
@@ -124,6 +135,8 @@ public class ManagerReportsServlet extends HttpServlet {
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ManagerReportsServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(ManagerReportsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(ManagerReportsServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
