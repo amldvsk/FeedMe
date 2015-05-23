@@ -379,3 +379,170 @@ function setVotes(widget) {
     $('#rating-stars').val(rating);
     
 }
+
+
+$('#myTabs a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+});
+
+
+
+
+$('#feed-login form.feed-form').validate({
+    rules: {
+        UserPass: {
+                      required: true,
+                      minlength: 2,
+                  },
+        Username: {
+                      required: true,
+                      minlength: 2,
+                  },
+    }
+});
+          
+$('#feed-signup form.feed-form').validate({
+    rules: {
+        firstName: {
+            required: true,
+            minlength: 2,
+        },
+        lastName: {
+            required: true,
+            minlength: 2,
+        },
+        userName: {
+            required: true,
+            minlength: 2,
+        },
+        email: {
+            required: true,
+            email: true
+        },
+        pw: {
+            required: true,
+            minlength: 2,
+        },
+        phone: {
+            required: true,
+            minlength: 6,
+            maxlength: 10,
+            digits: true
+        },
+        bday: {
+            required: true,
+            date: true
+        },
+        address: {
+            required: true,
+            minlength: 2,
+        },
+        street_num: {
+            required: true,
+            digits: true
+        },
+        home_num: {
+            required: true,
+            digits:true
+        }
+    }
+});
+
+
+$(document).ready(function(){
+$('#place_order').validate({
+      rules: {
+          address: {
+              required: true,
+              minlength: 2
+          },
+          fname: {
+              required: true,
+              minlength: 2
+          },
+          phone: {
+              required: true,
+              minlength: 6,
+              maxlength : 10,
+              digits:true
+          },
+          cvv: {
+              required: true,
+              digits :true,
+               minlength: 3,
+               maxlength: 3
+          },
+          craditNum: {
+              required: true,
+              minlength: 2,
+              digits :true
+          },
+      },
+  });
+});
+$('#submit_order').on('click', function() {
+  if( $('#place_order').valid() ) {
+      var request = $.ajax({
+        url: $('#place_order').attr('action'),
+        type: "POST",
+        contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+        data: $('#place_order').serialize(),
+      });
+
+      request.done(function(msg) {
+        console.log(msg);
+        if( msg.status == 1 ) {
+            $('.order-summery').addClass('hidden');
+            $('.order-compleated span.order_nubmber').text(msg.order.orderId);
+            $('.order-compleated').removeClass('hidden');
+            $.each(msg.order.restItemsMap,function(key, value) {
+                console.log(value.rest_id +" "+ value.itemName +" "+msg.order.CustomerFullName + " " + msg.order.CustomerAdress);
+                sendMessageToServer(value.rest_id, value.itemName, msg.order.CustomerFullName, msg.order.CustomerAdress);
+            });
+        }
+      });
+
+      request.fail(function(jqXHR, textStatus) {
+        console.log( "Request failed: " + textStatus );
+      });
+
+      return false;
+  }
+});
+
+
+
+
+$('#where_to_eat').on('change', function() {
+    city_choose = $(this).val();
+    if( city_choose == "איפה תרצה לאכול ?" ) {
+        $('#what_category').empty();
+        $('#what_category').append('<option value="-1">נא לבחור אזור</option>');
+        $('#what_category').selectpicker('refresh');
+        return;
+    }
+    url = $(this).data('href');
+    var request = $.ajax({
+        url: url,
+        type: "POST",
+        contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+        data: { city : city_choose },
+      });
+
+    request.done(function(msg) {
+      console.log(msg);
+      $('#what_category').empty();
+      $('#what_category').append('<option value="-1">מה תרצה לאכול ?</option>');
+      $.each(msg.categorys, function(key, value) {
+        $('#what_category').append('<option value="'+value.cat_id+'">'+value.cat_name+'</option>');
+      });
+      $('#what_category').selectpicker('refresh');
+    });
+
+    request.fail(function(jqXHR, textStatus) {
+      console.log( "Request failed: " + textStatus );
+    });
+      
+    
+});

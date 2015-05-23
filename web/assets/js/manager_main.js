@@ -1,5 +1,13 @@
 jQuery(document).ready(function($){
   //set your google maps parameters
+  
+  
+  $('.sort-table').DataTable({
+    paging: false,
+    searching: false,
+    "info":     false
+  });
+        
   var latitude = 31.259680,
     longitude =  34.782647,
     map_zoom = 14;
@@ -230,4 +238,56 @@ jQuery(document).ready(function($){
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(zoomControlDiv);
 });
 
-  
+
+
+$('#toggleSidebar').on('click', function(e) {
+    e.preventDefault();
+    var parent = $('#page-wrapper');
+    if(parent.hasClass('open')) {
+      parent.removeClass('open');
+
+    } else {
+      parent.addClass('open');
+    }
+});
+
+
+$('li.sidebar-list a').on('click', function() {
+ var parent = $('#page-wrapper');
+ if(!parent.hasClass('open')) {
+   parent.addClass('open');
+
+ }
+});
+
+
+$('#itemMenuCatId').on('change', function() {
+    if($(this).val() != '-1') {
+        $('.add_item_fileds').removeClass('hidden');
+    } else {
+        $('.add_item_fileds').addClass('hidden');
+    }
+});
+
+
+
+$('#add_menu_item').validate({
+    rules: {
+        itemName: {
+                      required: true,
+                      minlength: 2,
+                  },
+        itemDescrip:        {
+                      required: true,
+                      minlength: 2,
+                  },
+        itemPrice:       {
+                      required: true,
+                      digits: true
+                  },
+        logo:    {
+                      required: true,
+                      minlength: 2,
+                  }
+    }
+});

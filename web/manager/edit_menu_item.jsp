@@ -18,7 +18,7 @@
                     <div class="panel-body">
                       <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
                       <div class="table-responsive">
-                          <form    id="add_menu_item"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/menu-item-management">
+                          <form    id="add_menu_item"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/manager/menu-item-management">
 
                             <div class="form-group clearfix">
                                 <div class="col-md-8">

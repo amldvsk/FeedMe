@@ -15,7 +15,8 @@ public class AuthenticatUser {
     private String userFirstName;
     private String userLastName;
     private byte[] encrypRole;
-      private boolean loginResult = false;
+    private boolean loginResult = false;
+    private int managerRestId;
 
     public boolean isLoginResult() {
         return loginResult;
@@ -64,6 +65,14 @@ public class AuthenticatUser {
 
     public void setEncrypRole(byte[] encrypRole) {
         this.encrypRole = encrypRole;
+    }
+
+    public int getManagerRestId() {
+        return managerRestId;
+    }
+
+    public void setManagerRestId(int managerRestId) {
+        this.managerRestId = managerRestId;
     }
     
     

@@ -5,30 +5,28 @@
  */
 package feedme.controller;
 
-import feedme.model.AuthenticatUser;
-import feedme.model.Customer;
-import feedme.model.DbUsersManagement;
-import feedme.model.PasswordEncryptionService;
-import feedme.model.User;
+import feedme.model.DbHPOnLoad;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
  * @author adi
  */
-@WebServlet(name = "CustomerServletPage", urlPatterns = {"/profile"})
-public class CustomerServletPage extends HttpServlet {
+@WebServlet(name = "UpdateCategoryServlet", urlPatterns = {"/update-category"})
+public class UpdateCategoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -59,22 +57,9 @@ public class CustomerServletPage extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        AuthenticatUser customer = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-        try {
-            if(customer == null || !PasswordEncryptionService.authenticate(Integer.toString(0), customer.getEncrypRole(), "Customer".getBytes())) {
-                response.sendRedirect(request.getContextPath() + "/");
-                return;
-            }
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(CustomerServletPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(CustomerServletPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        request.setAttribute("customer", (Customer)new DbUsersManagement().getUserById(customer.getUserId()));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("website/profile.jsp");
-        dispatcher.forward(request, response);
-        return;
+        
+        
     }
 
     /**
@@ -89,6 +74,26 @@ public class CustomerServletPage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        String city = request.getParameter("city");
+        HashMap<String , Integer > cat =  new DbHPOnLoad().getCategoriesByCity(city);
+        try {
+            
+            JSONObject catObj = new JSONObject();
+            catObj.put("categorys", new JSONArray());
+            JSONArray cate = catObj.getJSONArray("categorys");
+            for (Map.Entry<String , Integer> entry : cat.entrySet()) {
+                cate.put(new JSONObject().put("cat_id", entry.getValue()).put("cat_name", entry.getKey()));
+            }
+            response.setContentType("application/json");
+            PrintWriter writer = response.getWriter();
+            writer.print(catObj);
+            response.getWriter().flush();
+            
+            
+        } catch (JSONException ex) {
+            Logger.getLogger(OrderCompleteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -19,13 +19,26 @@
           <a href="#/tables">ניהול מסעדה <span class="menu-icon fa fa-wrench"></span></a>
         </li>-->
         <li class="sidebar-list">
+          <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseThree" class="collapsed">ניהול מסעדה<span class="menu-icon fa fa-users"></span></a>
+            <div class="panel clearfix">
+                  <div id="collapseThree" class="panel-collapse collapse">
+                      <div class="panel-body">
+                          <div class="sub-links">
+                            <a href="${pageContext.request.contextPath}/manager/orders" class="list-group-item">הזמנות</a>
+                            <a href="${pageContext.request.contextPath}/manager/customers" class="list-group-item">לקוחות</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+        </li>
+        <li class="sidebar-list">
           <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseOne" class="collapsed">תפריט <span class="menu-icon fa fa-bars"></span></a>
             <div class="panel clearfix">
                   <div id="collapseOne" class="panel-collapse collapse">
                       <div class="panel-body">
                           <div class="sub-links">
-                            <a href="#" class="list-group-item">תפריט</a>
-                            <a href="${pageContext.request.contextPath}/menu-item-management" class="list-group-item">הוספה פריט</a>
+                            <a href="${pageContext.request.contextPath}/manager/menus" class="list-group-item">תפריט</a>
+                            <a href="${pageContext.request.contextPath}/manager/menu-item-management" class="list-group-item">הוספה פריט</a>
                           </div>
                       </div>
                   </div>
@@ -43,21 +56,6 @@
                   </div>
               </div>
         </li>
-<!--        <li class="sidebar-list">
-          <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseThree" class="collapsed">לקוחות <span class="menu-icon fa fa-users"></span></a>
-            <div class="panel clearfix">
-                  <div id="collapseThree" class="panel-collapse collapse">
-                      <div class="panel-body">
-                          <div class="sub-links">
-                            <a href="#" class="list-group-item">פריט</a>
-                            <a href="#" class="list-group-item">פריט</a>
-                            <a href="#" class="list-group-item">פריט</a>
-                            <a href="#" class="list-group-item">פריט</a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-        </li>-->
       </ul>
       <div class="sidebar-footer">
         <div class="col-xs-4">

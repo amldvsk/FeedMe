@@ -25,6 +25,16 @@ a a:focus {
   float: right;
 }
 
+
+.dropdown-menu {
+    width: 100%;
+}
+
+.dropdown-menu li a {
+    text-align: right;
+}
+
+
 /* Labels
 =================================================================== */
 .label {
@@ -943,26 +953,31 @@ table.dataTable.no-footer {
 .notifications-overlay {
     position: fixed;
     top: 15px;
-    left:10px;
     right:10px;
-    width:70%;
+    left:auto;
+    width:400px;
     margin: 0 auto;
     z-index: 5000;
 }
 
 
-.notifications-overlay ul li {
-    -ms-transform: translate(0,-9999px); /* IE 9 */
-    -webkit-transform: translate(0,-9999px); /* Safari */
-    transform: translate(0,-9999px);
-    -webkit-transition: 1s ease-in-out;
+.notifications-overlay ul li.notification {
+    opacity: 0;
     -moz-transition: 1s ease-in-out;
     -o-transition: 1s ease-in-out;
     transition: 1s ease-in-out;
 }
 
-.notifications-overlay ul li.active {
-    -ms-transform: translate(0,0); /* IE 9 */
-    -webkit-transform: translate(0,0); /* Safari */
-    transform: translate(0,0);
+.notifications-overlay ul li.notification.active {
+    opacity: 1;
+}
+
+
+.notifications-overlay ul li.notification ul li {
+    padding: 5px;
+}
+
+.notifications-overlay ul li.notification ul li span {
+    float: right;
+    padding-right: 10px;
 }

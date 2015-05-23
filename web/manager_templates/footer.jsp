@@ -6,108 +6,34 @@
   
   
 
-
-<!-- Modal -->
-<div class="modal fade" id="order_popup_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">הזמנה חדשה שהתקבלה</h4>
-      </div>
-      <div class="modal-body">
-          <ul class="list-unstyled order-summery-list" >
-              
-          </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <div class="notifications-overlay">
     <ul class="list-unstyled order-summery-list" >
-        
+<!--        <li class="notification active">
+            <div class="alert alert-info" role="alert">
+                <h4>
+                    <b>הזמנה חדשה</b>
+                </h4>
+                <ul class="list-unstyled text-center">
+                    <li class="clearfix"><div class="pull-right"><b>כתובת: </b></div> <span>ASDASD</span></li> 
+                    <li class="clearfix"><div class="pull-right"><b>שם: </b></div> <span>sdfsdfdsf</span>  </li>
+                    <li class="clearfix"><div class="pull-right"><b>פריט: </b></div> <span>adgfdfsg</span> </li>
+                </ul>
+            </div>
+        </li>-->
     </ul>
 </div>
 
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script> 
   <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjy0n0TFNKTZ4S5Hq2w_FVU4E5EglSd6M&language=he"></script>
   <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/manager_main.js"></script> 
   <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/Chart.min.js"></script>
-  <script type="text/javascript">
-    $('#toggleSidebar').on('click', function(e) {
-      e.preventDefault();
-      var parent = $('#page-wrapper');
-      if(parent.hasClass('open')) {
-        parent.removeClass('open');
 
-      } else {
-        parent.addClass('open');
-      }
-    });
+ 
 
-    $(document).ready( function () {
-        $('.sort-table').DataTable({
-          paging: false,
-          searching: false,
-          "info":     false
-        });
-    } );
-     $('li.sidebar-list a').on('click', function() {
-      var parent = $('#page-wrapper');
-      if(!parent.hasClass('open')) {
-        parent.addClass('open');
-
-      }
-    });
-  </script>
-  
-  
-  <script type="text/javascript">
-      $('#itemMenuCatId').on('change', function() {
-          if($(this).val() != '-1') {
-              $('.add_item_fileds').removeClass('hidden');
-          } else {
-              $('.add_item_fileds').addClass('hidden');
-          }
-      });
-  </script>
-  
-  <script type="text/javascript" >
-      
-      $('#add_menu_item').validate({
-          rules: {
-              itemName: {
-                            required: true,
-                            minlength: 2,
-                        },
-              itemDescrip:        {
-                            required: true,
-                            minlength: 2,
-                        },
-              itemPrice:       {
-                            required: true,
-                            digits: true
-                        },
-              logo:    {
-                            required: true,
-                            minlength: 2,
-                        }
-          }
-      });
-      
-  </script>
-  
   
   
   <script>
@@ -183,7 +109,7 @@
 
 
         $(document).ready(function() {
-
+            $('<audio id="chatAudio"><source src="${pageContext.request.contextPath}/assets/sounds/notify.ogg" type="audio/ogg"><source src="${pageContext.request.contextPath}/assets/sounds/notify.mp3" type="audio/mpeg"><source src="${pageContext.request.contextPath}/assets/sounds/notify.wav" type="audio/wav"></audio>').appendTo('body');
             openSocket();
         });
 
@@ -199,7 +125,7 @@
             }
 
             // Create a new instance of the websocket
-            webSocket = new WebSocket("ws://localhost:${req.serverPort}/${pageContext.request.contextPath}/sock?name=" + name);
+            webSocket = new WebSocket("ws://${req.serverName}:${req.serverPort}/${pageContext.request.contextPath}/sock?name=" + name);
 
             /**
              * Binds functions to the listeners for the websocket.
@@ -249,18 +175,39 @@
 //                $('#order_popup_model').find('.modal-body .order-summery-list').empty();
 //                $('#order_popup_model').find('.modal-body .order-summery-list').html(appendLi);
 //                $('#order_popup_model').modal('show');
-                  li = '<li><div class="alert alert-info" role="alert"><h4><b>הזמנה חדשה</b></h4><b>כתובת</b> '+jObj.address+' <b>שם</b> '+jObj.name+ '  <b>מוצר</b> '+jObj.item+' </p></div></li>';
-                  $('.notifications-overlay ul').append(li);
-                  $('.notifications-overlay ul li').each(function() {
+                  
+                  
+                  li = '<li class="notification">'+
+                            '<div class="alert alert-info" role="alert">'+
+                                '<h4>'+
+                                    '<b>הזמנה חדשה</b>'+
+                                '</h4>'+
+                                '<ul class="list-unstyled text-center">'+
+                                    '<li class="clearfix"><div class="pull-right"><b>כתובת: </b></div> <span>ASDASD</span></li> '+
+                                    '<li class="clearfix"><div class="pull-right"><b>שם: </b></div> <span>sdfsdfdsf</span>  </li>'+
+                                    '<li class="clearfix"><div class="pull-right"><b>פריט: </b></div> <span>adgfdfsg</span> </li>'+
+                                '</ul>'+
+                            '</div>'+
+                        '</li>';
+                  
+                  $('.notifications-overlay ul.order-summery-list').append(li);
+                  
+                  $('.notifications-overlay ul.order-summery-list li').each(function() {
                       $(this).addClass('active');
                   });
-                
+                  
+                  $(document).attr("title", $(document).attr("title") + "התקבלה הזמנה חדשה ");
+                  
+                  $('#chatAudio')[0].play();
             }
         }
 
         
 
-        
+        $('body').on('click', '.notifications-overlay ul.order-summery-list li', function() {
+            $(this).remove();
+            $(document).attr("title", "FeedMe - ניהול");
+        });
           
       </script>
       

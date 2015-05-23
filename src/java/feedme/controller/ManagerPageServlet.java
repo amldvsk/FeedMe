@@ -74,6 +74,7 @@ public class ManagerPageServlet extends HttpServlet {
             List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
             
             List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
+           
             
             request.setAttribute("restaurant", reslist.get(0));
             request.setAttribute("reslist", reslist);
