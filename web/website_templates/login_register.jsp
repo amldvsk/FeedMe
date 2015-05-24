@@ -1349,7 +1349,7 @@
       </div> <!-- feed-signup -->
 
       <div id="feed-reset-password"> <!-- reset password form -->
-        <p class="feed-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+        <p class="feed-form-message">סיסמה אבדה? נא להכניס כתובת אימייל והוראות לאיפוס סיסמה ישלחו למייל.</p>
 
         <form class="feed-form">
           <p class="fieldset">
@@ -1359,11 +1359,11 @@
           </p>
 
           <p class="fieldset">
-            <input class="full-width has-padding" type="submit" value="Reset password">
+            <input class="full-width has-padding" type="submit" value="איפוס סיסמה">
           </p>
         </form>
 
-        <p class="feed-form-bottom-message"><a href="#0">Back to log-in</a></p>
+        <p class="feed-form-bottom-message"><a href="#0">חזרה למסך התחברות</a></p>
       </div> <!-- feed-reset-password -->
       <a href="#0" class="feed-close-form">Close</a>
     </div> <!-- feed-user-modal-container -->
