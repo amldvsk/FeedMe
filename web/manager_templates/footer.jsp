@@ -24,14 +24,17 @@
 </div>
 
 
+  <c:set var="req" value="${pageContext.request}" />
+<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
+  
   <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script> 
-  <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
+  <script src="${req.scheme}://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjy0n0TFNKTZ4S5Hq2w_FVU4E5EglSd6M&language=he"></script>
-  <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="${req.scheme}://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/manager_main.js"></script> 
   <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/Chart.min.js"></script>
-
+  <script src="${pageContext.request.contextPath}/assets/js/extand_validator.js"></script>
  
 
   
@@ -95,8 +98,7 @@
   </script>
   
   
-<c:set var="req" value="${pageContext.request}" />
-<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
+
   
   <script>
           

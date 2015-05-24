@@ -18,8 +18,8 @@
 
           <p class="fieldset">
             <label class="image-replace feed-password" for="UserPass">Password</label>
-            <input class="full-width has-padding has-border" id="UserPass" name="UserPass" type="text"  placeholder="סיסמה" required>
-            <a href="#0" class="hide-password">Hide</a>
+            <input class="full-width has-padding has-border" id="UserPass" name="UserPass" type="password"  placeholder="סיסמה" required>
+            <!--<a href="#0" class="hide-password">Hide</a>-->
             
             <span class="feed-error-message">Error message here!</span>
           </p>
@@ -71,8 +71,8 @@
 
           <p class="fieldset">
             <label class="image-replace feed-password" for="pw">Password</label>
-            <input class="full-width has-padding has-border" name="pw" id="pw" type="text"  placeholder="סיסמה" required>
-            <a href="#0" class="hide-password">Hide</a>
+            <input class="full-width has-padding has-border" name="pw" id="pw" type="password"  placeholder="סיסמה" required>
+            <!--<a href="#0" class="hide-password">Hide</a>-->
             <span class="feed-error-message">Error message here!</span>
           </p>
           
@@ -82,10 +82,11 @@
               <input class="full-width has-padding has-border" name="phone" id="phone" type="text"  placeholder="מספר טלפון" required>
               <span class="feed-error-message">Error message here!</span>
             </p>
-
+            
+            <c:set var="now" value="<%=new java.util.Date()%>" />
              <p class="fieldset pull-left" style="margin: 0; width: calc(45% - 5px)">
                 <label class="image-replace feed-birth" for="bday">תאריך לידה</label>
-                <input style="padding: 8px;" class="full-width has-padding has-border" name="bday" id="bday" type="date"  placeholder="תאריך לידה dd/mm/yyyy" required>
+                <input max='<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" />' style="padding: 8px;" class="full-width has-padding has-border" name="bday" id="bday" type="date"  placeholder="תאריך לידה dd/mm/yyyy" required>
                 <span class="feed-error-message">Error message here!</span>
               </p>
           </div>

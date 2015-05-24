@@ -1,13 +1,17 @@
 <jsp:directive.page contentType="text/html;charset=UTF-8"/> 
+
+<c:set var="req" value="${pageContext.request}" />
+<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script> 
-    <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
+    <script src="${req.scheme}://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap-select.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/jquery.geocomplete.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/modernizr.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/website_main.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/extand_validator.js"></script>
     
     <c:if  test="${loginError != null }" >
         <script>
@@ -22,8 +26,7 @@
 
  
       
-<c:set var="req" value="${pageContext.request}" />
-<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
+
       
       <script>
           
