@@ -496,6 +496,8 @@ $('#submit_order').on('click', function() {
             $('.order-summery').addClass('hidden');
             $('.order-compleated span.order_nubmber').text(msg.order.orderId);
             $('.order-compleated').removeClass('hidden');
+            $('.cd-cart-items').empty();
+            $('#calc_sum').html("&#8362; 0.0");
             $.each(msg.order.restItemsMap,function(key, value) {
                 console.log(value.rest_id +" "+ value.itemName +" "+msg.order.CustomerFullName + " " + msg.order.CustomerAdress);
                 sendMessageToServer(value.rest_id, value.itemName, msg.order.CustomerFullName, msg.order.CustomerAdress);
