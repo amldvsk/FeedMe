@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nirk
  */
-@WebServlet(name = "AdminRestaurantsServlet", urlPatterns = {"/AdminRestaurantsServlet"})
+@WebServlet(name = "AdminRestaurantsServlet", urlPatterns = {"/admin/resturents"})
 public class AdminRestaurantsServlet extends HttpServlet {
 
     /**
@@ -46,18 +46,7 @@ public class AdminRestaurantsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminRestaurantsServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminRestaurantsServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -93,7 +82,7 @@ public class AdminRestaurantsServlet extends HttpServlet {
         request.setAttribute("restaurant", restaurants);
 
         
-        RequestDispatcher  dispatcher = request.getRequestDispatcher("admin/restaurants.jsp");
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("restaurants.jsp");
         dispatcher.forward(request, response);
         return;
         }catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {

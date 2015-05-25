@@ -131,19 +131,8 @@ public class UserRegistrationServlet extends HttpServlet {
                         return;
                  case 1:
                       user  = (Manager)dbUserManagment.getUserByUserName(userName);
-                      encryRoleName = Integer.toString(user.getRole());
-                        {
-                            try {
-                                encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Manager".getBytes());
-                            } catch (NoSuchAlgorithmException ex) {
-                                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (InvalidKeySpecException ex) {
-                                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                        au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
-                        request.getSession(true).setAttribute("AuthenticatUser", au);
-                        response.sendRedirect(request.getContextPath()+"/manager");
+                      
+                        response.sendRedirect(request.getContextPath()+"/admin/managers");
                         return;
                  case 2:
                        user  = (Admin)dbUserManagment.getUserByUserName(userName);
@@ -163,20 +152,29 @@ public class UserRegistrationServlet extends HttpServlet {
                         return;
                         
              }
-             //request.setAttribute("user", user);
-        
-             //response.sendRedirect("website/success.jsp");
+
+            
+         }else if( result == 0 ) {
+             request.getSession().setAttribute("registerError", "שם משתמש כבר קיים");
+             switch(role) {
+                 case 0:
+                     response.sendRedirect(request.getContextPath()+"/");
+                     return;
+                 case 1:
+                     response.sendRedirect(request.getContextPath()+"/admin/editManager.jsp");
+                     return;
+             }
              
-            //dispatcher.forward(request, response);
-            
-//            PrintWriter out = response.getWriter();
-//            response.setContentType("application/json;charset=UTF-8");
-//            try {
-//                out.print(user.toJson());
-//            } catch (JSONException ex) {
-//                Logger.getLogger(UserRegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-            
+         } else if( result == 1 ) {
+             request.getSession().setAttribute("registerError", "אימייל כבר קיים");
+             switch(role) {
+                 case 0:
+                     response.sendRedirect(request.getContextPath()+"/");
+                     return;
+                 case 1:
+                     response.sendRedirect(request.getContextPath()+"/admin/editManager.jsp");
+                     return;
+             }
          }
          else
          {

@@ -21,8 +21,20 @@
             });
             
         </script>
+        <c:remove var="loginError" scope="session" />
     </c:if>
     
+            
+    <c:if  test="${registerError != null }" >
+        <script>
+            
+            $(document).ready(function() {
+                confirm("${registerError}");
+            });
+            
+        </script>
+        <c:remove var="registerError" scope="session" />
+    </c:if>
 
  
       

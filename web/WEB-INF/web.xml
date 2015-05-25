@@ -65,10 +65,6 @@
         <url-pattern>/AddOrEditMenuServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ResturentsServlet</servlet-name>
-        <url-pattern>/resturents</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddOrDeleteCategoryServlet</servlet-name>
         <url-pattern>/add-resturent-category</url-pattern>
     </servlet-mapping>
@@ -96,6 +92,17 @@
         <servlet-name>AddOrEditMenuItemServlet</servlet-name>
         <url-pattern>/manager/menu-item-management</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AdminRestaurantsServlet</servlet-name>
+        <url-pattern>/admin/resturents</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AdminManagersServlet</servlet-name>
+        <url-pattern>/admin/managers</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

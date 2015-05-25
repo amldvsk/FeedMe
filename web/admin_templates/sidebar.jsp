@@ -18,7 +18,7 @@
                   <div id="collapseTwo" class="panel-collapse collapse">
                       <div class="panel-body">
                         <div class="sub-links">
-                          <a href="${pageContext.request.contextPath}/resturents" class="list-group-item">כל המסעדות</a>
+                          <a href="${pageContext.request.contextPath}/admin/resturents" class="list-group-item">כל המסעדות</a>
                           <a href="${pageContext.request.contextPath}/add-resturent" class="list-group-item">הוספת מסעדה</a>
                           <a href="${pageContext.request.contextPath}/add-resturent" class="list-group-item">עריכת מסעדה</a>
                         </div>
@@ -32,7 +32,7 @@
                   <div id="collapseManager" class="panel-collapse collapse">
                       <div class="panel-body">
                         <div class="sub-links">
-                          <a href="${pageContext.request.contextPath}/admin/managers.jsp" class="list-group-item">מנהלים</a>
+                          <a href="${pageContext.request.contextPath}/admin/managers" class="list-group-item">מנהלים</a>
                           <a href="${pageContext.request.contextPath}/admin/editManager.jsp" class="list-group-item">הוספת מנהל</a>
                           <a href="${pageContext.request.contextPath}/admin/editManager.jsp" class="list-group-item">עריכת מנהל</a>
                         </div>

@@ -19,6 +19,12 @@
                       <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
                       <div class="table-responsive">
                           <form id="make_manager" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/registration">
+                              
+                              <c:if  test="${registerError != null }" >
+                                    <div class="alert alert-danger" role="alert">${registerError}</div>
+                                    <c:remove var="registerError" scope="session" />
+                                </c:if>
+                              
                             <div class="form-group clearfix">
                                 <div class="col-md-6">
                                     <label for="firstName">שם פרטי</label>

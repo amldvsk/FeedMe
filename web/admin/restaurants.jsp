@@ -29,7 +29,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                              <c:forEach var="rest"  items="${resturents}">
+                              <c:forEach var="rest"  items="${restaurant}">
                                 <tr>
                                     <th scope="row">${rest.getDbid()}</th>
                                     <td><img src="${pageContext.request.contextPath}/assets/Uploads/${rest.getLogo()}" class="img-rounded" width="60" height="60"></td>

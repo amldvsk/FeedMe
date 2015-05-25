@@ -16,6 +16,9 @@
   <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/extand_validator.js"></script>
   
+  
+  
+            
   <script type="text/javascript">
     $('#toggleSidebar').on('click', function(e) {
       e.preventDefault();
