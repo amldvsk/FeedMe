@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nirk
  */
-@WebServlet(name = "RestaurantRankingServlet", urlPatterns = {"/RestaurantRankingServlet"})
+@WebServlet(name = "RestaurantRankingServlet", urlPatterns = {"/rank-order"})
 public class RestaurantRankingServlet extends HttpServlet {
 
     /**
@@ -35,18 +35,6 @@ public class RestaurantRankingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RestaurantRankingServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RestaurantRankingServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,19 +64,22 @@ public class RestaurantRankingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        int restid = Integer.parseInt(request.getParameter("restid"));
+        request.setCharacterEncoding("UTF-8");
+        //int restid = Integer.parseInt(request.getParameter("restid"));
+        String[] restids = request.getParameterValues("restid[]");
         double rank = Double.parseDouble(request.getParameter("rank"));
         String comment = request.getParameter("comment");
         
+        for( String id : restids ) {
+            RestaurantRanking rr = new RestaurantRanking(Integer.parseInt(id),rank,comment);
+            DbRestaurantsManagement restaurantManagment = new DbRestaurantsManagement();
+            restaurantManagment.addRestRanking(rr);
+        }
         
-        RestaurantRanking rr = new RestaurantRanking(restid,rank,comment);
-        DbRestaurantsManagement restaurantManagment = new DbRestaurantsManagement();
-        restaurantManagment.addRestRanking(rr);
         
         
-        RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect(request.getContextPath()+"/");
+        return;
         
         
         

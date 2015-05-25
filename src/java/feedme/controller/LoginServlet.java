@@ -102,10 +102,10 @@ public class LoginServlet extends HttpServlet {
         else
         {
             //if there is no such user name you little dirty russian
-            HttpSession sess = request.getSession(true);
-            request.setAttribute("loginError", "אין משתמש כזה");
-            dispatcher = request.getRequestDispatcher("website/index.jsp");
-            dispatcher.forward(request, response);
+            HttpSession sess = request.getSession();
+            sess.setAttribute("loginError", "אין משתמש כזה");
+            response.sendRedirect(request.getContextPath()+"/");
+            return;
         }
         
              

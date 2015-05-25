@@ -103,6 +103,12 @@
         <url-pattern>/admin/managers</url-pattern>
     </servlet-mapping>
     
+    
+    <servlet-mapping>
+        <servlet-name>RestaurantRankingServlet</servlet-name>
+        <url-pattern>/rank-order</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

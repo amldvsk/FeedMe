@@ -17,7 +17,7 @@
         <script>
             
             $(document).ready(function() {
-                confirm("${loginError}");
+                alert("${loginError}");
             });
             
         </script>
@@ -29,7 +29,7 @@
         <script>
             
             $(document).ready(function() {
-                confirm("${registerError}");
+                alert("${registerError}");
             });
             
         </script>
