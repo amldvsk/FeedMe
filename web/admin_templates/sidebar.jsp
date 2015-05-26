@@ -47,6 +47,7 @@
                       <div class="panel-body">
                         <div class="sub-links">
                           <a href="${pageContext.request.contextPath}/admin/menus.jsp" class="list-group-item">כל התפריטים</a>
+                          <a href="${pageContext.request.contextPath}/admin/menu-category" class="list-group-item">קטגוריות תפריטים</a>
                           <a href="${pageContext.request.contextPath}/admin/editMenus.jsp" class="list-group-item">הוספה לתפריט</a>
                         </div>
                       </div>
