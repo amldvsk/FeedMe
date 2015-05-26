@@ -597,3 +597,11 @@ $('#where_to_eat').on('change', function() {
       
     
 });
+
+
+$('#rest_filter').on('submit', function() {
+    if( $('#what_category').val().trim() == "נא לבחור אזור" ||  $('#what_category').val().trim() == "-1" || $('#where_to_eat').val().trim() == "-1" ) 
+        return false;
+    else
+        return true;
+});
