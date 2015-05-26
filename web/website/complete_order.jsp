@@ -36,7 +36,16 @@
                 <div class="form-group clearfix">
                     <div class="col-md-6">
                         <label for="address">כתובת למשלוח</label>
-                        <input type="text" class="form-control" name="address" value="${requestScope.customer.getStreet()} ${requestScope.customer.getHouseNum()} ${requestScope.customer.getApartNum()}, ${requestScope.customer.getCity()}" id="address" placeholder="כתובת למשלוח">
+                        <c:choose>
+                            <c:when test="${requestScope.customer != null}">
+                                <input type="text" class="form-control" name="address" value="${requestScope.customer.getStreet()} ${requestScope.customer.getHouseNum()} ${requestScope.customer.getApartNum()}, ${requestScope.customer.getCity()}" id="address" placeholder="כתובת למשלוח">
+                            </c:when>
+
+                            <c:otherwise>
+                                <input type="text" class="form-control" name="address" value="" id="address" placeholder="כתובת למשלוח">
+                            </c:otherwise>
+                      </c:choose>
+                        
                      </div>
                     <div class="col-md-6">
                          <label for="fname">שם פרטי ושם משפחה</label>

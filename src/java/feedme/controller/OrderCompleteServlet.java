@@ -63,8 +63,14 @@ public class OrderCompleteServlet extends HttpServlet {
         processRequest(request, response);
         
         AuthenticatUser customer = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-        if( customer != null ) {
-            request.setAttribute("customer", (Customer)new DbUsersManagement().getUserById(customer.getUserId()));
+        try {
+            if( customer != null && PasswordEncryptionService.authenticate(Integer.toString(0), customer.getEncrypRole(), "Customer".getBytes())) {
+                request.setAttribute("customer", (Customer)new DbUsersManagement().getUserById(customer.getUserId()));
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(OrderCompleteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(OrderCompleteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("website/complete_order.jsp");

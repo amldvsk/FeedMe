@@ -62,7 +62,7 @@ public class OrderServlet extends HttpServlet {
         int itemid = Integer.parseInt(request.getParameter("itemid"));
         int restid = Integer.parseInt(request.getParameter("restid"));
         int action = Integer.parseInt(request.getParameter("action"));
-        HashMapKey rest_item = new HashMapKey(itemid, restid);
+        HashMapKey rest_item = new HashMapKey(restid, itemid);
         HttpSession session = request.getSession(false);
         Order cart =(Order)session.getAttribute("shoppingCart");
         if( action == 1 ) {

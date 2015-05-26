@@ -57,7 +57,7 @@ public class SearchRestServlet extends HttpServlet {
         String city = request.getParameter("where");
         int category = Integer.parseInt(request.getParameter("what"));
         
-        List<Restaurant> restaurants = new DbRestaurantsManagement().getNextRecentRestaurantsByCatAndCity(0 , 0 , category , city);
+        List<Restaurant> restaurants = new DbRestaurantsManagement().getNextRecentRestaurantsByCatAndCity(0 , 6 , category , city);
         
         request.setAttribute("restaurants", restaurants);
          

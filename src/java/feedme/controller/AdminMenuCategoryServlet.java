@@ -77,9 +77,19 @@ public class AdminMenuCategoryServlet extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
          
-        String MenuCaregoryName= request.getParameter("MenuCaregoryName"); 
-        DbMenuManagment obj = new DbMenuManagment();
-        int result =obj.addNewMenuCat(MenuCaregoryName);
+        String MenuCaregoryName= request.getParameter("MenuCaregoryName");
+        HashMap<Integer ,String> menuCat = new DbMenuManagment().getMenuCat();
+        boolean flag = false;
+        for(String s : menuCat.values()) {
+            if( s.equals(MenuCaregoryName) )
+                flag = true;
+        }
+        
+        if( !flag ) {
+            DbMenuManagment obj = new DbMenuManagment();
+            int result =obj.addNewMenuCat(MenuCaregoryName);
+        }
+        
         
         response.sendRedirect(request.getContextPath()+"/admin/menu-category");
         
