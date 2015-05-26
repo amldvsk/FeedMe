@@ -105,7 +105,7 @@
     </section>
 
 
-     <section class="gray recommendations">
+     <section class="gray recommendations visible-lg">
        <div class="container">
          <div class="sub-section">
             <div class="container text-center">
@@ -156,7 +156,7 @@
        </div>
      </section>
 
-     <div class="avaters clearfix">
+     <div class="avaters clearfix visible-lg">
         <div class="container">
         <div class="people" role="tabpanel">
               <div class="">

@@ -960,7 +960,7 @@ section .sub-section ul.rests {
 }
 
 section .sub-section ul.rests li.rest {
-  width: calc(100% / 3 - 30px);
+  
   text-align: right;
   padding: 0;
   margin: 0 10px;
@@ -970,6 +970,25 @@ section .sub-section ul.rests li.rest {
   border: 1px solid #ddd;
   padding: 10px;
   padding-bottom: 0;
+}
+
+@media(min-width: 1200px) {
+    section .sub-section ul.rests li.rest {
+        width: calc(100% / 3 - 30px);
+    }
+}
+
+@media(max-width: 1199px) and (min-width: 800px) {
+    section .sub-section ul.rests li.rest {
+        width: calc(100% / 2 - 30px);
+    }
+}
+
+
+@media(max-width: 799px) and (min-width: 100px) {
+    section .sub-section ul.rests li.rest {
+        width: 100%;
+    }
 }
 
 
