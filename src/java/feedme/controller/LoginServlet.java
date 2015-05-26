@@ -90,10 +90,18 @@ public class LoginServlet extends HttpServlet {
                         
                     }else{
                         //if for some reason the user is mother fucking null
+                        HttpSession sess = request.getSession();
+                        sess.setAttribute("loginError", "אין משתמש כזה");
+                        response.sendRedirect(request.getContextPath()+"/");
+                        return;
                     }
                 }
                 else{
                     //wrong password do what ever you want dick head
+                    HttpSession sess = request.getSession();
+                    sess.setAttribute("loginError", "סיסמה לא נכונה");
+                    response.sendRedirect(request.getContextPath()+"/");
+                    return;
                 }
             } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
                 Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);

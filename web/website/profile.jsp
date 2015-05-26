@@ -44,14 +44,18 @@
             </thead>
             <tbody>
                 <c:forEach var="order"  items="${orders}">
-                                <tr>
-                                    <th scope="row">${order.getOrderId()}</th>
-                                    <td>${order.getCustomerFullName()}</td>
-                                    <td>${order.getCustomerAdress()}</td>
-                                    <td>${order.getOrderDateAndTime()}</td>
-                                    <td>${order.getStatus()}</td>
-                                  </tr>
-                             </c:forEach>
+                    <tr>
+                        <th scope="row">${order.getOrderId()}</th>
+                        <td>${order.getCustomerFullName()}</td>
+                        <td>
+                        <c:forEach var="item"  items="${order.getRestItemsMap()}">
+                            ${item.value.getItemName()}, &nbsp;
+                        </c:forEach>
+                        </td>
+                        <td>${order.calcSum()} &#8362;</td>
+                        <td>${order.getOrderDateAndTime()}</td>
+                      </tr>
+                 </c:forEach>
             </tbody>
           </table>
         </div>

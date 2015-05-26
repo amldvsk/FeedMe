@@ -177,24 +177,21 @@
 
         </div>
         <div role="tabpanel" class="rest_cont  tab-pane fade" id="sale" aria-labelledby="profile-tab">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>מספר הטבה</th>
-                <th>המסעדה</th>
-                <th>ההטבה</th>
-                <th>תוקף</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>קמפאי</td>
-                <td>1+1 על כל התפריט</td>
-                <td>22/04/15</td>
-              </tr>
-            </tbody>
-          </table>
+            <h3>ביקורות</h3>
+            <ul class="list-unstyled clearfix">
+                <c:forEach var="rank"  items="${ranks}"  >
+                <li class="clearfix rest-ranking ">
+                    <ul class="list-inline" >
+                        <c:forEach begin="0" end="${rank.getRankValue()}" varStatus="loop">
+                            <li><p class="star active"></p></li>
+                        </c:forEach>
+                    </ul>
+                    <h4 >${rank.getComment()}</h4>
+                    
+                </li>
+                <hr/>
+                </c:forEach>
+            </ul>
         </div>
       </div>
 

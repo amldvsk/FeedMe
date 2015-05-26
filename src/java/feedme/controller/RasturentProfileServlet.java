@@ -9,6 +9,7 @@ import feedme.model.DbMenuManagment;
 import feedme.model.DbRestaurantsManagement;
 import feedme.model.Item;
 import feedme.model.Restaurant;
+import feedme.model.RestaurantRanking;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -62,6 +63,8 @@ public class RasturentProfileServlet extends HttpServlet {
             Restaurant res = new DbRestaurantsManagement().getRestaurantById(restId);
             HashMap<Map<Integer , String > , List<Item>> menuItems = new DbMenuManagment().getMenuByRestaurantId(restId);
             RequestDispatcher dispatcher = request.getRequestDispatcher("website/resturent.jsp");
+            List<RestaurantRanking> ranks = new DbRestaurantsManagement().getRestRank(restId);
+            request.setAttribute("ranks", ranks);
             request.setAttribute("resturent", res);
             request.setAttribute("menuItems", menuItems);
             dispatcher.forward(request, response);

@@ -1856,3 +1856,16 @@ p.votes-rating-number {
 #submit_rating {
     margin-top: 10px;
 }
+
+
+
+.rest-ranking ul li p.star.active:after {
+    font-size: 20px;
+    content:'\f005';
+    font-family: FontAwesome;
+    color: #f1c40f;
+}
+
+.rest-ranking ul {
+    padding: 0;
+}
