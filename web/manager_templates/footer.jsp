@@ -125,9 +125,18 @@
             if (webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED) {
                 return;
             }
+            
+            <c:choose>
+                    <c:when test="${req.scheme=='https'}">
+                    webSocket = new WebSocket("wss://${req.serverName}:${req.serverPort}/${pageContext.request.contextPath}/sock?name=" + name);
+                    </c:when>
 
+                    <c:otherwise>
+                        webSocket = new WebSocket("ws://${req.serverName}:${req.serverPort}/${pageContext.request.contextPath}/sock?name=" + name);
+                    </c:otherwise>
+              </c:choose>
             // Create a new instance of the websocket
-            webSocket = new WebSocket("ws://${req.serverName}:${req.serverPort}/${pageContext.request.contextPath}/sock?name=" + name);
+            
 
             /**
              * Binds functions to the listeners for the websocket.

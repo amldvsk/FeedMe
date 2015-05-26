@@ -115,21 +115,7 @@
                 <div class="col-md-4" ><h5>תמונה</h5></div>
                 <div class="col-md-2" ><h5>כמות</h5></div>
             </li>
-            <li class="clearfix cart-item hidden">
-                <div class="col-md-2" >
-                    <p><small>39 &#8362;</small></p>
-                </div>
-                <div class="col-md-4" >
-                    <h4><b>נאגטס עוף</b></h4>
-                    <p class="muted" ><small>בקרמל תפוזי דם פיקנט </small></p>
-                </div>
-                <div class="col-md-4" >
-                    <img height="100" weight="100"  src="https://www.mosesrest.co.il/filestock/img/img_1412763050812-0.jpg" class="img-rounded" />
-                </div>
-                <div class="col-md-2" >
-                    <p><small>3</small></p>
-                </div>
-            </li>
+            
             
             <c:forEach var="cartItem" items="${sessionScope.shoppingCart.getRestItemsMap()}">
                 <li class="cart-item item clearfix" data-item-id="${cartItem.value.getItemID()}" data-item-price="${cartItem.value.getItemPrice()}" data-rest-id="${cartItem.value.getRestId()}" data-item-name="${cartItem.value.getItemName()}">
@@ -159,9 +145,11 @@
         </ul>
         
       </div>
-      <div class="cart-btn clearfix" >
-          <div class="text-center"><button type="submit" id="submit_order" class="btn btn-success btn-lg">שלח הזמנה</button></div>
-      </div>
+      <c:if test="${sessionScope.shoppingCart.getRestItemsMap().size() > 0}">             
+        <div class="cart-btn clearfix" >
+            <div class="text-center"><button type="submit" id="submit_order" class="btn btn-success btn-lg">שלח הזמנה</button></div>
+        </div>
+      </c:if>
     </div>
     <div class="order-compleated hidden" >
         <div class="alert alert-success" role="alert">
