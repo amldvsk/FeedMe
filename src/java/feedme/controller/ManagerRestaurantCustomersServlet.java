@@ -7,7 +7,9 @@ package feedme.controller;
 
 import feedme.model.AuthenticatUser;
 import feedme.model.Customer;
+import feedme.model.DbOrderManagement;
 import feedme.model.DbRestaurantsManagement;
+import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
 import feedme.model.Restaurant;
 import java.io.IOException;
@@ -71,12 +73,17 @@ public class ManagerRestaurantCustomersServlet extends HttpServlet {
                 
             }
             DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
-            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
-            request.setAttribute("restaurant", reslist.get(0));
-            request.setAttribute("reslist", reslist);            
+            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());           
             List<Customer> customers = dbrm.getCustomersByManagerId(manager.getUserId());
             request.setAttribute("customers", customers);
-
+            
+            if( manager.getManagerRestId() != 0 ) {
+                
+                for( Restaurant re : reslist )
+                    if( re.getDbid() == manager.getManagerRestId() )
+                        request.setAttribute("restaurant", re);
+                request.setAttribute("reslist", reslist);
+            }
             
             RequestDispatcher  dispatcher = request.getRequestDispatcher("customers.jsp");
             dispatcher.forward(request, response);

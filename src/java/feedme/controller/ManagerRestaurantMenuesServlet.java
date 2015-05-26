@@ -75,18 +75,16 @@ public class ManagerRestaurantMenuesServlet extends HttpServlet {
             
             DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
             List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
-            HashMap<Map<Integer,String>,List<Item>> menues = new DbMenuManagment().getMenuByRestaurantId(reslist.get(0).getDbid());
- 
-            request.setAttribute("menus", menues);
             
+            if( manager.getManagerRestId() != 0 ) {
+                HashMap<Map<Integer,String>,List<Item>> menues = new DbMenuManagment().getMenuByRestaurantId(manager.getManagerRestId());
+                request.setAttribute("menus", menues);
+                for( Restaurant re : reslist )
+                    if( re.getDbid() == manager.getManagerRestId() )
+                        request.setAttribute("restaurant", re);
+                request.setAttribute("reslist", reslist);
+            }
             
-            
-            
-            
-           
-            
-            request.setAttribute("restaurant", reslist.get(0));
-            request.setAttribute("reslist", reslist);
             
 
             

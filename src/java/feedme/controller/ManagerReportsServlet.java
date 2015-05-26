@@ -68,7 +68,14 @@ public class ManagerReportsServlet extends HttpServlet {
                 Calendar now = Calendar.getInstance();
                 DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
                 List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
-                List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
+                List<Order> orders =null;
+                if( manager.getManagerRestId() != 0 ) {
+                
+                    for( Restaurant re : reslist )
+                        if( re.getDbid() == manager.getManagerRestId() )
+                            orders = new DbOrderManagement().getOrdersByRestId(re.getDbid());
+                }
+                
                 //request.setAttribute("reslist", reslist);
                 int counter=0;                
                 Map<Date, String> dateAndNumOfOrders = new HashMap<Date, String>();
@@ -129,7 +136,9 @@ public class ManagerReportsServlet extends HttpServlet {
                  Map<Date, String> Sorted_dateAndPrice = new TreeMap<Date, String>(dateAndPrice);
                 request.setAttribute("dateAndNumOfOrders", Sorted_dateAndNumOfOrders);
                 request.setAttribute("dateAndPrice", Sorted_dateAndPrice);
-                request.setAttribute("restaurant", reslist.get(0));
+                for( Restaurant re : reslist )
+                        if( re.getDbid() == manager.getManagerRestId() )
+                            request.setAttribute("restaurant", re);
                 request.setAttribute("reslist", reslist);
                 RequestDispatcher  dispatcher = request.getRequestDispatcher("/manager/order_reports.jsp");
                 dispatcher.forward(request, response);

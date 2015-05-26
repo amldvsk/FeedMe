@@ -72,7 +72,9 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
         List<Restaurant> reslist = new DbRestaurantsManagement().getRestaurantsByManagerId(manager.getUserId());
         HashMap<Integer ,String> menuCat = new DbMenuManagment().getMenuCat();
         request.setAttribute("categories", menuCat);
-        request.setAttribute("restaurant", reslist.get(0));
+        for( Restaurant re : reslist )
+                        if( re.getDbid() == manager.getManagerRestId() )
+                            request.setAttribute("restaurant", re);
         
         RequestDispatcher  dispatcher = request.getRequestDispatcher("edit_menu_item.jsp");
         dispatcher.forward(request, response);

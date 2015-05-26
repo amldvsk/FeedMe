@@ -6,8 +6,10 @@
 package feedme.controller;
 
 import feedme.model.AuthenticatUser;
+import feedme.model.DbMenuManagment;
 import feedme.model.DbOrderManagement;
 import feedme.model.DbRestaurantsManagement;
+import feedme.model.Item;
 import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
 import feedme.model.Restaurant;
@@ -15,7 +17,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -72,14 +76,20 @@ public class ManagerRestaurantOrdersServlet extends HttpServlet {
             DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
             List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
             
-            List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
-            
-
             
             
-            request.setAttribute("restaurant", reslist.get(0));
-            request.setAttribute("reslist", reslist);           
-            request.setAttribute("orders", orders);
+            if( manager.getManagerRestId() != 0 ) {
+                
+                for( Restaurant re : reslist )
+                    if( re.getDbid() == manager.getManagerRestId() )
+                        request.setAttribute("restaurant", re);
+                List<Order> orders = new DbOrderManagement().getOrdersByRestId(manager.getManagerRestId());
+                request.setAttribute("reslist", reslist);
+                request.setAttribute("orders", orders);
+            }
+            
+                    
+            
             
             RequestDispatcher  dispatcher = request.getRequestDispatcher("orders.jsp");
             dispatcher.forward(request, response);

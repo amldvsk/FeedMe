@@ -73,12 +73,20 @@ public class ManagerPageServlet extends HttpServlet {
             DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
             List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
             
-            List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
+            if( reslist.size() > 0 ) {
+                manager.setManagerRestId(reslist.get(0).getDbid());
+                List<Order> orders = new DbOrderManagement().getOrdersByRestId(reslist.get(0).getDbid());
            
             
-            request.setAttribute("restaurant", reslist.get(0));
-            request.setAttribute("reslist", reslist);
-            request.setAttribute("orders", orders);
+                for( Restaurant re : reslist )
+                        if( re.getDbid() == manager.getManagerRestId() )
+                            request.setAttribute("restaurant", re);
+                request.setAttribute("reslist", reslist);
+                request.setAttribute("orders", orders);
+            }
+                
+            
+            
             
             RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/index.jsp");
             dispatcher.forward(request, response);
