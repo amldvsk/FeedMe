@@ -87,7 +87,7 @@ public class UserRegistrationServlet extends HttpServlet {
 
                    
                    String birthday = request.getParameter("bday");
-                    SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyyy");
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyyy");
                     java.util.Date date = sdf1.parse(birthday);
                     d = new Date(date.getTime()); 
               
@@ -194,7 +194,7 @@ public class UserRegistrationServlet extends HttpServlet {
         
         String recipient = customer.getEmail();
         String subject = "Wellcome To FeedMe";
-        String content = "Hello," + customer.getFullName() +" Thank You For Your Registration at FeedMe";
+        String content = "<h2>Hello," + customer.getFullName() +"</h2> <br/> Thank You For Your Registration at FeedMe";
         String host = getServletContext().getInitParameter("host");
         String port = getServletContext().getInitParameter("port");
         String user = getServletContext().getInitParameter("user");
