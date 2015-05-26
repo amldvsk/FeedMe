@@ -18,6 +18,7 @@ public class RestaurantRanking {
     private int restId;
     private Double rankValue ; 
     private String comment;
+    private Restaurant resturent;
     protected JSONObject rankObject;
     
     
@@ -29,6 +30,16 @@ public class RestaurantRanking {
         this.rankValue = rankValue;
         this.comment = comment;
     }
+
+    public Restaurant getResturent() {
+        return resturent;
+    }
+
+    public void setResturent(Restaurant resturent) {
+        this.resturent = resturent;
+    }
+     
+     
      
      
     public int getRankId() {

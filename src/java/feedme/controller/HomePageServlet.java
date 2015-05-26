@@ -6,8 +6,10 @@
 package feedme.controller;
 
 import feedme.model.DbHPOnLoad;
+import feedme.model.DbRestaurantsManagement;
 import feedme.model.Order;
 import feedme.model.Restaurant;
+import feedme.model.RestaurantRanking;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -66,9 +68,16 @@ public class HomePageServlet extends HttpServlet {
          } 
          
          
+        List<RestaurantRanking> rankings = dbPageOnLoad.getRestRandomComments(5);
+         
+        for( RestaurantRanking re : rankings ) {
+            re.setResturent(new DbRestaurantsManagement().getRestaurantById(re.getRestId()));
+        }
+        
          request.setAttribute("category", category);
          request.setAttribute("cities", cities);
          request.setAttribute("restaurants", restaurants);
+         request.setAttribute("rankings", rankings);
          
         RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");
         dispatcher.forward(request, response);

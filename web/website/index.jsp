@@ -104,7 +104,7 @@
       </div>
     </section>
 
-
+                    
      <section class="gray recommendations visible-lg">
        <div class="container">
          <div class="sub-section">
@@ -113,41 +113,25 @@
                 <div class=" col-xs-8 col-sm-12">
                     <!-- Tab panes -->
                     <div class="tab-content" id="tabs-collapse">            
-                        <div role="tabpanel" class="tab-pane fade in active" id="dustin">
+                        <c:forEach var="rank" items="${rankings}" varStatus="count">
+                            <c:choose>
+                            <c:when test="${count.count == 1}">
+                               <div role="tabpanel" class="tab-pane fade in active" id="${rank.getRankId()}">
+                            </c:when>
+                            <c:otherwise>
+                                <div role="tabpanel" class="tab-pane fade in" id="${rank.getRankId()}">
+                            </c:otherwise>
+                        </c:choose>
+                        
                             <div class="tab-inner">                    
-                                <p class="lead">לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.</p>
+                                <p class="lead">${rank.getComment()}</p>
                                 <hr>
-                                <p><strong class="text-uppercase">Dustin Lamont</strong></p>
-                                <p><em class="text-capitalize"> Senior web developer</em> at <a href="#">Apple</a></p>                 
+                                <p><strong class="text-uppercase">${rank.getResturent().getName()}</strong></p>
+                                <p><em class="text-capitalize"> להזמנה מהמסעדה</em> <a href="${pageContext.request.contextPath}/resturent?res_id=${rank.getResturent().getDbid()}">לחץ כאן</a></p>                 
                             </div>
                         </div>
+                        </c:forEach>
                         
-                        <div role="tabpanel" class="tab-pane fade" id="daksh">
-                            <div class="tab-inner">
-                                <p class="lead">לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.</p>
-                                <hr>
-                                <p><strong class="text-uppercase">Daksh Bhagya</strong></p>
-                                <p><em class="text-capitalize"> UX designer</em> at <a href="#">Google</a></p>
-                            </div>
-                        </div>
-                        
-                        <div role="tabpanel" class="tab-pane fade" id="anna">
-                            <div class="tab-inner">
-                                <p class="lead">לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.</p>
-                                <hr>
-                                <p><strong class="text-uppercase">Anna Pickard</strong></p>
-                                <p><em class="text-capitalize"> Master web developer</em> at <a href="#">Intel</a></p>
-                            </div> 
-                        </div>
-                        
-                        <div role="tabpanel" class="tab-pane fade" id="wafer">
-                            <div class="tab-inner">
-                                <p class="lead"> לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולורס מונפרד אדנדום סילקוף, מרגשי ומרגשח. עמחליף ליבם סולגק. בראיט ולחת צורק מונחף, בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה - לתכי מורגם בורק? לתיג ישבעס.</p>
-                                <hr>
-                                <p><strong class="text-uppercase">Wafer Baby</strong></p>
-                                <p><em class="text-capitalize"> Web designer</em> at <a href="#">Microsoft</a></p>
-                            </div>
-                        </div>
                     </div>
                 </div>        
               </div>
@@ -162,36 +146,23 @@
               <div class="">
                   <!-- Nav tabs -->
                   <ul class="[ nav nav-justified ]" id="nav-tabs" role="tablist">
-                      <li role="presentation" class="active">
-                          <a href="#dustin" aria-controls="dustin" role="tab" data-toggle="tab">
-                              <div class="img-wrap"><img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/dustinlamont/128.jpg" /></div>
+                      
+                        <c:forEach var="rank" items="${rankings}" varStatus="count">
+                            <c:choose>
+                            <c:when test="${count.count == 1}">
+                               <li role="presentation" class="active">
+                            </c:when>
+                            <c:otherwise>
+                                <li role="presentation" class="">
+                            </c:otherwise>
+                        </c:choose>
+                      
+                          <a href="#${rank.getRankId()}" aria-controls="dustin" role="tab" data-toggle="tab">
+                              <div class="img-wrap"><img class="img-circle" src="${pageContext.request.contextPath}/assets/Uploads/${rank.getResturent().getLogo()}" /></div>
                               <span class="quote"><i class="fa fa-quote-left"></i></span>
                           </a>
                       </li>
-                      <li role="presentation" class="">
-                          <a href="#daksh" aria-controls="daksh" role="tab" data-toggle="tab">
-                              <div class="img-wrap"><img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/dakshbhagya/128.jpg" /></div>
-                              <span class="quote"><i class="fa fa-quote-left"></i></span>
-                          </a>
-                      </li>
-                      <li role="presentation" class="">
-                          <a href="#anna" aria-controls="anna" role="tab" data-toggle="tab">
-                              <div class="img-wrap"><img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/annapickard/128.jpg" /></div>
-                              <span class="quote"><i class="fa fa-quote-left"></i></span>
-                          </a>
-                      </li>
-                      <li role="presentation" class="">
-                          <a href="#wafer" aria-controls="wafer" role="tab" data-toggle="tab">
-                              <div class="img-wrap"><img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/waferbaby/128.jpg" /></div>
-                              <span class="quote"><i class="fa fa-quote-left"></i></span>
-                          </a>
-                      </li>
-                      <li role="presentation" class="">
-                          <a href="#daksh" aria-controls="daksh" role="tab" data-toggle="tab">
-                              <div class="img-wrap"><img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/dakshbhagya/128.jpg" /></div>
-                              <span class="quote"><i class="fa fa-quote-left"></i></span>
-                          </a>
-                      </li>
+                      </c:forEach>
                   </ul>
               </div>
           </div>

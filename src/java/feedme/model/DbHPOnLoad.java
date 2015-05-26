@@ -154,6 +154,7 @@ public class DbHPOnLoad {
              while(rs.next())
              {
                  RestaurantRanking rK = new RestaurantRanking(rs.getInt("restid") , rs.getDouble("rank") , rs.getString("rest_comment"));
+                 rK.setRankId(rs.getInt("pkid"));
                  restRankingList.add(rK);
              }
              
