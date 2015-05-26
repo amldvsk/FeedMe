@@ -103,6 +103,11 @@
         <url-pattern>/admin/managers</url-pattern>
     </servlet-mapping>
     
+    <servlet-mapping>
+        <servlet-name>AddRestaurantServlet</servlet-name>
+        <url-pattern>/admin/add-resturent</url-pattern>
+    </servlet-mapping>
+    
     
     <servlet-mapping>
         <servlet-name>RestaurantRankingServlet</servlet-name>

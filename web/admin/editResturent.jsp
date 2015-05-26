@@ -18,7 +18,7 @@
                     <div class="panel-body">
                       <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
                       <div class="table-responsive">
-                          <form    id="create_resturent"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/add-resturent">
+                          <form    id="create_resturent"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/admin/add-resturent">
                             <div class="form-group clearfix">
                                 <div class="col-md-8">
                                     <label for="select_admin">בעל המסעדה</label>

@@ -28,7 +28,7 @@ import javax.servlet.http.Part;
  *
  * @author David Lazarev
  */
-@WebServlet(name = "AddRestaurantServlet", urlPatterns = {"/add-resturent"})
+@WebServlet(name = "AddRestaurantServlet", urlPatterns = {"/admin/add-resturent"})
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
                  maxFileSize=1024*1024*10,      // 10MB
                  maxRequestSize=1024*1024*50)   // 50MB
@@ -55,7 +55,7 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         request.setAttribute("managers", managers);
         request.setAttribute("categories", cat);
         
-        RequestDispatcher  dispatcher = request.getRequestDispatcher("admin/editResturent.jsp");
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("editResturent.jsp");
         dispatcher.forward(request, response);
         
     }   
@@ -119,7 +119,7 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
             // new restaurant added successfully || restaurant successfully changed
             HttpSession session = request.getSession(true);
             session.setAttribute("Status", true);
-            response.sendRedirect(request.getContextPath()+"/resturents");
+            response.sendRedirect(request.getContextPath()+"/admin/resturents");
         }  
         else{//2
             //This name is already exists in the database

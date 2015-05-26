@@ -19,7 +19,7 @@
                       <div class="panel-body">
                         <div class="sub-links">
                           <a href="${pageContext.request.contextPath}/admin/resturents" class="list-group-item">כל המסעדות</a>
-                          <a href="${pageContext.request.contextPath}/add-resturent" class="list-group-item">הוספת מסעדה</a>
+                          <a href="${pageContext.request.contextPath}/admin/add-resturent" class="list-group-item">הוספת מסעדה</a>
                         </div>
                       </div>
                   </div>
