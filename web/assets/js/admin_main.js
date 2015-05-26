@@ -239,3 +239,88 @@ jQuery(document).ready(function($){
           $('.hidden-fileds').hide();
       }
   });
+  
+  
+  
+  $("#make_manager").validate({
+          rules: {
+              firstName: {
+                            required: true,
+                            minlength: 2,
+                        },
+              lastName: {
+                            required: true,
+                            minlength: 2,
+                        },  
+              userName: {
+                            required: true,
+                            minlength: 2,
+                        },
+              pw:        {
+                            required: true,
+                            minlength: 2,
+                        },
+              phone:       {
+                            required: true,
+                            minlength: 2,
+                            maxlength : 10,
+                            digits : true
+                        },
+              email:    {
+                            required: true,
+                            minlength: 2,
+                            email:true
+                        }
+          }
+      });
+      
+      
+      
+$('#create_resturent').validate({
+          rules: {
+              newName: {
+                            required: true,
+                            minlength: 2,
+                        },
+              phone: {
+                            required: true,
+                            minlength: 2,
+                            digits:true
+                        },  
+              street: {
+                            required: true,
+                            minlength: 2,
+                        },
+              streetNum:        {
+                            required: true,
+                            minlength: 2,
+                        },
+              deliveryPrice:    {
+                            required: true,
+                            minlength: 2,
+                        },
+              minOrder:       {
+                            required: true,
+                            minlength: 2,                            
+                        },
+              estimatedTimeDel:       {
+                            required: true,
+                            minlength: 2,                            
+                        },
+              logo:       {
+                            required: true,
+                            minlength: 2,                            
+                        },
+          }
+      });
+      
+      
+$('#addMenuCategoryForm').validate({
+    rules: {
+              MenuCaregoryName: {
+                            required: true,
+                            minlength: 2,
+                        },
+              
+          }
+});

@@ -20,7 +20,6 @@
                         <div class="sub-links">
                           <a href="${pageContext.request.contextPath}/admin/resturents" class="list-group-item">כל המסעדות</a>
                           <a href="${pageContext.request.contextPath}/add-resturent" class="list-group-item">הוספת מסעדה</a>
-                          <a href="${pageContext.request.contextPath}/add-resturent" class="list-group-item">עריכת מסעדה</a>
                         </div>
                       </div>
                   </div>
@@ -34,7 +33,6 @@
                         <div class="sub-links">
                           <a href="${pageContext.request.contextPath}/admin/managers" class="list-group-item">מנהלים</a>
                           <a href="${pageContext.request.contextPath}/admin/editManager.jsp" class="list-group-item">הוספת מנהל</a>
-                          <a href="${pageContext.request.contextPath}/admin/editManager.jsp" class="list-group-item">עריכת מנהל</a>
                         </div>
                       </div>
                   </div>
@@ -48,13 +46,12 @@
                         <div class="sub-links">
                           <a href="${pageContext.request.contextPath}/admin/menus.jsp" class="list-group-item">כל התפריטים</a>
                           <a href="${pageContext.request.contextPath}/admin/menu-category" class="list-group-item">קטגוריות תפריטים</a>
-                          <a href="${pageContext.request.contextPath}/admin/editMenus.jsp" class="list-group-item">הוספה לתפריט</a>
                         </div>
                       </div>
                   </div>
               </div>
         </li>
-        <li class="sidebar-list">
+        <li class="sidebar-list hidden">
           <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseUsers" class="collapsed">לקוחות <span class="menu-icon fa fa-users"></span></a>
             <div class="panel clearfix">
                   <div id="collapseUsers" class="panel-collapse collapse">
@@ -69,7 +66,7 @@
                   </div>
               </div>
         </li>
-        <li class="sidebar-list">
+        <li class="sidebar-list hidden">
           <a data-toggle="collapse" data-parent=".sidebar-list" href="#collapseReports" class="collapsed">דוחות <span class="menu-icon fa fa-area-chart"></span></a>
             <div class="panel clearfix">
                   <div id="collapseReports" class="panel-collapse collapse">

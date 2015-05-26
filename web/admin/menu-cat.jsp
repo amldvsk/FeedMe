@@ -17,10 +17,10 @@
                     <div class="panel-heading">קטגורית תפריט</div>
                     <div class="panel-body">
                       <p>הוספת קטגורית תפריט</p>
-                      <form class="form-inline" action="${pageContext.request.contextPath}/admin/menu-category" method="POST" id="addMenuCategoryForm">
+                      <form class="form" action="${pageContext.request.contextPath}/admin/menu-category" method="POST" id="addMenuCategoryForm">
                              <div class="form-group">
                                  <div class="col-md-10">
-                                    <input type="text" name="MenuCaregoryName"  class="form-control" id="inputEmail3" placeholder="קינוח, מנות ראשונות...">
+                                    <input type="text" requierd name="MenuCaregoryName"  class="form-control" id="inputEmail3" placeholder="קינוח, מנות ראשונות...">
                                  </div>
                             </div>
                             
