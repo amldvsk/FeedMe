@@ -5,20 +5,11 @@
  */
 package feedme.controller;
 
-import feedme.model.AuthenticatUser;
-import feedme.model.Customer;
-import feedme.model.DbOrderManagement;
-import feedme.model.DbUsersManagement;
-import feedme.model.Order;
-import feedme.model.PasswordEncryptionService;
-import feedme.model.User;
+import feedme.model.DbRestaurantsManagement;
+import feedme.model.Restaurant;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adi
  */
-@WebServlet(name = "CustomerServletPage", urlPatterns = {"/profile"})
-public class CustomerServletPage extends HttpServlet {
+@WebServlet(name = "SearchRestServlet", urlPatterns = {"/search-rest"})
+public class SearchRestServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +36,7 @@ public class CustomerServletPage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,26 +52,18 @@ public class CustomerServletPage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
         
-        AuthenticatUser customer = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
-        try {
-            if(customer == null || !PasswordEncryptionService.authenticate(Integer.toString(0), customer.getEncrypRole(), "Customer".getBytes())) {
-                response.sendRedirect(request.getContextPath() + "/");
-                return;
-            }
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(CustomerServletPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(CustomerServletPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String city = request.getParameter("where");
+        int category = Integer.parseInt(request.getParameter("what"));
         
-        List<Order> orders = new DbOrderManagement().getOrdersByUserId(customer.getUserId());
+        List<Restaurant> restaurants = new DbRestaurantsManagement().getNextRecentRestaurantsByCatAndCity(0 , 0 , category , city);
         
-        request.setAttribute("orders", orders);
-        request.setAttribute("customer", (Customer)new DbUsersManagement().getUserById(customer.getUserId()));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("website/profile.jsp");
+        request.setAttribute("restaurants", restaurants);
+         
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("website/search_rest.jsp");
         dispatcher.forward(request, response);
-        return;
+        
     }
 
     /**

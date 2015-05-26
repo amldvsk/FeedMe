@@ -406,9 +406,10 @@ public class test {
     public static void getNextRestaurantsByCat()
     {
          int catid = 2 ;
+         String city = "חולון";
         DbRestaurantsManagement DBRM = new DbRestaurantsManagement();
         
-        List<Restaurant> lRest = DBRM.getNextRecentRestaurantsByCat(0,6, catid);
+        List<Restaurant> lRest = DBRM.getNextRecentRestaurantsByCatAndCity(0,6, catid, city);
         for(Restaurant rest : lRest  )
         {
             System.out.println(rest.getName());

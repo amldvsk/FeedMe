@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -321,5 +322,152 @@ public class DbOrderManagement {
         return orders;
         
         
+    }
+    
+    
+    
+    /***
+     * get all orders num related to specific customer
+     * @param custId = wanted customer id 
+     * @return  list of null if there is no oreders yet , if there is ,list of all orders num related to this customer
+     */
+    public List<Integer> getOrdersNumByCustomerId(int custId)
+    {
+        
+        List<Integer> ordersNum = new ArrayList<Integer>();
+        String spuName = "{CALL feedmedb.Spu_GetAllOrdersNumByCustomerId(?)}";
+        con = DbConnector.getInstance().getConn();
+        ResultSet rs = null;
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, custId);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                ordersNum.add(rs.getInt("order_id"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbOrderManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return ordersNum;
+    }
+    
+    
+    
+    /**
+     * get list of items from specific order id and specific user id 
+     * @param userId -  the user id  that we want to get the order items
+     * @param orderId - the order id we want 
+     * @return 
+     */
+    private HashMap<HashMapKey , Item > getItemsByOrderIdAndUserid(int userId , int orderId)
+    {
+        String spuName = "{CALL feedmedb.Spu_GetItemsByOrderAndUserId(?, ?)}";
+        con = DbConnector.getInstance().getConn();
+        HashMap<HashMapKey , Item> orderItems = new HashMap<>();
+        ResultSet rs = null;
+        
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, userId);
+            cstmt.setInt(2, orderId);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                int restId = rs.getInt("rest_id");
+                Item newItem = new Item(rs.getInt("item_id"), rs.getString("item_name"), rs.getDouble("item_price"), rs.getInt("item_quant"));
+                orderItems.put(new HashMapKey(restId, newItem.getItemID()), newItem);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbOrderManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         finally
+        {
+            try {
+                if(cstmt != null)
+                { cstmt.close();}
+                if(con != null)
+                {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return orderItems; 
+    }
+    
+    
+    
+    /**
+     * get specific order date and time
+     * @param ordNum - order id
+     * @return TimeStamp - the order date and time
+     */
+    private Timestamp getOrderDateAndTimeByOrderNum(int ordNum)
+    {
+        String spuName = "{CALL feedmedb.Spu_GetOrderDateAndTimeByOrderNum(?)}";
+        Timestamp orderTS = null;
+        ResultSet rs = null;
+        
+        con = DbConnector.getInstance().getConn();
+        try {
+            cstmt = con.prepareCall(spuName);
+            cstmt.clearParameters();
+            cstmt.setInt(1, ordNum);
+            rs = cstmt.executeQuery();
+            while(rs.next())
+            {
+                orderTS = rs.getTimestamp("order_date");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DbOrderManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderTS;
+    }
+    
+    
+    
+    /**
+     * get all orders related to specific customer
+     * @param userId - the customer id
+     * @return list of orders if there is , if not then return  null
+     */
+    public List<Order> getOrdersByUserId(int userId)
+    {
+        List<Order> orders = new ArrayList<>();
+  
+        Order currOrd;
+        List<Integer> ordersNum = getOrdersNumByCustomerId(userId);
+        if(ordersNum != null){
+        for(Integer oNum : ordersNum){
+        
+                currOrd = new Order();
+                
+                currOrd.setRestItemsMap(getItemsByOrderIdAndUserid(userId , oNum));
+                currOrd.setOrderDateAndTime(getOrderDateAndTimeByOrderNum(oNum));
+                orders.add(currOrd);
+                currOrd = null;
+        }
+       
+    }
+         return orders;
     }
 }

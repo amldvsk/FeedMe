@@ -271,11 +271,11 @@ public class DbRestaurantsManagement {
         return restaurants;
     }
     
-    public List<Restaurant> getNextRecentRestaurantsByCat(int start , int numRests , int catId)
+    public List<Restaurant> getNextRecentRestaurantsByCatAndCity(int start , int numRests , int catId , String cityName)
     {
         con = DbConnector.getInstance().getConn();
         List<Restaurant> restaurants = new ArrayList<>();
-        String spuName = "{CALL feedmedb.Spu_GetNextRestaurant(?,? , ?)}";
+        String spuName = "{CALL feedmedb.Spu_GetNextRestaurant(?,? ,?, ?)}";
         ResultSet rs  = null;
         
         try {
@@ -284,6 +284,7 @@ public class DbRestaurantsManagement {
             cstmt.setInt(1, start);
             cstmt.setInt(2, numRests);
             cstmt.setInt(3, catId);
+            cstmt.setString(4, cityName);
             rs = cstmt.executeQuery();
             while(rs.next())
             {

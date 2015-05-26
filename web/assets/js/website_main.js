@@ -450,6 +450,55 @@ $('#feed-signup form.feed-form').validate({
 });
 
 
+
+$('#user_update').validate({
+    rules: {
+        firstName: {
+            required: true,
+            minlength: 2,
+        },
+        lastName: {
+            required: true,
+            minlength: 2,
+        },
+        userName: {
+            required: true,
+            minlength: 2,
+        },
+        email: {
+            required: true,
+            email: true
+        },
+        pw: {
+            required: true,
+            minlength: 2,
+        },
+        phone: {
+            required: true,
+            minlength: 6,
+            maxlength: 10,
+            digits: true
+        },
+        bday: {
+            required: true,
+            date: true
+        },
+        address: {
+            required: true,
+            minlength: 2,
+        },
+        street_num: {
+            required: true,
+            digits: true
+        },
+        home_num: {
+            required: true,
+            digits:true
+        }
+    }
+});
+
+
 $(document).ready(function(){
 $('#place_order').validate({
       rules: {

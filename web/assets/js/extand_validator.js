@@ -13,8 +13,8 @@ jQuery.extend(jQuery.validator.messages, {
     digits: "שדה זה הינו מספרי בלבד.",
     creditcard: "אנא הכנס מספר כרטיס נכון.",
     equalTo: "השדה אינו תואם.",
-    maxlength: jQuery.validator.format("נא להכניס לא יותר מ {0} אותיות."),
-    minlength: jQuery.validator.format("נא הכנס יותר מ {0} מילים."),
+    maxlength: jQuery.validator.format("נא להכניס לא יותר מ {0} תווים."),
+    minlength: jQuery.validator.format("נא הכנס יותר מ {0} תווים."),
     rangelength: jQuery.validator.format("נא להכניס מספר בין {0} ל {1}."),
     max: jQuery.validator.format("נא להכניס מספר קטן או שווה ל {0}."),
     min: jQuery.validator.format("נא להכניס מספר גדול או שווה ל {0}.")

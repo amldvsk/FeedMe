@@ -36,18 +36,18 @@
                 <div class="form-group clearfix">
                     <div class="col-md-6">
                         <label for="address">כתובת למשלוח</label>
-                        <input type="text" class="form-control" name="address" id="address" placeholder="כתובת למשלוח">
+                        <input type="text" class="form-control" name="address" value="${requestScope.customer.getStreet()} ${requestScope.customer.getHouseNum()} ${requestScope.customer.getApartNum()}, ${requestScope.customer.getCity()}" id="address" placeholder="כתובת למשלוח">
                      </div>
                     <div class="col-md-6">
                          <label for="fname">שם פרטי ושם משפחה</label>
-                  <input type="text" class="form-control" name="fname" id="fname" placeholder="שם פרטי ושם משפחה">
+                  <input type="text" class="form-control" name="fname" id="fname" value="${requestScope.customer.getFullName()}" placeholder="שם פרטי ושם משפחה">
                      </div>
 
                 </div>
                  <div class="form-group clearfix">
                      <div class="col-md-12">
                         <label for="phone">טלפון לברורים</label>
-                        <input type="text" class="form-control" name="phone" id="phone" placeholder="טלפון לברורים">
+                        <input type="text" class="form-control" name="phone" id="phone" value="${requestScope.customer.getPhone()}" placeholder="טלפון לברורים">
                      </div>
                 </div>
             </div>

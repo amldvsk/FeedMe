@@ -6,7 +6,9 @@
 package feedme.controller;
 
 import feedme.model.AuthenticatUser;
+import feedme.model.Customer;
 import feedme.model.DbOrderManagement;
+import feedme.model.DbUsersManagement;
 import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
 import java.io.IOException;
@@ -59,6 +61,15 @@ public class OrderCompleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        AuthenticatUser customer = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+        if( customer != null ) {
+            request.setAttribute("customer", (Customer)new DbUsersManagement().getUserById(customer.getUserId()));
+        }
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("website/complete_order.jsp");
+        dispatcher.forward(request, response);
+        
     }
 
     /**

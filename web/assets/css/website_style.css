@@ -204,13 +204,13 @@ p {
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
-  color: transparent;
+  color: #444;
   text-shadow: none;
   background-repeat: no-repeat;
   background-position: 50% 0;
 }
 .feed-form label.feed-username {
-  background-image: url("../img/feed-icon-username.svg");
+  /* background-image: url("../img/feed-icon-username.svg"); */
 }
 .feed-form label.feed-email {
   background-image: url("../img/feed-icon-email.svg");
