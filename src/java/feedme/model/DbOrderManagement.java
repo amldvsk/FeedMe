@@ -57,7 +57,7 @@ public class DbOrderManagement {
             result = 0;
            
             for(HashMapKey hmk : itemsRest.keySet()){
-                int restId = hmk.getSecondNumber();
+                int restId = hmk.getFirstNumber();
                 Item item = itemsRest.get(hmk);
                 cstmt = con.prepareCall(spuName);
                 cstmt.clearParameters();
