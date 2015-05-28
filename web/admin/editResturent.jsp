@@ -16,9 +16,14 @@
                     <!-- Default panel contents -->
                     <div class="panel-heading">הוספת מסעדה</div>
                     <div class="panel-body">
-                      <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
+                      <p></p>
                       <div class="table-responsive">
                           <form    id="create_resturent"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/admin/add-resturent">
+                              
+                              <c:if  test="${resturentError != null }" >
+                                    <div class="alert alert-danger" role="alert">${resturentError}</div>
+                                    <c:remove var="resturentError" scope="session" />
+                                </c:if>
                             <div class="form-group clearfix">
                                 <div class="col-md-8">
                                     <label for="select_admin">בעל המסעדה</label>
@@ -38,9 +43,9 @@
 
                             <div class="form-group clearfix">
                                 <div class="col-md-8">
-                                    <label for="select_category">קטגוריה</label>
-                                    <select name="category" id="select_category" class="form-control">
-                                        <option value="-1">בחר קטגוריה</option>
+                                    <label for="category">קטגוריה</label>
+                                    <select name="category" id="category" class="form-control">
+                                        <option value="">בחר קטגוריה</option>
                                         <c:forEach var="type"  items="${categories}">
                                           <option value="${type.value}">${type.key}</option>
                                        </c:forEach>

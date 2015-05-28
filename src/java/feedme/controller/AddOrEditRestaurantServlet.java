@@ -112,19 +112,18 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
         
         //==========### Send successful or failing session message  ##===========
         if(result == -1){ 
-            HttpSession session = request.getSession(true);
-            session.setAttribute("Status", false);
+            request.getSession().setAttribute("resturentError", "מסעדה עם השם או הטלפון כבר קיים במערכת");
+            response.sendRedirect(request.getContextPath()+"/admin/add-resturent");
         }
         else if(result == 1){ 
             // new restaurant added successfully || restaurant successfully changed
             HttpSession session = request.getSession(true);
-            session.setAttribute("Status", true);
             response.sendRedirect(request.getContextPath()+"/admin/resturents");
         }  
         else{//2
             //This name is already exists in the database
-            HttpSession session = request.getSession(true);
-            session.setAttribute("exists", true);
+            request.getSession().setAttribute("resturentError", "מסעדה עם השם או הטלפון כבר קיים במערכת");
+            response.sendRedirect(request.getContextPath()+"/admin/add-resturent");
         }
     }
    

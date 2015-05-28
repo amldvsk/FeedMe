@@ -293,15 +293,15 @@ $('#create_resturent').validate({
                         },
               streetNum:        {
                             required: true,
-                            minlength: 2,
+                            minlength: 1,
                         },
               deliveryPrice:    {
                             required: true,
-                            minlength: 2,
+                            minlength: 0,
                         },
               minOrder:       {
                             required: true,
-                            minlength: 2,                            
+                            minlength: 1,                            
                         },
               estimatedTimeDel:       {
                             required: true,
@@ -311,6 +311,9 @@ $('#create_resturent').validate({
                             required: true,
                             minlength: 2,                            
                         },
+              category: {
+                  required: true,
+              },
           }
       });
       

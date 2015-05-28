@@ -43,13 +43,25 @@ public class AddOrDeleteCategoryServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);  
         String CategoryName= request.getParameter("categoryName");
         DbRestaurantsManagement ob= new DbRestaurantsManagement();
-        int result = ob.addNewCategory(CategoryName);
+        
+        boolean flag = false;
+        
+        HashMap<String , Integer > cat = new DbHPOnLoad().getCategories();
+        
+        for( String se : cat.keySet() ) {
+            if( se.contains(CategoryName) )
+                flag = true;
+        }
+        int result = 0;
+        if( !flag )
+            result = ob.addNewCategory(CategoryName);
+        
         PrintWriter out = response.getWriter();
         if (result == 1){
             if(isAjax(request) == true){ // Stay in the same page, and sand json message
                
                 try {
-                    HashMap<String , Integer > cat = new DbHPOnLoad().getCategories();
+                    cat = new DbHPOnLoad().getCategories();
                     JSONObject catObj = new JSONObject();
                     JSONArray catArray = new JSONArray();
                     for(Entry<String , Integer> entry : cat.entrySet()) {

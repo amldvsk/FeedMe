@@ -52,6 +52,11 @@
   <script>
       
       $('#addCategoryForm').on('submit', function() {
+        if( $('#inputEmail3').val().trim().length == 0 ) {
+            alert("נא להכניס שם");
+            return false;
+        }
+            
         var url = $(this).attr('action');
         var dataCat = $(this).serialize();
         var request = $.ajax({
@@ -64,10 +69,10 @@
         request.done(function(msg) {
           console.log(msg);
           $('#addCategoryForm')[0].reset();
-          $('#select_category').empty();
-          $('#select_category').append('<option value="-1">בחר קטגוריה</option>');
+          $('#category').empty();
+          $('#category').append('<option value="-1">בחר קטגוריה</option>');
           $.each(msg.categories, function(id, value) {
-            $('#select_category').append('<option value="'+value.cat_id+'">'+value.cat_name+'</option>');
+            $('#category').append('<option value="'+value.cat_id+'">'+value.cat_name+'</option>');
           });
 
           if(msg.status == true) {
