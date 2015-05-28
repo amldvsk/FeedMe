@@ -126,12 +126,12 @@ public class UserRegistrationServlet extends HttpServlet {
                         }
                         au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
                         request.getSession(true).setAttribute("AuthenticatUser", au);
-                        sendEmail( (Customer)user );
+                        sendEmail( user );
                         response.sendRedirect(request.getContextPath()+"/profile");
                         return;
                  case 1:
                       user  = (Manager)dbUserManagment.getUserByUserName(userName);
-                      
+                        sendEmail( user );
                         response.sendRedirect(request.getContextPath()+"/admin/managers");
                         return;
                  case 2:
