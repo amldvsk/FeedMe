@@ -189,12 +189,12 @@ public class UserRegistrationServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void sendEmail(Customer customer) {
+    private void sendEmail(User emailUser) {
         
         
-        String recipient = customer.getEmail();
+        String recipient = emailUser.getEmail();
         String subject = "Wellcome To FeedMe";
-        String content = "<h2>Hello," + customer.getFullName() +"</h2> <br/> Thank You For Your Registration at FeedMe";
+        String content = "<h2>Hello," + emailUser.getFullName() +"</h2> <br/> Thank You For Your Registration at FeedMe";
         String host = getServletContext().getInitParameter("host");
         String port = getServletContext().getInitParameter("port");
         String user = getServletContext().getInitParameter("user");

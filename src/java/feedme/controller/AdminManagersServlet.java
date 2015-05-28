@@ -73,8 +73,9 @@ public class AdminManagersServlet extends HttpServlet {
         DbAdminManagmentTools dbamt = new DbAdminManagmentTools();
 
         
-        List<User> managers = dbamt.getAllUsersByRole(1);
         
+        
+        List<Manager> managers = new ArrayList<Manager>();
         
         
         for(User user : dbamt.getAllUsersByRole(1))
