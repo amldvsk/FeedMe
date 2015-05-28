@@ -63,7 +63,7 @@ public class OrderCompleteServlet extends HttpServlet {
         processRequest(request, response);
         
         AuthenticatUser customer = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");//getting the customer from the session
-        try {
+        try {//check if its a customer 
             if( customer != null && PasswordEncryptionService.authenticate(Integer.toString(0), customer.getEncrypRole(), "Customer".getBytes())) {
                 request.setAttribute("customer", (Customer)new DbUsersManagement().getUserById(customer.getUserId()));
             }
@@ -73,7 +73,7 @@ public class OrderCompleteServlet extends HttpServlet {
             Logger.getLogger(OrderCompleteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("website/complete_order.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("website/complete_order.jsp");//displays the customer a jsp file
         dispatcher.forward(request, response);
         
     }

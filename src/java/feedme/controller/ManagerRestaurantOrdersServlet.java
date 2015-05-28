@@ -65,7 +65,8 @@ public class ManagerRestaurantOrdersServlet extends HttpServlet {
             throws ServletException, IOException {
                 try {
             processRequest(request, response);
-            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");//get the manager from the session
+            //check if its a manager acording to the role and password
             if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| !manager.isLoginResult()) {
                 response.sendRedirect(request.getContextPath() + "/");
                 return;
@@ -73,19 +74,19 @@ public class ManagerRestaurantOrdersServlet extends HttpServlet {
                 
             
             
-            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
-            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
+            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();//creating a DbRestaurantsManagement object
+            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());//getting a list of restaurant
             
             
             
-            if( manager.getManagerRestId() != 0 ) {
+            if( manager.getManagerRestId() != 0 ) {//if the manager has restaurants
                 
-                for( Restaurant re : reslist )
+                for( Restaurant re : reslist )//looping over the manager restaurants
                     if( re.getDbid() == manager.getManagerRestId() )
-                        request.setAttribute("restaurant", re);
-                List<Order> orders = new DbOrderManagement().getOrdersByRestId(manager.getManagerRestId());
-                request.setAttribute("reslist", reslist);
-                request.setAttribute("orders", orders);
+                        request.setAttribute("restaurant", re);//send the current restaurant
+                List<Order> orders = new DbOrderManagement().getOrdersByRestId(manager.getManagerRestId());//getting a list of orders by restid
+                request.setAttribute("reslist", reslist);//send all the manager restaurants
+                request.setAttribute("orders", orders);//send the manager current orders
             }
             
                     

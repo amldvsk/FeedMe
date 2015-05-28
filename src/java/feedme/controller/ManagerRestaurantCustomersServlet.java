@@ -65,27 +65,28 @@ public class ManagerRestaurantCustomersServlet extends HttpServlet {
 
         try {
             processRequest(request, response);
-            DbRestaurantsManagement dbrm = new DbRestaurantsManagement();
-            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+            DbRestaurantsManagement dbrm = new DbRestaurantsManagement();//creating a DbRestaurantsManagement object
+            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");//get the manager object from the session
+            //check if its a manager by role & password
             if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| !manager.isLoginResult()) {
-                response.sendRedirect(request.getContextPath() + "/");
+                response.sendRedirect(request.getContextPath() + "/");//return to the main page
                 return;
                 
             }
-            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
-            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());           
-            List<Customer> customers = dbrm.getCustomersByManagerId(manager.getUserId());
-            request.setAttribute("customers", customers);
+            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();//creating a DbRestaurantsManagement object
+            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());//get a list of restaurants           
+            List<Customer> customers = dbrm.getCustomersByManagerId(manager.getUserId());//get the restaurants customers
+            request.setAttribute("customers", customers);//send the customers
             
-            if( manager.getManagerRestId() != 0 ) {
+            if( manager.getManagerRestId() != 0 ) {//if the manager has a restaurants
                 
-                for( Restaurant re : reslist )
+                for( Restaurant re : reslist )//loop over the manager restaurants
                     if( re.getDbid() == manager.getManagerRestId() )
-                        request.setAttribute("restaurant", re);
-                request.setAttribute("reslist", reslist);
+                        request.setAttribute("restaurant", re);//send the current manager restaurants
+                request.setAttribute("reslist", reslist);//send all the manager restaurants
             }
             
-            RequestDispatcher  dispatcher = request.getRequestDispatcher("customers.jsp");
+            RequestDispatcher  dispatcher = request.getRequestDispatcher("customers.jsp");//send the a jsp file
             dispatcher.forward(request, response);
             return;
         } catch (NoSuchAlgorithmException ex) {

@@ -65,30 +65,31 @@ public class ManagerRestaurantMenuesServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");//getting the manager object from the session
+            //check if its a manager by role & password
             if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())|| !manager.isLoginResult()) {
-                response.sendRedirect(request.getContextPath() + "/");
+                response.sendRedirect(request.getContextPath() + "/");//return to the main page
                 return;
             }
                 
             
             
-            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
-            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
+            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();//creating a DbRestaurantsManagement object
+            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());//get a list of restaurants
             
-            if( manager.getManagerRestId() != 0 ) {
-                HashMap<Map<Integer,String>,List<Item>> menues = new DbMenuManagment().getMenuByRestaurantId(manager.getManagerRestId());
-                request.setAttribute("menus", menues);
-                for( Restaurant re : reslist )
+            if( manager.getManagerRestId() != 0 ) {//if the manager has a  restaurants
+                HashMap<Map<Integer,String>,List<Item>> menues = new DbMenuManagment().getMenuByRestaurantId(manager.getManagerRestId());//get the menues by the restid
+                request.setAttribute("menus", menues);//send the menues
+                for( Restaurant re : reslist )//loop over the manager restaurants
                     if( re.getDbid() == manager.getManagerRestId() )
-                        request.setAttribute("restaurant", re);
-                request.setAttribute("reslist", reslist);
+                        request.setAttribute("restaurant", re);//send the current manager restaurant
+                request.setAttribute("reslist", reslist);//send all the manager restaurants
             }
             
             
 
             
-            RequestDispatcher  dispatcher = request.getRequestDispatcher("menus.jsp");
+            RequestDispatcher  dispatcher = request.getRequestDispatcher("menus.jsp");//send a jsp file
             dispatcher.forward(request, response);
             return;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
