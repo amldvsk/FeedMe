@@ -538,6 +538,7 @@ $('#submit_order').on('click', function() {
         contentType: "application/x-www-form-urlencoded;charset=UTF-8",
         data: $('#place_order').serialize(),
       });
+      $('#loader-wrapper').addClass('is-visible');
 
       request.done(function(msg) {
         console.log(msg);
@@ -552,10 +553,12 @@ $('#submit_order').on('click', function() {
                 sendMessageToServer(value.rest_id, value.itemName, msg.order.CustomerFullName, msg.order.CustomerAdress);
             });
         }
+        $('#loader-wrapper').removeClass('is-visible');
       });
 
       request.fail(function(jqXHR, textStatus) {
         console.log( "Request failed: " + textStatus );
+        $('#loader-wrapper').removeClass('is-visible');
       });
 
       return false;
@@ -573,6 +576,7 @@ $('#where_to_eat').on('change', function() {
         $('#what_category').selectpicker('refresh');
         return;
     }
+    $('#loader-wrapper').addClass('is-visible');
     url = $(this).data('href');
     var request = $.ajax({
         url: url,
@@ -589,10 +593,12 @@ $('#where_to_eat').on('change', function() {
         $('#what_category').append('<option value="'+value.cat_id+'">'+value.cat_name+'</option>');
       });
       $('#what_category').selectpicker('refresh');
+      $('#loader-wrapper').removeClass('is-visible');
     });
 
     request.fail(function(jqXHR, textStatus) {
       console.log( "Request failed: " + textStatus );
+      $('#loader-wrapper').removeClass('is-visible');
     });
       
     

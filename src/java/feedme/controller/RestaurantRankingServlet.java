@@ -9,6 +9,7 @@ import feedme.model.DbRestaurantsManagement;
 import feedme.model.RestaurantRanking;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -69,9 +70,14 @@ public class RestaurantRankingServlet extends HttpServlet {
         String[] restids = request.getParameterValues("restid[]");
         double rank = Double.parseDouble(request.getParameter("rank"));
         String comment = request.getParameter("comment");
-        
+        HashSet<String> restIdsSet = new HashSet<String>();
+
         for( String id : restids ) {
-            RestaurantRanking rr = new RestaurantRanking(Integer.parseInt(id),rank,comment);
+            restIdsSet.add(id);
+        }
+        
+        for( String rest_id : restIdsSet ) {
+            RestaurantRanking rr = new RestaurantRanking(Integer.parseInt(rest_id),rank,comment);
             DbRestaurantsManagement restaurantManagment = new DbRestaurantsManagement();
             restaurantManagment.addRestRanking(rr);
         }

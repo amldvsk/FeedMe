@@ -2,6 +2,13 @@
 
 <c:set var="req" value="${pageContext.request}" />
 <c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
+
+<div id="loader-wrapper" >
+    <div class="table-view">
+        <div class="loader" ><img src="${pageContext.request.contextPath}/assets/img/oval.svg" alt=""></div>
+    </div>
+</div>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script> 
     <script src="${req.scheme}://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
