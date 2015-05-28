@@ -62,34 +62,35 @@ public class ManagerPageServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+            AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");//getting the manager from the session
+            //check if its a manager by role & password
             if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())) {
-                response.sendRedirect(request.getContextPath() + "/");
+                response.sendRedirect(request.getContextPath() + "/");//return to the main page
                 return;
             }
                 
             
             
-            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
-            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
+            DbRestaurantsManagement restaurant = new DbRestaurantsManagement();//creating a DbRestaurantsManagement object
+            List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());//getting a list of the manager restaurants
             
-            if( reslist.size() > 0 ) {
-                if(manager.getManagerRestId() < 0)
-                    manager.setManagerRestId(reslist.get(0).getDbid());
-                List<Order> orders = new DbOrderManagement().getOrdersByRestId(manager.getManagerRestId());
+            if( reslist.size() > 0 ) {//if the list is not empty
+                if(manager.getManagerRestId() < 0)//if the manager has a restaurants
+                    manager.setManagerRestId(reslist.get(0).getDbid());//return some of the restaurants
+                List<Order> orders = new DbOrderManagement().getOrdersByRestId(manager.getManagerRestId());//getting a list of restaurants by the manager id
            
             
-                for( Restaurant re : reslist )
+                for( Restaurant re : reslist )//loop over the manager rest list
                         if( re.getDbid() == manager.getManagerRestId() )
-                            request.setAttribute("restaurant", re);
-                request.setAttribute("reslist", reslist);
-                request.setAttribute("orders", orders);
+                            request.setAttribute("restaurant", re);//send the curent manager restaurant 
+                request.setAttribute("reslist", reslist);//send all the manager rests
+                request.setAttribute("orders", orders);//send all manager orders
             }
                 
             
             
             
-            RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/index.jsp");
+            RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/index.jsp");//send a jsp file
             dispatcher.forward(request, response);
             return;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {

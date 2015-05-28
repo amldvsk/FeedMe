@@ -56,7 +56,7 @@ public class LogoutServlet extends HttpServlet {
         processRequest(request, response);
 
         request.getSession().removeAttribute("AuthenticatUser");//remove session
-        response.sendRedirect(request.getContextPath() + "/");
+        response.sendRedirect(request.getContextPath() + "/");//return to the main page
         return;
 
     }

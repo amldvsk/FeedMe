@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author adi
+ * @author nirk
  */
 @WebServlet(name = "HomePageServlet", urlPatterns = {"/index"})
 public class HomePageServlet extends HttpServlet {
@@ -58,28 +58,28 @@ public class HomePageServlet extends HttpServlet {
          HashMap<String,Integer> category = new HashMap<>();
          List<Restaurant> restaurants;
          
-         DbHPOnLoad dbPageOnLoad = new DbHPOnLoad();
+         DbHPOnLoad dbPageOnLoad = new DbHPOnLoad();//creating a DbHPOnLoad object
          
-         category = dbPageOnLoad.getCategories();
-         restaurants = dbPageOnLoad.getRecentRestaurants(6);
+         category = dbPageOnLoad.getCategories();//getting a categories
+         restaurants = dbPageOnLoad.getRecentRestaurants(6);//get the last 6 new restaurants
          List<String> cities = dbPageOnLoad.getCities();
          if( request.getSession().getAttribute("shoppingCart") == null ) {
-             request.getSession().setAttribute("shoppingCart", new Order());
+             request.getSession().setAttribute("shoppingCart", new Order());//crete a new shopping cart
          } 
          
          
-        List<RestaurantRanking> rankings = dbPageOnLoad.getRestRandomComments(5);
+        List<RestaurantRanking> rankings = dbPageOnLoad.getRestRandomComments(5);//getting a random rankings from DB
          
-        for( RestaurantRanking re : rankings ) {
+        for( RestaurantRanking re : rankings ) {//looping over the rankings
             re.setResturent(new DbRestaurantsManagement().getRestaurantById(re.getRestId()));
         }
         
-         request.setAttribute("category", category);
-         request.setAttribute("cities", cities);
-         request.setAttribute("restaurants", restaurants);
-         request.setAttribute("rankings", rankings);
+         request.setAttribute("category", category);//send the categories
+         request.setAttribute("cities", cities);//send the cities
+         request.setAttribute("restaurants", restaurants);//send the restaurants
+         request.setAttribute("rankings", rankings);//send the rankings
          
-        RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");//send a ajsp file
         dispatcher.forward(request, response);
         return;
     }

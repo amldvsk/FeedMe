@@ -66,22 +66,23 @@ public class AdminServletPage extends HttpServlet {
             throws ServletException, IOException {
         try{
         processRequest(request, response);
-        AuthenticatUser admin = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+        AuthenticatUser admin = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");//getting the admin from the session
+        //check if its admin by role & password
         if(admin == null || !PasswordEncryptionService.authenticate(Integer.toString(2), admin.getEncrypRole(), "Admin".getBytes())|| !admin.isLoginResult()) {
             //response.sendRedirect(request.getContextPath() + "/");
             //return;
         }
             
-        DbRestaurantsManagement dbrm = new DbRestaurantsManagement();
-        DbAdminManagmentTools dbamt = new DbAdminManagmentTools();
+        DbRestaurantsManagement dbrm = new DbRestaurantsManagement();//creating a DbRestaurantsManagement object
+        DbAdminManagmentTools dbamt = new DbAdminManagmentTools();//creating a DbAdminManagmentTools object
         //List<Restaurant> restaurants = dbrm.getAllRestaurants();
-        List<Customer> customers = new ArrayList<>() ;
+        List<Customer> customers = new ArrayList<>() ;//a list of customer
         
-        List<User> managers = dbamt.getAllUsersByRole(1);
+        List<User> managers = dbamt.getAllUsersByRole(1);//list of manager by role
         
         
         
-        for(User user : dbamt.getAllUsersByRole(0))
+        for(User user : dbamt.getAllUsersByRole(0))//loop over all the users website
         {
             customers.add((Customer)user);
             
@@ -90,10 +91,10 @@ public class AdminServletPage extends HttpServlet {
         
         
         //request.setAttribute("restaurant", restaurants);
-        request.setAttribute("reslist", customers);
-        request.setAttribute("orders", managers);
+        request.setAttribute("reslist", customers);//send a list of restaurants
+        request.setAttribute("orders", managers);//sent all the orders
         
-        RequestDispatcher  dispatcher = request.getRequestDispatcher("admin/index.jsp");
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("admin/index.jsp");//send a jsp file
         dispatcher.forward(request, response);
         return;
         }catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
