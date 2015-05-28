@@ -15,7 +15,7 @@
                   <li class="divider"></li>
                   <c:forEach var="rest"  items="${requestScope.reslist}">
                     <li class="link">
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/manager/update-manager-resturent?rest_id=${rest.getDbid()}">
                           ${rest.getName()}
                         </a>
                       </li>

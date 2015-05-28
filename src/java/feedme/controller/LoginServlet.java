@@ -73,6 +73,7 @@ public class LoginServlet extends HttpServlet {
                                 encryRoleName = Integer.toString(user.getRole());
                                 encRole = PasswordEncryptionService.getEncryptedPassword(encryRoleName, "Manager".getBytes());
                                 au = new AuthenticatUser(user.getDbId(),user.getFirstName(),user.getLastName(), encRole, true);
+                                au.setManagerRestId(-1);
                                 request.getSession(true).setAttribute("AuthenticatUser", au);
                                 response.sendRedirect(request.getContextPath()+"/manager");
                                 return;

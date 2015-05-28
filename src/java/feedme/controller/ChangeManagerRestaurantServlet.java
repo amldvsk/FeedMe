@@ -6,32 +6,27 @@
 package feedme.controller;
 
 import feedme.model.AuthenticatUser;
-import feedme.model.DbOrderManagement;
 import feedme.model.DbRestaurantsManagement;
-import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
 import feedme.model.Restaurant;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author nirk
+ * @author david
  */
-@WebServlet(name = "ManagerPageServlet", urlPatterns = {"/manager"})
-public class ManagerPageServlet extends HttpServlet {
+@WebServlet(name = "ChangeManagerRestaurantServlet", urlPatterns = {"/manager/update-manager-resturent"})
+public class ChangeManagerRestaurantServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +40,7 @@ public class ManagerPageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,46 +55,40 @@ public class ManagerPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
+        processRequest(request, response);
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpServletResponse.SC_OK);  
+        String rest_id= request.getParameter("rest_id");
+        processRequest(request, response);
             AuthenticatUser manager = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+        try {
             if(manager == null || !PasswordEncryptionService.authenticate(Integer.toString(1), manager.getEncrypRole(), "Manager".getBytes())) {
                 response.sendRedirect(request.getContextPath() + "/");
                 return;
             }
-                
-            
-            
             DbRestaurantsManagement restaurant = new DbRestaurantsManagement();
             List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());
             
-            if( reslist.size() > 0 ) {
-                if(manager.getManagerRestId() < 0)
-                    manager.setManagerRestId(reslist.get(0).getDbid());
-                List<Order> orders = new DbOrderManagement().getOrdersByRestId(manager.getManagerRestId());
-           
-            
+            if( reslist.size() > 0 ) {                
+                     boolean flag=false;
                 for( Restaurant re : reslist )
-                        if( re.getDbid() == manager.getManagerRestId() )
-                            request.setAttribute("restaurant", re);
-                request.setAttribute("reslist", reslist);
-                request.setAttribute("orders", orders);
-            }
+                        if( re.getDbid() == Integer.parseInt(rest_id))
+                            flag=true;
+                if(flag){//if rest id exists
+                    manager.setManagerRestId(Integer.parseInt(rest_id));
+                }
+                response.sendRedirect(request.getContextPath()+"/manager");
+                return ;
                 
-            
-            
-            
-            RequestDispatcher  dispatcher = request.getRequestDispatcher("manager/index.jsp");
-            dispatcher.forward(request, response);
-            return;
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
-            Logger.getLogger(ManagerPageServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ChangeManagerRestaurantServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(ChangeManagerRestaurantServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
         
-        
-
     }
 
     /**

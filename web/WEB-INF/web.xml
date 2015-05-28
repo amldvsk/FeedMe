@@ -89,6 +89,10 @@
         <url-pattern>/manager/menus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ChangeManagerRestaurantServlet</servlet-name>
+        <url-pattern>/manager/update-manager-resturent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddOrEditMenuItemServlet</servlet-name>
         <url-pattern>/manager/menu-item-management</url-pattern>
     </servlet-mapping>
