@@ -77,9 +77,9 @@ public class AddOrEditRestaurantServlet extends HttpServlet {
           
          
         //==========### Get parameters from JSP page ##===========
-        String newName= request.getParameter("newName"); 
+        String newName= request.getParameter("newName").trim(); 
         String correntName= request.getParameter("correntName"); 
-        String phone= request.getParameter("phone"); 
+        String phone= request.getParameter("phone").trim(); 
         String category= request.getParameter("category"); 
    
         String street= request.getParameter("street"); 

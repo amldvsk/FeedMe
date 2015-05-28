@@ -35,7 +35,7 @@ public class test {
     {
         //encryptTest();
         //insertUserTest();
-        //insertRestaurantTest();
+        insertRestaurantTest();
        //addNewCatTest();
         //deleteUserTest();
        // updateUserTest();
@@ -55,7 +55,7 @@ public class test {
         //getNextRestaurantsByCat();
         //getItemMenu();
         //getUsersByRoleTest(0); 
-        addNewOrderTest();
+        //addNewOrderTest();
 
      
     
@@ -110,8 +110,8 @@ public class test {
     }
     public static void insertRestaurantTest()
     {
-        String name ="הכרם";
-        String phone = "0546325288";
+        String name ="העובדים";
+        String phone = "0516325288";
         String logo = "jdse43s.jpg";
         String street = "reht";
         String streetNum = "1";
@@ -122,7 +122,7 @@ public class test {
         String estimatedTimeDel = "שעתיים";
     
         DbRestaurantsManagement rm = new DbRestaurantsManagement();
-        int res =  rm.addNewRestaurant(name,catid, phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel ,1);
+        int res =  rm.addNewRestaurant(name,catid, phone, logo, street, streetNum, city, deliveryPrice, minOrder, estimatedTimeDel ,15);
         System.out.println(res);
     }
 

@@ -41,7 +41,7 @@ public class AddOrDeleteCategoryServlet extends HttpServlet {
         processRequest(request, response);
         request.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);  
-        String CategoryName= request.getParameter("categoryName");
+        String CategoryName= request.getParameter("categoryName").trim();
         DbRestaurantsManagement ob= new DbRestaurantsManagement();
         
         boolean flag = false;
