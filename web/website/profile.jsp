@@ -1374,7 +1374,7 @@
 
           <p class="fieldset">
               <input type="hidden" value="0" name="role"/>
-            <input class="full-width has-padding" type="submit" value="צור חשבון">
+            <input class="full-width has-padding" type="submit" value="עדכן משתמש">
           </p>
         </form>
 
