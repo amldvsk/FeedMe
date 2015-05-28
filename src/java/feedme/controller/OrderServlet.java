@@ -59,30 +59,30 @@ public class OrderServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         request.setCharacterEncoding("UTF-8");
-        int itemid = Integer.parseInt(request.getParameter("itemid"));
-        int restid = Integer.parseInt(request.getParameter("restid"));
-        int action = Integer.parseInt(request.getParameter("action"));
-        HashMapKey rest_item = new HashMapKey(restid, itemid);
-        HttpSession session = request.getSession(false);
-        Order cart =(Order)session.getAttribute("shoppingCart");
+        int itemid = Integer.parseInt(request.getParameter("itemid"));//get the item id
+        int restid = Integer.parseInt(request.getParameter("restid"));//get the restaurant id 
+        int action = Integer.parseInt(request.getParameter("action"));//acording to the action we adding items to the cart
+        HashMapKey rest_item = new HashMapKey(restid, itemid);//hashmap that contains the restid and the itemid
+        HttpSession session = request.getSession(false);//get the session from the session store
+        Order cart =(Order)session.getAttribute("shoppingCart");//getting the cart from the session
         if( action == 1 ) {
              DbOrderManagement dbOrderManagement = new DbOrderManagement();
-            Item item = dbOrderManagement.getItemById(itemid);
+            Item item = dbOrderManagement.getItemById(itemid);//get the item from the db
             item.setRestId(restid);
-            if(cart.getRestItemsMap().get(rest_item) == null)
+            if(cart.getRestItemsMap().get(rest_item) == null)//if theres is no such item in the cart
             {
-                cart.getRestItemsMap().put(rest_item,item);
+                cart.getRestItemsMap().put(rest_item,item);//put the item in the cart
             } else {
-                cart.getRestItemsMap().get(rest_item).increaseQunatity();
+                cart.getRestItemsMap().get(rest_item).increaseQunatity();//increase the quantity
             }
         } else {
-            cart.getRestItemsMap().remove(rest_item);
+            cart.getRestItemsMap().remove(rest_item);//remove the item from the cart
         }
        
         
        
         
-       request.getSession().setAttribute("shoppingCart", cart);
+       request.getSession().setAttribute("shoppingCart", cart);//return json object
         try {
             JSONObject orderObj = new JSONObject();
             orderObj.put("cart", ((Order)session.getAttribute("shoppingCart")).toJson());

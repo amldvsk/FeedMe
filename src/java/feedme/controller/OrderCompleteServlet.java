@@ -62,7 +62,7 @@ public class OrderCompleteServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        AuthenticatUser customer = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+        AuthenticatUser customer = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");//getting the customer from the session
         try {
             if( customer != null && PasswordEncryptionService.authenticate(Integer.toString(0), customer.getEncrypRole(), "Customer".getBytes())) {
                 request.setAttribute("customer", (Customer)new DbUsersManagement().getUserById(customer.getUserId()));

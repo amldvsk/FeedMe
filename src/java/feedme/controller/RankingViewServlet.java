@@ -63,22 +63,22 @@ public class RankingViewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        List<RestaurantRanking> ranking; 
+        List<RestaurantRanking> ranking; //list of restaurant ranking
         int restId = 0;
         try
         {
-           restId = Integer.parseInt(request.getParameter("restid"));
+           restId = Integer.parseInt(request.getParameter("restid"));//get the rank and casting it
         }
         catch(NumberFormatException ex)
         {
            ex.printStackTrace();
            response.sendRedirect("website/404.jsp");
         }
-        DbRestaurantsManagement dbrm = new DbRestaurantsManagement();
-        ranking =  dbrm.getRestRank(restId);
-        request.setAttribute("ranking", ranking);
+        DbRestaurantsManagement dbrm = new DbRestaurantsManagement();//creating a DbRestaurantsManagement object
+        ranking =  dbrm.getRestRank(restId);//get the rank by the restaurant id
+        request.setAttribute("ranking", ranking);//send the ranking to the client 
          
-        RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");
+        RequestDispatcher  dispatcher = request.getRequestDispatcher("website/index.jsp");//display the jsp file to the customer
         dispatcher.forward(request, response);
     }
 

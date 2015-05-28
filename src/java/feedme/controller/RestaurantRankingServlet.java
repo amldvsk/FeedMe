@@ -67,19 +67,19 @@ public class RestaurantRankingServlet extends HttpServlet {
         processRequest(request, response);
         request.setCharacterEncoding("UTF-8");
         //int restid = Integer.parseInt(request.getParameter("restid"));
-        String[] restids = request.getParameterValues("restid[]");
-        double rank = Double.parseDouble(request.getParameter("rank"));
-        String comment = request.getParameter("comment");
+        String[] restids = request.getParameterValues("restid[]");//get the restaurants id's into an array of strings
+        double rank = Double.parseDouble(request.getParameter("rank"));//get the rank
+        String comment = request.getParameter("comment");//get a comment
         HashSet<String> restIdsSet = new HashSet<String>();
 
-        for( String id : restids ) {
-            restIdsSet.add(id);
+        for( String id : restids ) {//rinning a loop on the ids array
+            restIdsSet.add(id);//put the ids in the hashSet
         }
         
         for( String rest_id : restIdsSet ) {
-            RestaurantRanking rr = new RestaurantRanking(Integer.parseInt(rest_id),rank,comment);
-            DbRestaurantsManagement restaurantManagment = new DbRestaurantsManagement();
-            restaurantManagment.addRestRanking(rr);
+            RestaurantRanking rr = new RestaurantRanking(Integer.parseInt(rest_id),rank,comment);//creating a ranking object
+            DbRestaurantsManagement restaurantManagment = new DbRestaurantsManagement();//creating a DbRestaurantsManagement object
+            restaurantManagment.addRestRanking(rr);//add the ranking
         }
         
         

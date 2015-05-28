@@ -54,12 +54,12 @@ public class SearchRestServlet extends HttpServlet {
         processRequest(request, response);
         request.setCharacterEncoding("UTF-8");
         
-        String city = request.getParameter("where");
-        int category = Integer.parseInt(request.getParameter("what"));
+        String city = request.getParameter("where");//get the city
+        int category = Integer.parseInt(request.getParameter("what"));//get the category
         
-        List<Restaurant> restaurants = new DbRestaurantsManagement().getNextRecentRestaurantsByCatAndCity(0 , 6 , category , city);
+        List<Restaurant> restaurants = new DbRestaurantsManagement().getNextRecentRestaurantsByCatAndCity(0 , 6 , category , city);//getting a list of restaurants by category and cities
         
-        request.setAttribute("restaurants", restaurants);
+        request.setAttribute("restaurants", restaurants);//return the restaurants to the client
          
         RequestDispatcher  dispatcher = request.getRequestDispatcher("website/search_rest.jsp");
         dispatcher.forward(request, response);
