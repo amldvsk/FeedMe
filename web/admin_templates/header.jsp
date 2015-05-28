@@ -3,7 +3,7 @@
         <div class="row header">
           <div class="col-xs-12">
             <div class="user pull-left">
-              <div class="item dropdown">
+              <div class="item dropdown hidden">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                   <i class="fa fa-bell"></i>
                 </a>
@@ -17,7 +17,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="item dropdown">
+              <div class="item dropdown hidden">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                   <i class="fa fa-envelope"></i>
                 </a>
