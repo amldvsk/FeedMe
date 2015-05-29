@@ -158,7 +158,7 @@ public class OrderCompleteServlet extends HttpServlet {
         
         sb.append("<center>");
         sb.append("<div style=\"margin-bottom: 10px; border-top: 3px solid #74ad5a; margin-top:0px;\" >&nbsp;</div>");
-        sb.append("<table style=\"text-align:center; max-width:640px; direction: rtl; \"  >");
+        sb.append("<table style=\"text-align:center; max-width:700px; direction: rtl; \"  >");
         sb.append("<thead>");
         sb.append("<tr>");
         sb.append("<td colspan=\"4\" ><img src=\"https://ec2-52-25-118-3.us-west-2.compute.amazonaws.com/FeedMe/assets/img/logo_b.png\" height=\"50\" style=\"margin: 0 auto;\"></td>");
@@ -189,6 +189,20 @@ public class OrderCompleteServlet extends HttpServlet {
         sb.append("<tr>\n" +
 "        <td colspan=\"3\"></td>\n" +
 "        <td colspan=\"3\"><p style=\"font-weight:bold;\">סך הכל: "+ order.calcSum() +" &#8362; <p></td>\n" +
+"      </tr>");
+        
+        sb.append("<tr>\n" +
+"        <td colspan=\"4\"><div style=\"margin: 10px 0; border-top: 2px dashed #eeeeee;\" >&nbsp;</div></td>\n" +
+"      </tr>");
+        
+        sb.append("<tr  >\n" +
+"        <td colspan=\"2\" style=\"color: #384047; padding: 5px \" > <p style=\"font-weight: bold;\" >  שם: </p> </td>\n" +
+"        <td colspan=\"2\" style=\"padding: 5px;\"> <p style=\"color:#8c989e;\" >"+ order.getCustomerFullName() +"</p> </td>\n" +
+"      </tr>");
+        
+        sb.append("<tr  >\n" +
+"        <td colspan=\"2\" style=\"color: #384047; padding: 5px \" > <p style=\"font-weight: bold;\" >  כתובת: </p> </td>\n" +
+"        <td colspan=\"2\" style=\"padding: 5px;\"> <p style=\"color:#8c989e;\" >"+ order.getCustomerAdress() +"</p> </td>\n" +
 "      </tr>");
         
         sb.append("</tbody>\n" +

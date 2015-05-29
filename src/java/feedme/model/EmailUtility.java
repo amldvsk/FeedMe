@@ -5,6 +5,7 @@
  */
 package feedme.model;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -16,6 +17,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 
 
 
@@ -27,7 +29,8 @@ public class EmailUtility {
     public static void sendEmail(String host, String port,
             final String userName, final String password, String toAddress,
             String subject, String message) throws AddressException,
-            MessagingException {
+            MessagingException,
+            UnsupportedEncodingException {
  
         // sets SMTP server properties
         Properties properties = new Properties();
@@ -51,7 +54,7 @@ public class EmailUtility {
         msg.setFrom(new InternetAddress(userName));
         InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
         msg.setRecipients(Message.RecipientType.TO, toAddresses);
-        msg.setSubject(subject);
+        msg.setSubject(MimeUtility.encodeText(subject, "utf-8", "B"));
         msg.setSentDate(new Date());
         msg.setContent(message, "text/html; charset=UTF-8");
  
