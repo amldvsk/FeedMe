@@ -9,8 +9,11 @@ import feedme.model.AuthenticatUser;
 import feedme.model.Customer;
 import feedme.model.DbOrderManagement;
 import feedme.model.DbUsersManagement;
+import feedme.model.EmailUtility;
+import feedme.model.Item;
 import feedme.model.Order;
 import feedme.model.PasswordEncryptionService;
+import feedme.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -91,6 +94,7 @@ public class OrderCompleteServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         String fullName = request.getParameter("fname");
+        String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         Order cart = (Order)request.getSession().getAttribute("shoppingCart");
@@ -120,6 +124,7 @@ public class OrderCompleteServlet extends HttpServlet {
                     
                     request.getSession().setAttribute("shoppingCart", new Order());
                     orderStatus.put("status", 1);
+                    sendEmail(email, cart);
 
                 }
                 else
@@ -140,7 +145,76 @@ public class OrderCompleteServlet extends HttpServlet {
         
   
     }
-
+    
+    
+    
+    private void sendEmail(String email, Order order) {
+        
+        
+        String recipient = email;
+        String subject = " FeedMe התקבלה הזמנה חדשה";
+        
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("<center>");
+        sb.append("<div style=\"margin-bottom: 10px; border-top: 3px solid #74ad5a; margin-top:0px;\" >&nbsp;</div>");
+        sb.append("<table style=\"text-align:center; max-width:640px; direction: rtl; \"  >");
+        sb.append("<thead>");
+        sb.append("<tr>");
+        sb.append("<td colspan=\"4\" ><img src=\"https://ec2-52-25-118-3.us-west-2.compute.amazonaws.com/FeedMe/assets/img/logo_b.png\" height=\"50\" style=\"margin: 0 auto;\"></td>");
+        sb.append("</tr>");
+        sb.append("<tr>");
+        sb.append("<td colspan=\"4\" style=\"padding:20px;\" ><h2>הזמנה חדשה שהתקבלה</h2></td>");
+        sb.append("</tr>");
+        sb.append("<tr>\n" +
+"        <th style=\"color: #384047; border-bottom: 1px solid #edf5ea;\">כמות</th>   \n" +
+"        <th style=\"color: #384047; border-bottom: 1px solid #edf5ea;\">מוצר</th>\n" +
+"        <th style=\"color: #384047; border-bottom: 1px solid #edf5ea; \">פירוט</th>\n" +
+"        <th style=\"color: #384047; border-bottom: 1px solid #edf5ea;\">מחיר</th>\n" +
+"         \n" +
+"      </tr>");
+        
+        sb.append("</thead>");
+        sb.append("<tbody style=\"color: #384047;\">");
+        
+        for( Item item : order.getRestItemsMap().values() ) {
+            sb.append("<tr  >");
+            sb.append("<td style=\"padding: 10px 0;\"> <p style=\"color:#8c989e;\" >" + item.getQuantity() +  "</p> </td>");
+            sb.append("<td style=\"padding: 10px 0;\"> <h4 style=\"font-weight:bold;\" >"  + item.getItemName() +   "</h4> </td>");
+            sb.append(" <td style=\"padding: 10px 0;\"> <p style=\"color:#8c989e;\" >" +item.getItemDescription()+ "</p> </td>");
+            sb.append("<td style=\"padding: 10px 0;\"> <p style=\"color:#8c989e;\" >" +item.getItemPrice()+ " &#8362;</p> </td>");
+            sb.append("</tr>");
+        }
+        
+        sb.append("<tr>\n" +
+"        <td colspan=\"3\"></td>\n" +
+"        <td colspan=\"3\"><p style=\"font-weight:bold;\">סך הכל: "+ order.calcSum() +" &#8362; <p></td>\n" +
+"      </tr>");
+        
+        sb.append("</tbody>\n" +
+    "\n" +
+    "  </table>\n" +
+    "\n" +
+    "</center>");
+        
+        String content = sb.toString();
+        String host = getServletContext().getInitParameter("host");
+        String port = getServletContext().getInitParameter("port");
+        String user = getServletContext().getInitParameter("user");
+        String pass = getServletContext().getInitParameter("pass");
+        String resultMessage = "";
+        
+        try {
+            EmailUtility.sendEmail(host, port, user, pass, recipient, subject,
+                    content);
+            resultMessage = "The e-mail was sent successfully";
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            resultMessage = "There were an error: " + ex.getMessage();
+        } finally {
+            
+        }
+    }
     /**
      * Returns a short description of the servlet.
      *

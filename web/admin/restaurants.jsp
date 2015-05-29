@@ -16,7 +16,7 @@
                     <!-- Default panel contents -->
                     <div class="panel-heading">מסעדות</div>
                     <div class="panel-body">
-                      <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
+                      <p></p>
                       <div class="table-responsive">
                       <!-- Table -->
                         <table class="table sort-table">
@@ -26,6 +26,7 @@
                               <th>לוגו</th>
                               <th>שם</th>
                               <th>רחוב</th>
+                              <th>עיר</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -34,7 +35,8 @@
                                     <th scope="row">${rest.getDbid()}</th>
                                     <td><img src="${pageContext.request.contextPath}/assets/Uploads/${rest.getLogo()}" class="img-rounded" width="60" height="60"></td>
                                     <td>${rest.getName()}</td>
-                                    <td>${rest.getStreet()}</td>
+                                    <td>${rest.getStreet()} ${rest.getStreetNum()}</td>
+                                    <td>${rest.getCity()}</td>
                                   </tr>
                              </c:forEach>
                           </tbody>

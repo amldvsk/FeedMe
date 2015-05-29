@@ -298,10 +298,12 @@ $('#create_resturent').validate({
               deliveryPrice:    {
                             required: true,
                             minlength: 0,
+                            number: true
                         },
               minOrder:       {
                             required: true,
-                            minlength: 1,                            
+                            minlength: 1, 
+                            number: true
                         },
               estimatedTimeDel:       {
                             required: true,

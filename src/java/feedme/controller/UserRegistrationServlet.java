@@ -86,9 +86,8 @@ public class UserRegistrationServlet extends HttpServlet {
             try {
 
                    
-                   String birthday = request.getParameter("bday");
                     SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyyy");
-                    java.util.Date date = sdf1.parse(birthday);
+                    java.util.Date date = sdf1.parse(request.getParameter("bday"));
                     d = new Date(date.getTime()); 
               
             
@@ -98,7 +97,7 @@ public class UserRegistrationServlet extends HttpServlet {
               street = request.getParameter("address");
               houseNum = request.getParameter("street_num");
               apartmentNum = request.getParameter("home_num");
-              city = request.getParameter("cty");
+              city = request.getParameter("city");
          }
 
              

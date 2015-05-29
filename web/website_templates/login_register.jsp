@@ -86,7 +86,7 @@
             <c:set var="now" value="<%=new java.util.Date()%>" />
              <p class="fieldset pull-left" style="margin: 0; width: calc(45% - 5px)">
                 <label class="image-replace feed-birth" for="bday">תאריך לידה</label>
-                <input max='<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" />' style="padding: 8px;" class="full-width has-padding has-border" name="bday" id="bday" type="date"  placeholder="תאריך לידה dd/mm/yyyy" required>
+                <input max='<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" />' style="padding: 8px;" min="1940-01-01" class="full-width has-padding has-border" name="bday" id="bday" type="date"  placeholder="תאריך לידה dd/mm/yyyy" required>
                 <span class="feed-error-message">Error message here!</span>
               </p>
           </div>

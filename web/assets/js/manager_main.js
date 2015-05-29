@@ -283,7 +283,7 @@ $('#add_menu_item').validate({
                   },
         itemPrice:       {
                       required: true,
-                      digits: true
+                      number: true
                   },
         logo:    {
                       required: true,

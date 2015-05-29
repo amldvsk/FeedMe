@@ -119,7 +119,7 @@
             <c:set var="now" value="<%=new java.util.Date()%>" />
              <p class="fieldset pull-left" style="margin: 0; width: calc(45% - 5px)">
                 <label class=" feed-birth" for="bday">תאריך לידה</label>
-                <input max='<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" />' style="padding: 8px;" class="full-width has-padding has-border" value="${requestScope.customer.getbDay()}" name="bday" id="bday" type="date"  placeholder="תאריך לידה dd/mm/yyyy" required>
+                <input max='<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" />' style="padding: 8px;" min="1940-01-01" class="full-width has-padding has-border" value="${requestScope.customer.getbDay()}" name="bday" id="bday" type="date"  placeholder="תאריך לידה dd/mm/yyyy" required>
                 <span class="feed-error-message">Error message here!</span>
               </p>
           </div>
@@ -141,7 +141,7 @@
             <p class="fieldset pull-right" style="margin: 0; width: calc(60% - 5px)">
               <label class=" feed-phone" for="city">עיר</label>
               <!--<input class="full-width has-padding has-border" name="city" id="city" type="text"  placeholder="עיר" required>-->
-                     <select class="full-width has-padding has-border" name="city" id="city" type="text"  placeholder="עיר" value="${requestScope.customer.getCity()}" required style="padding: 15px; border: 1px solid #d2d8d8; background-color: transparent; width: 100%; border-radius: 0.25em;">
+                     <select class="full-width has-padding has-border" name="city" id="city" type="text"  placeholder="עיר" data-value="${requestScope.customer.getCity()}" required style="padding: 15px; border: 1px solid #d2d8d8; background-color: transparent; width: 100%; border-radius: 0.25em;">
                       <option value="אבו גוש">אבו גוש</option>
                       <option value="אבו סנאן">אבו סנאן</option>
                       <option value="אבטין">אבטין</option>

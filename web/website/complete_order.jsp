@@ -54,9 +54,13 @@
 
                 </div>
                  <div class="form-group clearfix">
-                     <div class="col-md-12">
+                     <div class="col-md-6">
                         <label for="phone">טלפון לברורים</label>
                         <input type="text" class="form-control" name="phone" id="phone" value="${requestScope.customer.getPhone()}" placeholder="טלפון לברורים">
+                     </div>
+                     <div class="col-md-6">
+                        <label for="email">כתובת אימייל</label>
+                        <input type="text" class="form-control" name="email" id="email" value="${requestScope.customer.getEmail()}" placeholder="כתובת אימייל">
                      </div>
                 </div>
             </div>

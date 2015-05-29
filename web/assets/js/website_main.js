@@ -1,6 +1,10 @@
 jQuery(document).ready(function($){
 
-  $("#signup-address").geocomplete();
+//  $("#signup-address").geocomplete();
+
+    if( $('select#city').length > 0 ) {
+        updateCitySelect();
+    }
 
   var $form_modal = $('.feed-user-modal'),
     $form_login = $form_modal.find('#feed-login'),
@@ -527,6 +531,10 @@ $('#place_order').validate({
               minlength: 2,
               digits :true
           },
+          email: {
+              required: true,
+              email: true,
+          },
       },
   });
 });
@@ -611,3 +619,19 @@ $('#rest_filter').on('submit', function() {
     else
         return true;
 });
+
+
+function updateCitySelect() {
+    if( $('select#city').length < 1 )
+        return;
+    
+    city = $('select#city').data('value');
+    
+    $('select#city option').each(function() {
+        if( $(this).val() == city) {
+            $(this).prop('selected', true)
+        }
+    });
+    
+    
+}
