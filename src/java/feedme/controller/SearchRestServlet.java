@@ -5,6 +5,7 @@
  */
 package feedme.controller;
 
+import static feedme.controller.HomePageServlet.isAjaxRequest;
 import feedme.model.DbRestaurantsManagement;
 import feedme.model.Restaurant;
 import java.io.IOException;
@@ -16,6 +17,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -35,7 +39,8 @@ public class SearchRestServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         
     }
 
@@ -57,8 +62,44 @@ public class SearchRestServlet extends HttpServlet {
         String city = request.getParameter("where");//get the city
         int category = Integer.parseInt(request.getParameter("what"));//get the category
         
-        List<Restaurant> restaurants = new DbRestaurantsManagement().getNextRecentRestaurantsByCatAndCity(0 , 6 , category , city);//getting a list of restaurants by category and cities
         
+        
+        int page = 1;
+         int recordsPerPage = 6;
+         
+         if( request.getParameter("page") != null ) {
+             page = Integer.parseInt(request.getParameter("page"));
+         }
+         
+         List<Restaurant> restaurants = new DbRestaurantsManagement().getNextRecentRestaurantsByCatAndCity(0 , recordsPerPage , category , city);//getting a list of restaurants by category and cities
+         int noOfRecords = restaurants.size();
+         
+         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+         
+         
+         
+         if(isAjaxRequest(request)) {
+             try {
+                 restaurants = new DbRestaurantsManagement().getNextRecentRestaurantsByCatAndCity((page-1)*recordsPerPage,recordsPerPage , category , city);//getting a list of restaurants by category and cities
+                    JSONObject restObj = new JSONObject();
+                    JSONArray restArray = new JSONArray();
+                    for(Restaurant rest : restaurants) {
+                        restArray.put(new JSONObject().put("resturent", rest.toJson()));
+                    }
+                    restObj.put("resturent", restArray);
+                    restObj.put("noOfPages", noOfPages);
+                    restObj.put("currentPage", page);
+                    response.setContentType("application/json");
+                    PrintWriter writer = response.getWriter();
+                    writer.print(restObj);
+                    response.getWriter().flush();
+                    return;
+                } catch( JSONException e ) {
+                    e.printStackTrace();
+                }
+         }
+         request.setAttribute("noOfPages", noOfPages);
+         request.setAttribute("currentPage", page);
         request.setAttribute("restaurants", restaurants);//return the restaurants to the client
          
         RequestDispatcher  dispatcher = request.getRequestDispatcher("website/search_rest.jsp");
@@ -79,7 +120,12 @@ public class SearchRestServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
+    
+    
+    public static boolean isAjaxRequest(HttpServletRequest request) {
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+    }
+    
     /**
      * Returns a short description of the servlet.
      *

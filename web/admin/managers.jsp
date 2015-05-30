@@ -24,6 +24,7 @@
                             <tr>
                               <th>#</th>
                               <th>שם</th>
+                              <th>שם משתמש</th>
                               <th>טלפון</th>
                               <th>אימייל</th>
                             </tr>
@@ -33,6 +34,7 @@
                                 <tr>
                                     <th scope="row">${manager.getDbId()}</th>
                                     <td>${manager.getFullName()}</td>
+                                    <td>${manager.getUserName()}</td>
                                     <td>${manager.getPhone()}</td>
                                     <td>${manager.getEmail()}</td>
                                   </tr>

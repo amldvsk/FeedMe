@@ -10,8 +10,12 @@
             
             <section>
                 
-                <div class="container-fluid">
-                    <div class="row ">
+                <div class="container-fluid ">
+                    <div class="row" >
+                        <h1 class="text-center" style="font-weight: bold; color:#bbb;" >מערכת ניהול FeedMe</h1>
+                        <h4 class="text-center" style=" color:#bbb;"><i class="fa fa-arrow-right"></i> <span>השתמש בתפריט הניווט מצד ימין</span>  </h4>
+                    </div>    
+                    <div class="row hidden">
         
           
 

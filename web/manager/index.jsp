@@ -52,14 +52,21 @@
                 </div><!--/col-->
 
               </div>
-
+                
+                <div class="row" >
+                    <h1 class="text-center" style="font-weight: bold; color:#bbb;" > ניהול מסעדת - ${requestScope.restaurant.getName()}</h1>
+                    <h4 class="text-center" style=" color:#bbb;"><i class="fa fa-arrow-right"></i> <span>השתמש בתפריט הניווט מצד ימין</span>  </h4>
+                </div> 
+                <hr/>
+                
               <div class="row">
+                  
                 <div class="col-md-6">
                   <div class="panel panel-default">
                     <!-- Default panel contents -->
                     <div class="panel-heading">הזמנות</div>
                     <div class="panel-body">
-                      <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
+                        <p></p>
                       <div class="table-responsive">
                       <!-- Table -->
                         <table class="table sort-table">
@@ -91,52 +98,19 @@
                 <div class="col-md-6">
                   <div class="panel panel-default">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">במשלוח</div>
+                    <div class="panel-heading">משלוחים פעילים</div>
                     <div class="panel-body">
-                      <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
-                      <div class="table-responsive">
-                      <!-- Table -->
-                        <table class="table sort-table">
-                          <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>שם</th>
-                              <th>רחוב</th>
-                              <th>שעת הזמנה</th>
-                              <th>סטטוס</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>משה משה</td>
-                              <td>מבצע עובדה 51</td>
-                              <td>13/03/15 10:08:00</td>
-                              <td><span class="label label-danger">סטטוס 1</span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>משה משה</td>
-                              <td>מבצע עובדה 51</td>
-                              <td>13/03/15 10:08:00</td>
-                              <td><span class="label label-success">סטטוס 2</span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>משה משה</td>
-                              <td>מבצע עובדה 51</td>
-                              <td>13/03/15 10:08:00</td>
-                              <td><span class="label label-info">סטטוס 3</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                       <div id="cd-google-map">
+                          <div id="google-container"></div>
+<!--                          <div id="cd-zoom-in"></div>
+                          <div id="cd-zoom-out"></div>-->
+                        </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row hidden">
                 <div class="col-md-6">
                   <div class="panel panel-default">
                     <!-- Default panel contents -->
@@ -179,16 +153,49 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6">
+                  <div class="col-md-6">
                   <div class="panel panel-default">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">משלוחים פעילים</div>
+                    <div class="panel-heading">במשלוח</div>
                     <div class="panel-body">
-                       <div id="cd-google-map">
-                          <div id="google-container"></div>
-                          <div id="cd-zoom-in"></div>
-                          <div id="cd-zoom-out"></div>
-                        </div>
+                      <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
+                      <div class="table-responsive">
+                      <!-- Table -->
+                        <table class="table sort-table">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>שם</th>
+                              <th>רחוב</th>
+                              <th>שעת הזמנה</th>
+                              <th>סטטוס</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>משה משה</td>
+                              <td>מבצע עובדה 51</td>
+                              <td>13/03/15 10:08:00</td>
+                              <td><span class="label label-danger">סטטוס 1</span></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2</th>
+                              <td>משה משה</td>
+                              <td>מבצע עובדה 51</td>
+                              <td>13/03/15 10:08:00</td>
+                              <td><span class="label label-success">סטטוס 2</span></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">3</th>
+                              <td>משה משה</td>
+                              <td>מבצע עובדה 51</td>
+                              <td>13/03/15 10:08:00</td>
+                              <td><span class="label label-info">סטטוס 3</span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>

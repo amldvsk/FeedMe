@@ -33,7 +33,7 @@
             <c:forEach var="rest" items="${restaurants}">
                 <li class="rest">
                   <div class="rest-logo">
-                    <img src="${pageContext.request.contextPath}/assets/Uploads/${rest.getLogo()}" alt="placeholder+image">
+                    <a href="${pageContext.request.contextPath}/resturent?res_id=${rest.getDbid()}"><img src="${pageContext.request.contextPath}/assets/Uploads/${rest.getLogo()}" alt="placeholder+image"></a>
                   </div>
                   <div class="rest-caption">
                     <h4>${rest.getName()}</h4>
@@ -74,6 +74,15 @@
               </div>
             </li>-->
           </ul>
+            <c:choose>
+                <c:when test="${currentPage < noOfPages}">
+                   <div class="text-center" > <a  class=" pagination-link btn btn-default btn-lg" href="${pageContext.request.contextPath}search-rest/?where=${param["where"]}&what=${param["what"]}&page=" data-current-page="${requestScope.currentPage}" data-num-of-pages="${requestScope.noOfPages}"  >טען עוד</a> </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="text-center hidden" > <a  class=" pagination-link btn btn-default btn-lg" href="${pageContext.request.contextPath}/search-rest?where=${param["where"]}&what=${param["what"]}&page=" data-current-page="${requestScope.currentPage}" data-num-of-pages="${requestScope.noOfPages}"  >טען עוד</a> </div>
+                </c:otherwise>
+            </c:choose>
+            
         </div>
       </div>
     </section>

@@ -76,6 +76,7 @@ public class AddOrEditMenuItemServlet extends HttpServlet {
                         if( re.getDbid() == manager.getManagerRestId() )
                             request.setAttribute("restaurant", re);
         
+        request.setAttribute("reslist", reslist);//send all the manager rests
         RequestDispatcher  dispatcher = request.getRequestDispatcher("edit_menu_item.jsp");
         dispatcher.forward(request, response);
         return;

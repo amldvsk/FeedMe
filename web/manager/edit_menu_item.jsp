@@ -16,7 +16,7 @@
                     <!-- Default panel contents -->
                     <div class="panel-heading">הוספת פריט</div>
                     <div class="panel-body">
-                      <p>ד</p>
+                      <p></p>
                       <div class="table-responsive">
                           <form    id="add_menu_item"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/manager/menu-item-management">
 

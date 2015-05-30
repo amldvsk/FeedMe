@@ -558,6 +558,8 @@ body.hamburg #page-wrapper.open #sidebar-wrapper ul.sidebar li.sidebar-main, bod
 }
 .row.header .user>.item ul.dropdown-menu li.link {
     text-align: left;
+    padding: 5px;
+    /* border-bottom: 1px solid #eee; */
 }
 .row.header .user>.item ul.dropdown-menu li.link a {
     padding-left: 7px;

@@ -61,7 +61,7 @@
                             
                             <ul class="list-inline items resturen_menu_items" data-href="${pageContext.request.contextPath}/update-cart">
                                 <c:forEach var="item"  items="${menuItem.value}">
-                                    <li class="item" data-item-id="${item.getItemID()}" data-item-price="${item.getItemPrice()}" data-rest-id="${requestScope.resturent.getDbid()}" data-item-name="${item.getItemName()}">
+                                    <li data-toggle="tooltip" data-placement="top" title="${item.getItemDescription()}" class="item" data-item-id="${item.getItemID()}" data-item-price="${item.getItemPrice()}" data-rest-id="${requestScope.resturent.getDbid()}" data-item-name="${item.getItemName()}">
                                         <div class="item-logo">
                                           <img src="${pageContext.request.contextPath}/assets/Uploads/${item.getItemImagePath()}" alt="placeholder+image">
                                         </div>
@@ -182,7 +182,7 @@
                 <c:forEach var="rank"  items="${ranks}"  >
                 <li class="clearfix rest-ranking ">
                     <ul class="list-inline" >
-                        <c:forEach begin="0" end="${rank.getRankValue()}" varStatus="loop">
+                        <c:forEach begin="1" end="${rank.getRankValue()}" varStatus="loop">
                             <li><p class="star active"></p></li>
                         </c:forEach>
                     </ul>

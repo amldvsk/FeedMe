@@ -222,6 +222,13 @@
           
       </script>
       
+      <script type="text/javascript">
+          var addresses = [
+          <c:forEach var="order"  items="${orders}">
+          "${order.getCustomerAdress()}", 
+          </c:forEach>
+          ];
+      </script>
       
 </body>
 </html>

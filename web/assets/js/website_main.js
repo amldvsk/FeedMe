@@ -1,7 +1,7 @@
 jQuery(document).ready(function($){
 
 //  $("#signup-address").geocomplete();
-
+    $('[data-toggle="tooltip"]').tooltip();
     if( $('select#city').length > 0 ) {
         updateCitySelect();
     }
@@ -416,7 +416,6 @@ $('#order-add-ranking').validate({
         comment: {
                       required: true,
                       minlength: 2,
-                      lettersonly: true,
                   },
     }
 });
@@ -425,13 +424,11 @@ $('#feed-signup form.feed-form').validate({
     rules: {
         firstName: {
             required: true,
-            lettersonly: true,
             minlength: 2,
         },
         lastName: {
             required: true,
             minlength: 2,
-            lettersonly: true,
         },
         userName: {
             required: true,
@@ -477,11 +474,9 @@ $('#user_update').validate({
         firstName: {
             required: true,
             minlength: 2,
-            lettersonly: true,
         },
         lastName: {
             required: true,
-            lettersonly: true,
             minlength: 2,
         },
         userName: {
@@ -490,7 +485,6 @@ $('#user_update').validate({
         },
         email: {
             required: true,
-            lettersonly: true,
             email: true
         },
         pw: {
@@ -534,7 +528,6 @@ $('#place_order').validate({
           fname: {
               required: true,
               minlength: 2,
-              lettersonly: true,
           },
           phone: {
               required: true,
@@ -667,7 +660,7 @@ $('.pagination-link').on('click', function(e) {
     linkBtn  = $(this);
     nextPage = parseInt(linkBtn.data('current-page'))+1;
     var request = $.ajax({
-        url: url + "?page="+nextPage,
+        url: url + nextPage,
         type: "GET",
         contentType: "application/x-www-form-urlencoded;charset=UTF-8",
       });
@@ -697,7 +690,7 @@ function parseResturent(restObj) {
     $.each(restObj, function(key, value) {
         restLi = '<li class="rest">'+
                   '<div class="rest-logo">'+
-                    '<img src="/FeedMe/assets/Uploads/'+ value.resturent.logo +'" alt="placeholder+image">'+
+                    '<a href="/FeedMe/resturent?res_id='+ value.resturent.dbid +'"><img src="/FeedMe/assets/Uploads/'+ value.resturent.logo +'" alt="placeholder+image"></a>'+
                   '</div>'+
                   '<div class="rest-caption">'+
                     '<h4>'+ value.resturent.name +'</h4>'+

@@ -22,7 +22,7 @@
               </div>
             </div>
           </section>
-          <section>
+            <section class="hidden">
             <div class="container-fluid">
               
               
