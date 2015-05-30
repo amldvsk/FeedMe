@@ -7,9 +7,62 @@
           <section class="white border hidden">
             
           </section>
-          <section>
-            <div class="container-fluid">
+            
+            <section>
+                
+                <div class="container-fluid">
+                    <div class="row ">
+        
+          
 
+                    <div class="col-lg-3 col-sm-6 col-xs-6 col-xxs-12">
+                      <div class="smallstat">
+                        <div class="boxchart-overlay blue">
+                          <div class="boxchart"><canvas width="64" height="30" style="display: inline-block; vertical-align: top; width: 64px; height: 30px;"></canvas></div>
+                        </div>
+                        <span class="value">19,999 &#8362;</span>  
+                        <span class="title">סך הכל הכנסות</span>
+
+                      </div>
+                    </div><!--/col-->
+
+                    <div class="col-lg-3 col-sm-6 col-xs-6 col-xxs-12">
+                      <div class="smallstat">
+                        <div class="linechart-overlay red">
+                          <div class="linechart"><canvas width="65" height="30" style="display: inline-block; vertical-align: top; width: 65px; height: 30px;"></canvas></div>
+                        </div>
+                        <span class="value">789</span>  
+                        <span class="title">עסקאות</span>            
+                      </div>
+                    </div><!--/col-->
+
+                    <div class="col-lg-3 col-sm-6 col-xs-6 col-xxs-12">
+                      <div class="smallstat">
+                        <i class="green">&#8362;</i>
+                        <span class="value">1,999.99 &#8362;</span>
+                        <span class="title">הכנסות היום</span> 
+                      </div>
+                    </div><!--/col-->
+
+                    <div class="col-lg-3 col-sm-6 col-xs-6 col-xxs-12">
+                      <div class="smallstat">
+                        <div class="piechart-overlay blue">
+                          <div class="piechart easyPieChart" data-percent="55" style="width: 40px; height: 40px; line-height: 40px;"><span>54</span>%<canvas width="40" height="40"></canvas></div>
+                        </div>
+                        <span class="value">4,859</span> 
+                        <span class="title">לקוחות</span>    
+                      </div>
+                    </div><!--/col-->
+
+                  </div>
+                </div>
+                
+                
+            </section>
+            
+          <section class="hidden">
+            <div class="container-fluid">
+              
               <div class="row">
                 <div class="col-md-6">
                   <div class="panel panel-default">

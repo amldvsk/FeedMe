@@ -27,8 +27,8 @@
           <p class="fieldset">
               
             <p class="text-danger">${loginError}</p>
-            <input type="checkbox" id="remember-me" checked>
-            <label for="remember-me">זכור אותי</label>
+<!--            <input type="checkbox" id="remember-me" checked>
+            <label for="remember-me">זכור אותי</label>-->
           </p>
 
           <p class="fieldset">
@@ -36,7 +36,7 @@
           </p>
         </form>
         
-        <p class="feed-form-bottom-message"><a href="#0">שחכת סיסמה?</a></p>
+<!--        <p class="feed-form-bottom-message"><a href="#0">שחכת סיסמה?</a></p>-->
         <!-- <a href="#0" class="feed-close-form">Close</a> -->
       </div> <!-- feed-login -->
 

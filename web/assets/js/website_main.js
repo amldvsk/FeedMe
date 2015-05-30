@@ -391,6 +391,10 @@ $('#myTabs a').click(function (e) {
 });
 
 
+jQuery.validator.addMethod("lettersonly", function(value, element) 
+{
+return this.optional(element) || /^[a-z," "]+$/i.test(value);
+}, "שדה זה מקבל רק אותיות"); 
 
 
 $('#feed-login form.feed-form').validate({
@@ -405,16 +409,29 @@ $('#feed-login form.feed-form').validate({
                   },
     }
 });
+
+
+$('#order-add-ranking').validate({
+    rules: {
+        comment: {
+                      required: true,
+                      minlength: 2,
+                      lettersonly: true,
+                  },
+    }
+});
           
 $('#feed-signup form.feed-form').validate({
     rules: {
         firstName: {
             required: true,
+            lettersonly: true,
             minlength: 2,
         },
         lastName: {
             required: true,
             minlength: 2,
+            lettersonly: true,
         },
         userName: {
             required: true,
@@ -460,9 +477,11 @@ $('#user_update').validate({
         firstName: {
             required: true,
             minlength: 2,
+            lettersonly: true,
         },
         lastName: {
             required: true,
+            lettersonly: true,
             minlength: 2,
         },
         userName: {
@@ -471,6 +490,7 @@ $('#user_update').validate({
         },
         email: {
             required: true,
+            lettersonly: true,
             email: true
         },
         pw: {
@@ -490,6 +510,7 @@ $('#user_update').validate({
         address: {
             required: true,
             minlength: 2,
+            
         },
         street_num: {
             required: true,
@@ -512,7 +533,8 @@ $('#place_order').validate({
           },
           fname: {
               required: true,
-              minlength: 2
+              minlength: 2,
+              lettersonly: true,
           },
           phone: {
               required: true,
@@ -634,4 +656,55 @@ function updateCitySelect() {
     });
     
     
+}
+
+
+
+$('.pagination-link').on('click', function(e) {
+    e.preventDefault();
+    $('#loader-wrapper').addClass('is-visible');
+    url = $(this).attr('href');
+    linkBtn  = $(this);
+    nextPage = parseInt(linkBtn.data('current-page'))+1;
+    var request = $.ajax({
+        url: url + "?page="+nextPage,
+        type: "GET",
+        contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+      });
+
+    request.done(function(msg) {
+      console.log(msg);
+      linkBtn.attr('data-current-page', msg.currentPage);
+      linkBtn.attr('data-num-of-pages', msg.noOfPages);
+      if( msg.currentPage >= msg.noOfPages ) {
+          linkBtn.hide();
+      }
+      
+      parseResturent(msg.resturent);
+      $('#loader-wrapper').removeClass()('is-visible');
+    });
+
+    request.fail(function(jqXHR, textStatus) {
+      console.log( "Request failed: " + textStatus );
+      $('#loader-wrapper').removeClass('is-visible');
+    });
+});
+
+
+
+function parseResturent(restObj) {
+    restContainer = $('ul.rests');
+    $.each(restObj, function(key, value) {
+        restLi = '<li class="rest">'+
+                  '<div class="rest-logo">'+
+                    '<img src="/FeedMe/assets/Uploads/'+ value.resturent.logo +'" alt="placeholder+image">'+
+                  '</div>'+
+                  '<div class="rest-caption">'+
+                    '<h4>'+ value.resturent.name +'</h4>'+
+                    '<p><small><i class="fa fa-map-marker"></i>'+ value.resturent.street +' '+ value.resturent.streetNum +' ,'+ value.resturent.city +'</small></p>'+
+                    '<a href="/FeedMe/resturent?res_id='+ value.resturent.dbid +'" class="btn btn-green btn-blcok">הזמן עכשיו</a> '+
+                  '</div>'+
+                '</li>';
+        restContainer.append(restLi);
+    });
 }

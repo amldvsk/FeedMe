@@ -165,7 +165,7 @@
             <h4>דירוג חווית הזמנה</h4>
             <hr>
             <div class="text-center">
-                <form action="${pageContext.request.contextPath}/rank-order" method="POST"  >
+                <form action="${pageContext.request.contextPath}/rank-order" method="POST"  id="order-add-ranking" >
                 <ul class="list-inline text-center">
                     <li><p class="star"></p></li>
                     <li><p class="star"></p></li>
@@ -174,7 +174,7 @@
                     <li><p class="star"></p></li>
                 </ul>
                 <p class="votes-rating-number"></p>
-                <textarea class="form-control" name="comment" placeholder="הוסף ביקורת"></textarea>
+                <textarea class="form-control" name="comment" id="comment" placeholder="הוסף ביקורת"></textarea>
                 <c:forEach var="cartItem" items="${sessionScope.shoppingCart.getRestItemsMap()}">
                     <input type="hidden" name="restid[]" value="${cartItem.key.getFirstNumber()}"  />
                 </c:forEach>

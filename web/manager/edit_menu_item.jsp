@@ -14,9 +14,9 @@
                 <div class="col-md-12">
                   <div class="panel panel-default">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">הוספת מסעדה</div>
+                    <div class="panel-heading">הוספת פריט</div>
                     <div class="panel-body">
-                      <p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. נולום ארווס סאפיאן - פוסיליס קוויס.</p>
+                      <p>ד</p>
                       <div class="table-responsive">
                           <form    id="add_menu_item"      enctype="multipart/form-data" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/manager/menu-item-management">
 

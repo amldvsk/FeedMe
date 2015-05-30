@@ -5,6 +5,7 @@
  */
 package feedme.controller;
 
+import feedme.model.DbAdminManagmentTools;
 import feedme.model.DbHPOnLoad;
 import feedme.model.DbRestaurantsManagement;
 import feedme.model.Order;
@@ -14,12 +15,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -39,7 +44,8 @@ public class HomePageServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         
     }
 
@@ -55,13 +61,53 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
          HashMap<String,Integer> category = new HashMap<>();
          List<Restaurant> restaurants;
          
          DbHPOnLoad dbPageOnLoad = new DbHPOnLoad();//creating a DbHPOnLoad object
          
+         
+         
+         
+         List<Restaurant> allResturent = new DbAdminManagmentTools().getAllRestaurants();
+         
+         
+         int page = 1;
+         int recordsPerPage = 6;
+         
+         if( request.getParameter("page") != null ) {
+             page = Integer.parseInt(request.getParameter("page"));
+         }
+         
+         int noOfRecords = allResturent.size();
+         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+         
+         
+         
          category = dbPageOnLoad.getCategories();//getting a categories
-         restaurants = dbPageOnLoad.getRecentRestaurants(6);//get the last 6 new restaurants
+         restaurants = new DbRestaurantsManagement().getNextRecentRestaurantsByCatAndCity((page-1)*recordsPerPage,recordsPerPage,0,"Asd");//get the last 6 new restaurants
+         
+         if(isAjaxRequest(request)) {
+             try {
+                    JSONObject restObj = new JSONObject();
+                    JSONArray restArray = new JSONArray();
+                    for(Restaurant rest : restaurants) {
+                        restArray.put(new JSONObject().put("resturent", rest.toJson()));
+                    }
+                    restObj.put("resturent", restArray);
+                    restObj.put("noOfPages", noOfPages);
+                    restObj.put("currentPage", page);
+                    response.setContentType("application/json");
+                    PrintWriter writer = response.getWriter();
+                    writer.print(restObj);
+                    response.getWriter().flush();
+                    return;
+                } catch( JSONException e ) {
+                    e.printStackTrace();
+                }
+         }
+         
          List<String> cities = dbPageOnLoad.getCities();
          if( request.getSession().getAttribute("shoppingCart") == null ) {
              request.getSession().setAttribute("shoppingCart", new Order());//crete a new shopping cart
@@ -73,7 +119,9 @@ public class HomePageServlet extends HttpServlet {
         for( RestaurantRanking re : rankings ) {//looping over the rankings
             re.setResturent(new DbRestaurantsManagement().getRestaurantById(re.getRestId()));
         }
-        
+         
+         request.setAttribute("noOfPages", noOfPages);
+         request.setAttribute("currentPage", page);
          request.setAttribute("category", category);//send the categories
          request.setAttribute("cities", cities);//send the cities
          request.setAttribute("restaurants", restaurants);//send the restaurants
@@ -98,6 +146,10 @@ public class HomePageServlet extends HttpServlet {
         processRequest(request, response);
                 request.setCharacterEncoding("UTF-8");
 
+    }
+    
+    public static boolean isAjaxRequest(HttpServletRequest request) {
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 
     /**

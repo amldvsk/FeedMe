@@ -100,6 +100,7 @@
               </div>
             </li>-->
           </ul>
+            <div class="text-center" > <a  class=" pagination-link btn btn-default btn-lg" href="${pageContext.request.contextPath}" data-current-page="${requestScope.currentPage}" data-num-of-pages="${requestScope.noOfPages}"  >טען עוד</a> </div>
         </div>
       </div>
     </section>

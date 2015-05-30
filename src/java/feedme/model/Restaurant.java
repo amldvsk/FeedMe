@@ -133,7 +133,7 @@ public class Restaurant {
     }
     
     
-    private JSONObject toJson() throws JSONException {
+    public JSONObject toJson() throws JSONException {
         resturentObject = new JSONObject();
         resturentObject.put("name", getName());
         resturentObject.put("phone", getPhone());
