@@ -138,7 +138,7 @@
         <param-value>feedme12345</param-value>
     </context-param>
     <!-- SSL settings. only allow HTTPS access to JIRA -->
-    <security-constraint>
+<!--    <security-constraint>
         <display-name>feedMe</display-name>
         <web-resource-collection>
             <web-resource-name>Encrypt</web-resource-name>
@@ -151,8 +151,8 @@
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
-    </security-constraint>
-    <login-config>
+    </security-constraint>-->
+<!--    <login-config>
         <auth-method>BASIC</auth-method>
         <realm-name>Intranet</realm-name>
     </login-config>
@@ -167,5 +167,5 @@
     </security-constraint>
     <security-role>
         <role-name>admin</role-name>
-    </security-role>
+    </security-role>-->
 </web-app>
