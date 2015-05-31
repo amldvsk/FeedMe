@@ -6,6 +6,7 @@
 package feedme.controller;
 
 import feedme.model.AuthenticatUser;
+import feedme.model.Customer;
 import feedme.model.DbRestaurantsManagement;
 import feedme.model.DbUsersManagement;
 import feedme.model.PasswordEncryptionService;
@@ -17,6 +18,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author User
- */
+ */@WebServlet(name = "EditUsersServlet", urlPatterns = {"/update-user"})
+
 public class EditUsersServlet extends HttpServlet {
 
     /**
@@ -93,16 +96,19 @@ public class EditUsersServlet extends HttpServlet {
         user.setDbId(Integer.parseInt(dbId));
         int result=ob.updateUser(user, userName);
         if(result == 1){ 
-            
-           
+                     
             userr.setUserFirstName(firstName);
             userr.setUserLastName(lastName);
             request.getSession().setAttribute("AuthenticatUser" , userr);
 
             response.sendRedirect(request.getContextPath()+"/profile");
         }
-        else {
-            request.getSession().setAttribute("updateError", "משתמש כבר קיים");
+        else if(result==0){
+            request.getSession().setAttribute("updateError", "שם משתמש כבר קיים");
+            response.sendRedirect(request.getContextPath()+"/profile");
+        }
+        else{
+             request.getSession().setAttribute("updateError", "error");
             response.sendRedirect(request.getContextPath()+"/profile");
         }
             
