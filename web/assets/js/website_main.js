@@ -674,7 +674,7 @@ $('.pagination-link').on('click', function(e) {
       }
       
       parseResturent(msg.resturent);
-      $('#loader-wrapper').removeClass()('is-visible');
+      $('#loader-wrapper').removeClass('is-visible');
     });
 
     request.fail(function(jqXHR, textStatus) {
