@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -71,19 +74,40 @@ public class EditUsersServlet extends HttpServlet {
         }
                  
                     
-            
+        Date d = null;
         response.setStatus(HttpServletResponse.SC_OK);
         String firstName= request.getParameter("firstName");
         String lastName= request.getParameter("lastName");  
         String userName= request.getParameter("userName");  
         String phone= request.getParameter("phone");  
         String email= request.getParameter("email");  
-        String dbId= request.getParameter("dbId");  
-        String role= request.getParameter("role");  
-        User user = new User(firstName, lastName,  userName, phone, email, Integer.parseInt(role));
+        String role= request.getParameter("role"); 
+        String street = request.getParameter("address");
+        String houseNum = request.getParameter("street_num");
+        String apartmentNum = request.getParameter("home_num");
+        String  city = request.getParameter("city");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyyy");
+
+        java.util.Date date = null;
+        try {
+            date = sdf1.parse(request.getParameter("bday"));
+        } catch (ParseException ex) {
+            Logger.getLogger(EditUsersServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                d = new Date(date.getTime()); 
+
+        int dbid = Integer.parseInt(request.getParameter("dbId"));
+        String oldUserName=request.getParameter("oldUserName");
+
+       
+           
+        
+        User user = new Customer( firstName, lastName,  userName,   phone,  email, Integer.parseInt(role)
+                    ,d ,street ,houseNum,apartmentNum , city);
+        
         DbUsersManagement ob= new DbUsersManagement();
-        user.setDbId(Integer.parseInt(dbId));
-        int result=ob.updateUser(user, userName);
+        user.setDbId(dbid);
+        int result=ob.updateUser(user, oldUserName);
         if(result == 1){ 
                      
             userr.setUserFirstName(firstName);

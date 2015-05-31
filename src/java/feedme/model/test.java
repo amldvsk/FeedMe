@@ -35,7 +35,8 @@ public class test {
     {
         //encryptTest();
         //insertUserTest();
-        insertRestaurantTest();
+        //insertRestaurantTest();
+        updateUserTest();
        //addNewCatTest();
         //deleteUserTest();
        // updateUserTest();
@@ -101,13 +102,13 @@ public class test {
     {
         //checks update user with customer
         Customer user ;
-        String oldUserName = "arnon";
+        String oldUserName = "nadav";
         DbUsersManagement dbUserManagment = new DbUsersManagement();
-        user  =  (Customer)dbUserManagment.getUserByUserName("arnon");
-        user.setFirstName("ארנון");
+        user  =  (Customer)dbUserManagment.getUserByUserName("nadav");
+        user.setFirstName("רוי");
         user.setHouseNum("12");
-        user.setUserName("arnon");
-        user.setLastName("שמעון");
+        user.setUserName("nadav123");
+        user.setLastName("שגיא");
         int result = dbUserManagment.updateUser(user , oldUserName);
         System.out.println(result);
     }

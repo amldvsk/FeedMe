@@ -73,9 +73,9 @@ public class UserRegistrationServlet extends HttpServlet {
          String houseNum = null;
          String apartmentNum = null;
          String city = null;
-         String firstName = request.getParameter("firstName").trim();
+         String firstName = request.getParameter("firstName");
          String lastName = request.getParameter("lastName");
-         String userName = request.getParameter("userName");
+         String userName = request.getParameter("userName").trim();
          String pw = request.getParameter("pw");
          String phone = request.getParameter("phone");
          String email = request.getParameter("email").trim();
