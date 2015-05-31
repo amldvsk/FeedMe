@@ -36,7 +36,7 @@
             <thead>
               <tr>
                 <th>מספר הזמנה</th>
-                <th>המסעדה</th>
+                <!--<th>המסעדה</th>-->
                 <th>פירוט</th>
                 <th>סכום</th>
                 <th>תאריך</th>
@@ -46,7 +46,7 @@
                 <c:forEach var="order"  items="${orders}">
                     <tr>
                         <th scope="row">${order.getOrderId()}</th>
-                        <td>${order.getCustomerFullName()}</td>
+<!--                        <td>${order.getCustomerFullName()}</td>-->
                         <td>
                         <c:forEach var="item"  items="${order.getRestItemsMap()}">
                             ${item.value.getItemName()}, &nbsp;
@@ -81,7 +81,7 @@
         </div>
         <div role="tabpanel" class="tab-pane fade" id="profile_edit" aria-labelledby="dropdown1-tab">
               
-        <form class="feed-form" id="user_update" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/registration">
+        <form class="feed-form" id="user_update" method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/update-user">
           <div class="clearfix">
             <p class="fieldset pull-right" style="margin: 0; width: calc(100% / 2 - 5px)">
               <label class=" feed-username" for="firstName">שם פרטי</label>
@@ -1374,6 +1374,8 @@
 
           <p class="fieldset">
               <input type="hidden" value="0" name="role"/>
+              <input type="hidden" value="${requestScope.customer.getDbId()}" name="dbId"/>
+              <input type="hidden" value="${requestScope.customer.getUserName()}" name="oldUserName"/>
             <input class="full-width has-padding" type="submit" value="עדכן משתמש">
           </p>
         </form>

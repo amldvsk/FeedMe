@@ -42,7 +42,17 @@
         </script>
         <c:remove var="registerError" scope="session" />
     </c:if>
-
+    
+     <c:if  test="${updateError != null }" >
+        <script>
+            
+            $(document).ready(function() {
+                alert("${updateError}");
+            });
+            
+        </script>
+        <c:remove var="updateError" scope="session" />
+    </c:if>
  
       
 

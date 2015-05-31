@@ -463,6 +463,7 @@ public class DbOrderManagement {
                 
                 currOrd.setRestItemsMap(getItemsByOrderIdAndUserid(userId , oNum));
                 currOrd.setOrderDateAndTime(getOrderDateAndTimeByOrderNum(oNum));
+                currOrd.setOrderId(oNum);
                 orders.add(currOrd);
                 currOrd = null;
         }
