@@ -91,7 +91,7 @@ public class EditUsersServlet extends HttpServlet {
         User user = new User(firstName, lastName,  userName, phone, email, Integer.parseInt(role));
         DbUsersManagement ob= new DbUsersManagement();
         user.setDbId(Integer.parseInt(dbId));
-        int result=ob.updateUser(user);
+        int result=ob.updateUser(user, userName);
         if(result == 1){ 
             
            

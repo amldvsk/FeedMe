@@ -93,11 +93,11 @@ public class DbUsersManagement {
     /**
      * update user details (Manager , Customer , Admin)
      * @param cUser - the specific user we want to update
-     * @return int 1 if update complete
+     * @return int 1 if update complete , 0 if the new user name is already taken
      */
-    public int updateUser(User cUser)
+    public int updateUser(User cUser , String oldUn)
     {
-        String spuName = "{CALL feedmedb.Spu_UpdateUser(?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}";
+        String spuName = "{CALL feedmedb.Spu_UpdateUser(?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,? ,?)}";
         int result = -1;
         Customer c; 
                 con = DbConnector.getInstance().getConn();
@@ -129,9 +129,10 @@ public class DbUsersManagement {
                     cstmt.setString(11,null);
                     cstmt.setString(12,null);
                 }
-                cstmt.registerOutParameter(13, java.sql.Types.INTEGER);
+                cstmt.setString(13, oldUn);
+                cstmt.registerOutParameter(14, java.sql.Types.INTEGER);
                 cstmt.executeUpdate();
-                result = cstmt.getInt(13);
+                result = cstmt.getInt(14);
                  } catch (SQLException ex) {
             Logger.getLogger(DbUsersManagement.class.getName()).log(Level.SEVERE, null, ex);
         }finally

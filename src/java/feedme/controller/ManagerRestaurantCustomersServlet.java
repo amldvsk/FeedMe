@@ -75,7 +75,7 @@ public class ManagerRestaurantCustomersServlet extends HttpServlet {
             }
             DbRestaurantsManagement restaurant = new DbRestaurantsManagement();//creating a DbRestaurantsManagement object
             List<Restaurant> reslist = restaurant.getRestaurantsByManagerId(manager.getUserId());//get a list of restaurants           
-            List<Customer> customers = dbrm.getCustomersByManagerId(manager.getUserId());//get the restaurants customers
+            List<Customer> customers = dbrm.getCustomersByManagerIdAndRestId(manager.getUserId(), manager.getManagerRestId());//get the restaurants customers
             request.setAttribute("customers", customers);//send the customers
             
             if( manager.getManagerRestId() != 0 ) {//if the manager has a restaurants

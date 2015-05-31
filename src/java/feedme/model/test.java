@@ -97,17 +97,21 @@ public class test {
          }
     }
     
-    public static void updateUser()
+    public static void updateUserTest()
     {
         //checks update user with customer
         Customer user ;
+        String oldUserName = "arnon";
         DbUsersManagement dbUserManagment = new DbUsersManagement();
-        user  =  (Customer)dbUserManagment.getUserByUserName("nadav");
-        user.setFirstName("Nadavi");
-        user.setHouseNum("41");
-        int result = dbUserManagment.updateUser(user);
+        user  =  (Customer)dbUserManagment.getUserByUserName("arnon");
+        user.setFirstName("ארנון");
+        user.setHouseNum("12");
+        user.setUserName("arnon");
+        user.setLastName("שמעון");
+        int result = dbUserManagment.updateUser(user , oldUserName);
         System.out.println(result);
     }
+    
     public static void insertRestaurantTest()
     {
         String name ="העובדים";
@@ -428,6 +432,16 @@ public class test {
     }
     
     
+    public static void getCustomersByManagerIdTest(int managerId)
+    {
+        DbRestaurantsManagement dbr = new DbRestaurantsManagement();
+        List<Customer> customers = dbr.getCustomersByManagerIdAndRestId(managerId , 20);
+        for(Customer c : customers)
+        {
+            System.out.println(c.getFullName());
+        }
+    }
+    
     public static void getUsersByRoleTest( int role)
     {
         
@@ -519,15 +533,7 @@ public class test {
     }
     
     
-    public static void getCustomersByManagerIdTest(int managerId)
-    {
-        DbRestaurantsManagement dbr = new DbRestaurantsManagement();
-        List<Customer> customers = dbr.getCustomersByManagerId(managerId);
-        for(Customer c : customers)
-        {
-            System.out.println(c.getFullAdress());
-        }
-    }
+   
     
     public static void registrationMailTest()
     {

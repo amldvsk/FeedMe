@@ -103,7 +103,7 @@
             <span class="feed-error-message">Error message here!</span>
           </p>
 
-          <p class="fieldset">
+          <p class="fieldset hidden">
             <label class=" feed-email" for="email">E-mail</label>
             <input class="full-width has-padding has-border" name="email" id="email" type="email" placeholder="כתובת דוא״ל" value="${requestScope.customer.getEmail()}" required>
             <span class="feed-error-message">Error message here!</span>
