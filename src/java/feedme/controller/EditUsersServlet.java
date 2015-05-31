@@ -5,10 +5,17 @@
  */
 package feedme.controller;
 
+import feedme.model.AuthenticatUser;
 import feedme.model.DbRestaurantsManagement;
+import feedme.model.DbUsersManagement;
+import feedme.model.PasswordEncryptionService;
 import feedme.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +65,21 @@ public class EditUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+         AuthenticatUser userr = (AuthenticatUser)request.getSession().getAttribute("AuthenticatUser");
+         
+        try {
+            if(userr == null || !PasswordEncryptionService.authenticate(Integer.toString(0), userr.getEncrypRole(), "Customer".getBytes())|| userr.isLoginResult()== false) {
+                response.sendRedirect(request.getContextPath() + "/");
+                return;                
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(EditUsersServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(EditUsersServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 
+                    
+            
         response.setStatus(HttpServletResponse.SC_OK);
         String firstName= request.getParameter("firstName");
         String lastName= request.getParameter("lastName");  
@@ -68,14 +89,23 @@ public class EditUsersServlet extends HttpServlet {
         String dbId= request.getParameter("dbId");  
         String role= request.getParameter("role");  
         User user = new User(firstName, lastName,  userName, phone, email, Integer.parseInt(role));
-        DbRestaurantsManagement ob= new DbRestaurantsManagement();
+        DbUsersManagement ob= new DbUsersManagement();
         user.setDbId(Integer.parseInt(dbId));
-       // int result=updateUser(user);
-       // if(result == 1){ 
-           //OK
-      //  }
-       // else 
-            //err
+        int result=ob.updateUser(user);
+        if(result == 1){ 
+            
+           
+            userr.setUserFirstName(firstName);
+            userr.setUserLastName(lastName);
+            request.getSession().setAttribute("AuthenticatUser" , userr);
+
+            response.sendRedirect(request.getContextPath()+"/profile");
+        }
+        else {
+            request.getSession().setAttribute("updateError", "משתמש כבר קיים");
+            response.sendRedirect(request.getContextPath()+"/profile");
+        }
+            
             
         
     }
